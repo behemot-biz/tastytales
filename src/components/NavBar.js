@@ -1,37 +1,90 @@
-import React from 'react'
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import styles from '../styles/NavBar.module.css';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom';
-import { useCurrentUser } from '../contexts/CurrentUserContext';
+import React from "react";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import styles from "../styles/NavBar.module.css";
+import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../contexts/CurrentUserContext";
+import Avatar from "./Avatar";
+import axios from "axios";
 
 const NavBar = () => {
-    const currentUser = useCurrentUser();
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
 
-    const loggedInIcons = <>{currentUser?.username}</>;
-    const loggedOutIcons = (
-      <>
-        <NavLink
-          className={styles.NavLink}
-          activeClassName={styles.Active}
-          to="/signin"
-        >
-          Sign in
-        </NavLink>
-        <NavLink
-          className={styles.NavLink}
-          activeClassName={styles.Active}
-          to="/signup"
-        >
-          Sign up
-        </NavLink>
-      </>
-    );
+  const handleSignOut = async () => {
+    try {
+      await axios.post("/dj-rest-auth/logout/");
+      setCurrentUser(null);
+    } catch (err) {}
+  };
+
+  const addRecipeMenu = (
+    <NavLink
+      className={styles.NavLink}
+      activeClassName={styles.Active}
+      to="/recipes/create"
+    >
+      Add recipe
+    </NavLink>
+  );
+
+  const loggedInMenu = (
+    <>
+      {/* {currentUser?.username} */}
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/feed"
+      >
+        Recipes
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/liked"
+      >
+        Liked
+      </NavLink>
+
+      <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
+        Sign out
+      </NavLink>
+
+      <NavLink
+        className={styles.NavLink}
+        to={`/profiles/${currentUser?.profile_id}`}
+      >
+        <Avatar src={currentUser?.profile_image} text="Profile" height={40} />
+      </NavLink>
+    </>
+  );
+  const loggedOutMenu = (
+    <>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/signin"
+      >
+        Sign in
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/signup"
+      >
+        Sign up
+      </NavLink>
+    </>
+  );
   return (
     <Navbar className={styles.NavBar} expand="md" fixed="top">
       <Container>
         <NavLink to="/">
           <Navbar.Brand>TastyTales</Navbar.Brand>
         </NavLink>
+        {currentUser && addRecipeMenu}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto text-left">
@@ -43,12 +96,12 @@ const NavBar = () => {
             >
               Home
             </NavLink>
-            {currentUser ? loggedInIcons : loggedOutIcons}
+            {currentUser ? loggedInMenu : loggedOutMenu}
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
-}
+};
 
-export default NavBar
+export default NavBar;
