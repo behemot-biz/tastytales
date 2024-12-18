@@ -11,7 +11,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
-// import { MoreDropdown } from "../../components/MoreDropdown";
+import { MoreDropdown } from "../../components/MoreDropdown";
 
 const Recipe = (props) => {
   const {
@@ -33,6 +33,19 @@ const Recipe = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
+
+  const handleEdit = () => {
+    history.push(`/recipes/${id}/edit`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/recipes/${id}/`);
+      history.goBack();
+    } catch (err) {
+      // console.log(err);
+    }
+  };
 
   const handleLike = async () => {
     try {
@@ -76,7 +89,12 @@ const Recipe = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
-            {is_owner && recipePage && "..."}
+            {is_owner && recipePage && (
+              <MoreDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
           </div>
         </Media>
       </Card.Body>
