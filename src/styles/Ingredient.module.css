@@ -1,0 +1,10 @@
+.IngredientCard {
+    border-top: 1px #ff0000;
+}
+.IngredientList {
+    list-style-type: none;
+    padding: 0;
+}
+.IngredientMeasure {
+    max-width: 150px;
+}
