@@ -7,7 +7,7 @@
 
   /* flex: 1 1 calc(25% - 16px); */
    /* Adjust to fit 4 cards per row */
-  min-width: 200px;
+  /* min-width: 200px; */
    /* Optional: limit maximum card width */
   box-sizing: border-box; /* Prevent overflow issues */
   /* flex: 1 1 calc(50% - 16px); */
