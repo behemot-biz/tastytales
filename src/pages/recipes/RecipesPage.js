@@ -9,7 +9,7 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/RecipesPage.module.css";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
-import Recipe from "./Recipe";
+import RecipeCard from "./RecipeCard";
 import Asset from "../../components/Asset";
 
 import NoResults from "../../assets/no-results.png";
@@ -37,11 +37,13 @@ function RecipesPage({ message, filter = "" }) {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <p>Popular profiles mobile</p>
+        <div className={styles.CardsContainer}>
+
         {hasLoaded ? (
           <>
             {recipes.results.length ? (
               recipes.results.map((recipe) => (
-                <Recipe key={recipe.id} {...recipe} setRecipes={setRecipes} />
+                <RecipeCard key={recipe.id} {...recipe} setRecipes={setRecipes} />
               ))
             ) : (
               <Container className={appStyles.Content}>
@@ -54,6 +56,7 @@ function RecipesPage({ message, filter = "" }) {
             <Asset spinner />
           </Container>
         )}
+        </div>
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
         <p>Popular profiles for desktop</p>

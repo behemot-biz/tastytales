@@ -17,3 +17,11 @@
     color: #cfced3;
   }
   
+  .CardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Adjust spacing between cards */
+    justify-content: space-between; /* Or 'center'/'space-between'/'space-around' */
+    align-items: flex-start;
+    align-items: stretch; 
+}

@@ -1,0 +1,51 @@
+.RecipeCard {
+  background-color: #ffffff;
+
+  border: 1px solid #dadadf;
+  border-radius: 10px;
+  margin-bottom: 16px;
+
+  /* flex: 1 1 calc(25% - 16px); */
+   /* Adjust to fit 4 cards per row */
+  min-width: 200px;
+   /* Optional: limit maximum card width */
+  box-sizing: border-box; /* Prevent overflow issues */
+  /* flex: 1 1 calc(50% - 16px); */
+  flex: 1;
+
+}
+
+.RecipeCard figure,
+h5 {
+  margin: 0 0;
+}
+
+.AvatarText a, .AvatarText span  {
+  font-size: 14px;
+}
+
+.CardImg {
+  width: 100%;
+  /* Make the image stretch to fit the width of its container */
+  height: 250px;
+  /* Set a fixed height for uniformity */
+  object-fit: cover;
+  /* Ensures the image covers the area without distortion */
+  border-radius:  10px 10px 0 0;
+  /* Optional: adds rounded corners */
+}
+
+.PostBar {
+  text-align: center;
+}
+.Heart {
+  color: #f85032;
+}
+
+.Heart:hover {
+  color: #2142b2;
+}
+
+.HeartOutline:hover {
+  color: #f85032;
+}
