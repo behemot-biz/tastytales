@@ -4,7 +4,6 @@
     border: 1px solid #dadadf;
     border-radius: 2px;
     margin-bottom: 16px;
-    text-align: center;
   }
   
   .Recipe figure,
@@ -12,6 +11,20 @@
     margin: 0 0;
   }
   
+  .RecipeCardImg {
+    width: 100%;
+    /* Make the image stretch to fit the width of its container */
+    height: 250px;
+    /* Set a fixed height for uniformity */
+    object-fit: cover;
+    /* Ensures the image covers the area without distortion */
+    border-radius:  10px 10px 0 0;
+    /* Optional: adds rounded corners */
+  }
+  .IngredientList {
+    list-style-type: none;
+    padding: 0;
+}
   .Heart {
     color: #f85032;
   }

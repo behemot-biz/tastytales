@@ -1,46 +1,56 @@
 import React, { useEffect, useState } from "react";
-
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-
-import appStyles from "../../App.module.css";
 import { useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import Recipe from "./Recipe";
+import IngredientCreateForm from "./IngredientCreateForm";
 
-function RecipePage() {
-  const { id } = useParams();
-  const [recipe, setRecipe] = useState({ results: [] });
+const RecipePage = () => {
+  const { id: recipeId } = useParams();
+  const [recipe, setRecipe] = useState(null); // Store recipe details
+  const [ingredients, setIngredients] = useState([]); // Store ingredients
 
   useEffect(() => {
-    const handleMount = async () => {
+    const fetchRecipe = async () => {
       try {
-        const [{ data: recipe }] = await Promise.all([
-          axiosReq.get(`/recipes/${id}`),
-        ]);
-        setRecipe({ results: [recipe] });
-        console.log(recipe);
+        const { data } = await axiosReq.get(`/recipes/${recipeId}`);
+        setRecipe(data); // Save the recipe object
+        setIngredients(data.recipe_ingredients || []); // Save ingredients
       } catch (err) {
-        console.log(err);
+        console.error("Error fetching recipe:", err);
       }
     };
 
-    handleMount();
-  }, [id]);
+    fetchRecipe();
+  }, [recipeId]);
+
+  if (!recipe) {
+    return <p>Loading recipe...</p>; // Handle loading state
+  }
+
+  const isOwner = recipe.is_owner; // Assume backend provides `is_owner`
 
   return (
-    <Row className="h-100">
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <p>Popular profiles for mobile</p>
-        <Recipe {...recipe.results[0]} setRecipes={setRecipe} recipePage/>
-        <Container className={appStyles.Content}>Comments</Container>
+    <Row>
+      <Col lg={8}>
+        {/* Display Recipe Details */}
+
+        <Recipe {...recipe} setRecipes={setRecipe} recipePage />
       </Col>
-      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        Popular profiles for desktop
-      </Col>
+
+      {isOwner && (
+        <Col lg={4}>
+          {/* Render Ingredient Form */}
+          <IngredientCreateForm
+            recipeId={recipeId}
+            // ingredients={ingredients}
+            setIngredients={setIngredients}
+          />
+        </Col>
+      )}
     </Row>
   );
-}
+};
 
 export default RecipePage;

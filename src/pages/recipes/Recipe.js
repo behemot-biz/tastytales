@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-
 import styles from "../../styles/Recipe.module.css";
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
 import Avatar from "../../components/Avatar";
-import { axiosRes } from "../../api/axiosDefaults";
+import { axiosRes, axiosReq } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
+import Ingredient from "./Ingredient";
 
 const Recipe = (props) => {
   const {
@@ -24,15 +24,30 @@ const Recipe = (props) => {
     like_id,
     recipe_name,
     intro,
+    instruction,
     image,
     updated_at,
     recipePage,
     setRecipes,
   } = props;
-
   const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === owner;
+  const isOwner = currentUser?.username === owner;
   const history = useHistory();
+  const [ingredients, setIngredients] = useState([]);
+
+    // Fetch recipe and ingredients
+    useEffect(() => {
+      const fetchRecipe = async () => {
+        try {
+          const { data } = await axiosReq.get(`/recipes/${id}`);
+          setIngredients(data.recipe_ingredients || []); // Extract ingredients from the recipe object
+        } catch (err) {
+          console.error("Error fetching recipe:", err);
+        }
+      };
+  
+      fetchRecipe();
+    }, [id]);
 
   const handleEdit = () => {
     history.push(`/recipes/${id}/edit`);
@@ -41,12 +56,12 @@ const Recipe = (props) => {
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/recipes/${id}/`);
-      history.goBack();
+      history.push("/recipes");
     } catch (err) {
-      // console.log(err);
+      console.error("Error deleting recipe:", err);
     }
   };
-
+  
   const handleLike = async () => {
     try {
       const { data } = await axiosRes.post("/likes/", { recipe: id });
@@ -77,8 +92,6 @@ const Recipe = (props) => {
       console.log(err);
     }
   };
-
-
   return (
     <Card className={styles.Recipe}>
       <Card.Body>
@@ -89,7 +102,7 @@ const Recipe = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
-            {is_owner && recipePage && (
+            {isOwner && recipePage && (
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
@@ -99,15 +112,46 @@ const Recipe = (props) => {
         </Media>
       </Card.Body>
       <Link to={`/recipes/${id}`}>
-        <Card.Img src={image} alt={recipe_name} />
+        <Card.Img className={styles.RecipeCardImg} src={image} alt={recipe_name} />
       </Link>
       <Card.Body>
         {recipe_name && (
-          <Card.Title className="text-center">{recipe_name}</Card.Title>
+          <Card.Title className="text-left">{recipe_name}</Card.Title>
         )}
-        {intro && <Card.Text className="text-center">{intro}</Card.Text>}
+        {intro && (
+          <Card.Text
+            className="text-left pb-4"
+            style={{ whiteSpace: "pre-wrap" }}
+          >
+            {intro}
+          </Card.Text>
+        )}
+        <Row>
+          <Col>
+          <Card.Title className="text-left">Ingredients</Card.Title>
+            <ul className={styles.IngredientList}>
+              {ingredients.map((ingredient) => (
+                <Ingredient
+                  key={ingredient.id}
+                  ingredient={ingredient}
+                  setIngredients={setIngredients}
+                  recipeId={id}
+                  isOwner={ingredient.is_owner}
+                  editable={false}
+                />
+              ))}
+            </ul>
+          </Col>
+          <Col>
+            <Card.Title className="text-left">Instruction</Card.Title>
+            <Card.Text className="text-left" style={{ whiteSpace: "pre-wrap" }}>
+              {instruction}
+            </Card.Text>
+          </Col>
+        </Row>
+
         <div className={styles.PostBar}>
-          {is_owner ? (
+          {isOwner ? (
             <OverlayTrigger
               placement="top"
               overlay={<Tooltip>You can't like your own recipe!</Tooltip>}
