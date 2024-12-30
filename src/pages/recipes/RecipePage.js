@@ -8,6 +8,8 @@ import appStyles from "../../App.module.css";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import Recipe from "./Recipe";
+import Comment from "../comments/Comment";
+
 
 import CommentCreateForm from "../comments/CommentCreateForm";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -26,12 +28,13 @@ function RecipePage() {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const [{ data: recipe }] = await Promise.all([
+        const [{ data: recipe }, { data: comments }] = await Promise.all([
           axiosReq.get(`/recipes/${id}`),
+          axiosReq.get(`/comments/?recipe=${id}`),
         ]);
         setRecipe({ results: [recipe] });
         setIngredients(recipe.recipe_ingredients || []);
-        // console.log('MY INGREDS: ', recipe.recipe_ingredients);
+        setComments(comments);
       } catch (err) {
         console.log(err);
       }
@@ -63,6 +66,20 @@ function RecipePage() {
           ) : comments.results.length ? (
             "Comments"
           ) : null}
+          {comments.results.length ? (
+            comments.results.map((comment) => (
+              <Comment
+                key={comment.id}
+                {...comment}
+                setRecipe={setRecipe}
+                setComments={setComments}
+              />
+            ))
+          ) : currentUser ? (
+            <span>No comments, leave a comment</span>
+          ) : (
+            <span>No comments</span>
+          )}
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
@@ -70,7 +87,6 @@ function RecipePage() {
         {isOwner && (
           <IngredientCreateForm recipeId={id} setIngredients={setIngredients} />
         )}
-
       </Col>
     </Row>
   );
