@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import styles from "../../styles/Recipe.module.css";
@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Avatar from "../../components/Avatar";
-import { axiosRes, axiosReq } from "../../api/axiosDefaults";
+import { axiosRes } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import Ingredient from "./Ingredient";
 
@@ -29,26 +29,20 @@ const Recipe = (props) => {
     updated_at,
     recipePage,
     setRecipes,
+    ingredients,
+    setIngredients,
+    recipeId,
+
   } = props;
   const currentUser = useCurrentUser();
   const isOwner = currentUser?.username === owner;
   const history = useHistory();
-  const [ingredients, setIngredients] = useState([]);
-
-    // Fetch recipe and ingredients
-    useEffect(() => {
-      const fetchRecipe = async () => {
-        try {
-          const { data } = await axiosReq.get(`/recipes/${id}`);
-          setIngredients(data.recipe_ingredients || []); // Extract ingredients from the recipe object
-        } catch (err) {
-          console.error("Error fetching recipe:", err);
-        }
-      };
-  
-      fetchRecipe();
-    }, [id]);
-
+  console.log("Current User:", currentUser);
+  console.log("Owner:", owner);
+  // console.log(ingredients)
+  // console.log(recipe_ingredients)
+  // console.log('current user: ', currentUser?.username)
+  console.log(recipePage)
   const handleEdit = () => {
     history.push(`/recipes/${id}/edit`);
   };
@@ -57,6 +51,7 @@ const Recipe = (props) => {
     try {
       await axiosRes.delete(`/recipes/${id}/`);
       history.push("/recipes");
+      // history.goBack();
     } catch (err) {
       console.error("Error deleting recipe:", err);
     }
@@ -92,6 +87,8 @@ const Recipe = (props) => {
       console.log(err);
     }
   };
+  console.log("isOwner:", isOwner);
+  console.log("recipePage:", recipePage);
   return (
     <Card className={styles.Recipe}>
       <Card.Body>
@@ -102,6 +99,7 @@ const Recipe = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
+         
             {isOwner && recipePage && (
               <MoreDropdown
                 handleEdit={handleEdit}
@@ -135,7 +133,7 @@ const Recipe = (props) => {
                   key={ingredient.id}
                   ingredient={ingredient}
                   setIngredients={setIngredients}
-                  recipeId={id}
+                  recipeId={recipeId}
                   isOwner={ingredient.is_owner}
                   editable={false}
                 />
