@@ -50,7 +50,7 @@ function RecipePage() {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <p>Top Chefs for mobile</p>
+        <PopularProfiles mobile />
         <Recipe
           {...recipe.results[0]}
           setRecipe={setRecipe}
@@ -71,9 +71,9 @@ function RecipePage() {
             "Comments"
           ) : null}
           {comments.results.length ? (
-            <InfiniteScroll 
-            children={comments.results.map((comment) => (
-               <Comment
+            <InfiniteScroll
+              children={comments.results.map((comment) => (
+                <Comment
                   key={comment.id}
                   {...comment}
                   setRecipe={setRecipe}
@@ -85,7 +85,6 @@ function RecipePage() {
               hasMore={!!comments.next}
               next={() => fetchMoreData(comments, setComments)}
             />
-            
           ) : currentUser ? (
             <span>No comments, leave a comment</span>
           ) : (
@@ -94,7 +93,7 @@ function RecipePage() {
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-       <PopularProfiles />
+        <PopularProfiles />
         {isOwner && (
           <IngredientCreateForm recipeId={id} setIngredients={setIngredients} />
         )}

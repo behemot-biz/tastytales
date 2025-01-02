@@ -26,13 +26,17 @@ import NoResults from "../../assets/no-results.png";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [profileRecipes, setProfileRecipes] = useState({ results: [] });
+
   const currentUser = useCurrentUser();
   const { id } = useParams();
-  const setProfileData = useSetProfileData();
+  
+  const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
   const { pageProfile } = useProfileData(); 
+  
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
-  const [profileRecipes, setProfileRecipes] = useState({ results: [] });
+  
 
 
   useEffect(() => {
@@ -92,16 +96,15 @@ function ProfilePage() {
             (profile?.following_id ? (
               <Button
                 className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
-                onClick={() => {}} 
-                // handleUnfollow(profile)
+                onClick={() => handleUnfollow(profile)} 
+                // 
               >
                 unfollow
               </Button>
             ) : (
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Black}`}
-                onClick={() => {}}
-                // handleFollow(profile)
+                onClick={() => handleFollow(profile)}
               >
                 follow
               </Button>
