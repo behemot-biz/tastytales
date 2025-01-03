@@ -8,7 +8,6 @@ import { CurrentUserProvider } from './contexts/CurrentUserContext';
 import { ProfileDataProvider } from './contexts/ProfileDataContext';
 
 ReactDOM.render(
-  // <React.StrictMode></React.StrictMode>
     <Router>
       <CurrentUserProvider>
       <ProfileDataProvider>
