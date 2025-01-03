@@ -9,13 +9,13 @@ import { ProfileDataProvider } from './contexts/ProfileDataContext';
 
 ReactDOM.render(
   // <React.StrictMode></React.StrictMode>
-  <Router>
-    <CurrentUserProvider>
+    <Router>
+      <CurrentUserProvider>
       <ProfileDataProvider>
-        <App />
-      </ProfileDataProvider>
-    </CurrentUserProvider>
-  </Router>,
+          <App />
+        </ProfileDataProvider>
+      </CurrentUserProvider>
+    </Router>,
   document.getElementById("root")
 );
 

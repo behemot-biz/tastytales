@@ -23,6 +23,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import RecipeCard from "../recipes/RecipeCard";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
+import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -64,6 +65,7 @@ function ProfilePage() {
   const mainProfile = (
 
       <>
+      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row noGutters className="px-3 text-center"> 
         <Col lg={3} className="text-lg-left">
         <Image
@@ -121,8 +123,10 @@ function ProfilePage() {
       <hr />
       <p className="text-center">{profile?.owner}'s Recipes</p>
       <hr />
+      
         {profileRecipes.results.length ? (
           <InfiniteScroll
+            className={styles.CardsContainer}
             children={profileRecipes.results.map((recipe) => (
               <RecipeCard
                 key={recipe.id}
@@ -134,13 +138,15 @@ function ProfilePage() {
             loader={<Asset spinner />}
             hasMore={!!profileRecipes.next}
             next={() => fetchMoreData(profileRecipes, setProfileRecipes)}
-          />
+            />
         ) : (
           <Asset
             src={NoResults}
             message={`No results found, ${profile?.owner} hasn't created any recipes.`}
           />
-        )}
+        )
+        }
+       
     </>
   );
 
@@ -149,11 +155,12 @@ function ProfilePage() {
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
         <Container className={appStyles.Content}>
+
           {hasLoaded ? (
             <>
               {mainProfile}
-              <div className={styles.CardsContainer}>{mainProfileRecipes}
-              </div>
+              {mainProfileRecipes}
+              
             </>
           ) : (
             <Asset spinner />
