@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+
+import { axiosReq } from "../../api/axiosDefaults";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -7,14 +11,12 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
 
+import IngredientCreateForm from "./IngredientCreateForm";
+import Ingredient from "./Ingredient";
+
 import styles from "../../styles/RecipeCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
-import { useHistory, useParams } from "react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults";
-import IngredientCreateForm from "./IngredientCreateForm";
-import Ingredient from "./Ingredient";
 
 function RecipeEditForm() {
   const [errors, setErrors] = useState({});
@@ -36,7 +38,14 @@ function RecipeEditForm() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/recipes/${recipeId}/`);
-        const { recipe_name, intro, instruction, image, is_owner, recipe_ingredients } = data;
+        const {
+          recipe_name,
+          intro,
+          instruction,
+          image,
+          is_owner,
+          recipe_ingredients,
+        } = data;
 
         if (is_owner) {
           setRecipeData({ recipe_name, intro, instruction, image });
@@ -45,7 +54,7 @@ function RecipeEditForm() {
           history.push("/");
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     handleMount();
@@ -83,7 +92,7 @@ function RecipeEditForm() {
       await axiosReq.put(`/recipes/${recipeId}/`, formData);
       history.push(`/recipes/${recipeId}`);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
@@ -175,7 +184,10 @@ function RecipeEditForm() {
             >
               cancel
             </Button>
-            <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+            <Button
+              className={`${btnStyles.Button} ${btnStyles.Blue}`}
+              type="submit"
+            >
               save
             </Button>
           </Container>
@@ -188,12 +200,15 @@ function RecipeEditForm() {
                 ingredient={ingredient}
                 setIngredients={setIngredients}
                 recipeId={recipeId}
-                isOwner={ingredient.is_owner} 
-                editable={true} 
+                isOwner={ingredient.is_owner}
+                editable={true}
               />
             ))}
           </ul>
-          <IngredientCreateForm recipeId={recipeId} setIngredients={setIngredients} />
+          <IngredientCreateForm
+            recipeId={recipeId}
+            setIngredients={setIngredients}
+          />
         </Col>
       </Row>
     </Form>

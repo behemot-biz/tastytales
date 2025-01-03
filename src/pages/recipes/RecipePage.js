@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import InfiniteScroll from "react-infinite-scroll-component";
+
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
+import { axiosReq } from "../../api/axiosDefaults";
+import { fetchMoreData } from "../../utils/utils";
+
+import Asset from "../../components/Asset";
+import Comment from "../comments/Comment";
+import CommentCreateForm from "../comments/CommentCreateForm";
+import IngredientCreateForm from "./IngredientCreateForm";
+import PopularProfiles from "../profiles/PopularProfiles";
+import Recipe from "./Recipe";
 
 import appStyles from "../../App.module.css";
-import { useParams } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
-import Recipe from "./Recipe";
-import Comment from "../comments/Comment";
 
-
-import CommentCreateForm from "../comments/CommentCreateForm";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import IngredientCreateForm from "./IngredientCreateForm";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
-import PopularProfiles from "../profiles/PopularProfiles";
 
 function RecipePage() {
   const { id } = useParams();
@@ -40,7 +42,7 @@ function RecipePage() {
         setIngredients(recipe.recipe_ingredients || []);
         setComments(comments);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
 

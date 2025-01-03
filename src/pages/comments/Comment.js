@@ -37,12 +37,10 @@ const Comment = (props) => {
         }));
 
         setComments((prevComments) => ({
-          results: prevComments.results.filter(comment => comment.id !== id)
+          results: prevComments.results.filter((comment) => comment.id !== id),
         }));
-
-        // setComments(comments);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
 

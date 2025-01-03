@@ -1,15 +1,23 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
-import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
+
+import axios from "axios";
+
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+
 import {
   useCurrentUser,
   useSetCurrentUser,
 } from "../contexts/CurrentUserContext";
-import Avatar from "./Avatar";
-import axios from "axios";
-import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
+
 import { removeTokenTimestamp } from "../utils/utils";
+
+import Avatar from "./Avatar";
+import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
+
+import styles from "../styles/NavBar.module.css";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
@@ -35,7 +43,6 @@ const NavBar = () => {
 
   const loggedInMenu = (
     <>
-      {/* {currentUser?.username} */}
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}

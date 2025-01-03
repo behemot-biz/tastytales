@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
+import InfiniteScroll from "react-infinite-scroll-component";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-import appStyles from "../../App.module.css";
-import styles from "../../styles/RecipesPage.module.css";
-import { useLocation } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
-import RecipeCard from "./RecipeCard";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { fetchMoreData } from "../../utils/utils";
+
 import Asset from "../../components/Asset";
+import PopularProfiles from "../profiles/PopularProfiles";
+import RecipeCard from "./RecipeCard";
 
 import NoResults from "../../assets/no-results.png";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { fetchMoreData } from "../../utils/utils";
-import PopularProfiles from "../profiles/PopularProfiles";
+import appStyles from "../../App.module.css";
+import styles from "../../styles/RecipesPage.module.css";
 
 function RecipesPage({ message, filter = "" }) {
   const [recipes, setRecipes] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
+
   const [query, setQuery] = useState("");
+
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        // const { data } = await axiosReq.get(`/recipes/?${filter}`);
         const { data } = await axiosReq.get(
           `/recipes/?${filter}search=${query}`
         );
         setRecipes(data);
         setHasLoaded(true);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     setHasLoaded(false);
@@ -45,7 +49,7 @@ function RecipesPage({ message, filter = "" }) {
       clearTimeout(timer);
     };
 
-  }, [filter, query, pathname]);
+  }, [filter, query, pathname, currentUser]);
 
   return (
     <Row className="h-100">

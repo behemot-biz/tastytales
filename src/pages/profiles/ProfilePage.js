@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
-import Asset from "../../components/Asset";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
-import PopularProfiles from "./PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams } from "react-router";
 import {
-    useProfileData,
-    useSetProfileData,
-  } from "../../contexts/ProfileDataContext";
-import { Button, Image } from "react-bootstrap";
+  useProfileData,
+  useSetProfileData,
+} from "../../contexts/ProfileDataContext";
+
 import { axiosReq } from "../../api/axiosDefaults";
-import InfiniteScroll from "react-infinite-scroll-component";
-import RecipeCard from "../recipes/RecipeCard";
 import { fetchMoreData } from "../../utils/utils";
+
+import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
+import PopularProfiles from "./PopularProfiles";
+import RecipeCard from "../recipes/RecipeCard";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -31,44 +34,40 @@ function ProfilePage() {
 
   const currentUser = useCurrentUser();
   const { id } = useParams();
-  
+
   const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
-  const { pageProfile } = useProfileData(); 
-  
+  const { pageProfile } = useProfileData();
+
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
-  
-
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [{ data: pageProfile }, { data: profileRecipes }] =
-        await Promise.all([
-          axiosReq.get(`/profiles/${id}/`),
-          axiosReq.get(`/recipes/?owner__profile=${id}`),
-        ]);
-      setProfileData((prevState) => ({
-        ...prevState,
-        pageProfile: { results: [pageProfile] },
-      }));
-      setProfileRecipes(profileRecipes);
-      setHasLoaded(true);
-
+          await Promise.all([
+            axiosReq.get(`/profiles/${id}/`),
+            axiosReq.get(`/recipes/?owner__profile=${id}`),
+          ]);
+        setProfileData((prevState) => ({
+          ...prevState,
+          pageProfile: { results: [pageProfile] },
+        }));
+        setProfileRecipes(profileRecipes);
+        setHasLoaded(true);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     fetchData();
   }, [id, setProfileData]);
 
   const mainProfile = (
-
-      <>
+    <>
       {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
-      <Row noGutters className="px-3 text-center"> 
+      <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
-        <Image
+          <Image
             className={styles.ProfileImage}
             roundedCircle
             src={profile?.image}
@@ -90,16 +89,14 @@ function ProfilePage() {
               <div>following</div>
             </Col>
           </Row>
-
         </Col>
         <Col lg={3} className="text-lg-right">
-           {currentUser &&
+          {currentUser &&
             !is_owner &&
             (profile?.following_id ? (
               <Button
                 className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
-                onClick={() => handleUnfollow(profile)} 
-                // 
+                onClick={() => handleUnfollow(profile)}
               >
                 unfollow
               </Button>
@@ -111,7 +108,6 @@ function ProfilePage() {
                 follow
               </Button>
             ))}
-
         </Col>
         {profile?.content && <Col className="p-3">{profile.content}</Col>}
       </Row>
@@ -123,30 +119,28 @@ function ProfilePage() {
       <hr />
       <p className="text-center">{profile?.owner}'s Recipes</p>
       <hr />
-      
-        {profileRecipes.results.length ? (
-          <InfiniteScroll
-            className={styles.CardsContainer}
-            children={profileRecipes.results.map((recipe) => (
-              <RecipeCard
-                key={recipe.id}
-                {...recipe}
-                setRecipes={setProfileRecipes}
-              />
-            ))}
-            dataLength={profileRecipes.results.length}
-            loader={<Asset spinner />}
-            hasMore={!!profileRecipes.next}
-            next={() => fetchMoreData(profileRecipes, setProfileRecipes)}
+
+      {profileRecipes.results.length ? (
+        <InfiniteScroll
+          className={styles.CardsContainer}
+          children={profileRecipes.results.map((recipe) => (
+            <RecipeCard
+              key={recipe.id}
+              {...recipe}
+              setRecipes={setProfileRecipes}
             />
-        ) : (
-          <Asset
-            src={NoResults}
-            message={`No results found, ${profile?.owner} hasn't created any recipes.`}
-          />
-        )
-        }
-       
+          ))}
+          dataLength={profileRecipes.results.length}
+          loader={<Asset spinner />}
+          hasMore={!!profileRecipes.next}
+          next={() => fetchMoreData(profileRecipes, setProfileRecipes)}
+        />
+      ) : (
+        <Asset
+          src={NoResults}
+          message={`No results found, ${profile?.owner} hasn't created any recipes.`}
+        />
+      )}
     </>
   );
 
@@ -155,12 +149,10 @@ function ProfilePage() {
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
         <Container className={appStyles.Content}>
-
           {hasLoaded ? (
             <>
               {mainProfile}
               {mainProfileRecipes}
-              
             </>
           ) : (
             <Asset spinner />

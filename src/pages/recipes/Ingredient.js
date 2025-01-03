@@ -1,11 +1,20 @@
 import React, { useState } from "react";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import styles from "../../styles/Ingredient.module.css";
+
 import { axiosRes } from "../../api/axiosDefaults";
 
-const Ingredient = ({ ingredient, setIngredients, recipeId, isOwner, editable }) => {
+import styles from "../../styles/Ingredient.module.css";
+
+const Ingredient = ({
+  ingredient,
+  setIngredients,
+  recipeId,
+  isOwner,
+  editable,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     ingredient: ingredient.ingredient,
@@ -54,12 +63,11 @@ const Ingredient = ({ ingredient, setIngredients, recipeId, isOwner, editable })
       await axiosRes.delete(`/ingredients/${ingredient.id}/`);
       setIngredients((prev) => prev.filter((ing) => ing.id !== ingredient.id));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
   return (
-    
     <li className={styles.IngredientList}>
       {isEditing ? (
         <div>
@@ -131,7 +139,6 @@ const Ingredient = ({ ingredient, setIngredients, recipeId, isOwner, editable })
         </div>
       )}
     </li>
-   
   );
 };
 

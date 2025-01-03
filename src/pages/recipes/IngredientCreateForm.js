@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+
 import { axiosRes } from "../../api/axiosDefaults";
 
 const IngredientCreateForm = ({ recipeId, setIngredients }) => {
@@ -26,8 +28,8 @@ const IngredientCreateForm = ({ recipeId, setIngredients }) => {
         recipe: recipeId,
         ...ingredientData,
       });
-      setIngredients((prev) => [...prev, data]); // Update ingredients list
-      setIngredientData({ ingredient: "", quantity: "", measure: "" }); // Reset form
+      setIngredients((prev) => [...prev, data]);
+      setIngredientData({ ingredient: "", quantity: "", measure: "" });
     } catch (err) {
       setErrors(err.response?.data || {});
     }

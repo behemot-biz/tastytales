@@ -1,17 +1,21 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import styles from "../../styles/Recipe.module.css";
+
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import Avatar from "../../components/Avatar";
+
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
+
+import Avatar from "../../components/Avatar";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import Ingredient from "./Ingredient";
+
+import styles from "../../styles/Recipe.module.css";
 
 const Recipe = (props) => {
   const {
@@ -32,17 +36,11 @@ const Recipe = (props) => {
     ingredients,
     setIngredients,
     recipeId,
-
   } = props;
   const currentUser = useCurrentUser();
   const isOwner = currentUser?.username === owner;
   const history = useHistory();
-  console.log("Current User:", currentUser);
-  console.log("Owner:", owner);
-  // console.log(ingredients)
-  // console.log(recipe_ingredients)
-  // console.log('current user: ', currentUser?.username)
-  console.log(recipePage)
+
   const handleEdit = () => {
     history.push(`/recipes/${id}/edit`);
   };
@@ -51,12 +49,11 @@ const Recipe = (props) => {
     try {
       await axiosRes.delete(`/recipes/${id}/`);
       history.push("/recipes");
-      // history.goBack();
     } catch (err) {
       console.error("Error deleting recipe:", err);
     }
   };
-  
+
   const handleLike = async () => {
     try {
       const { data } = await axiosRes.post("/likes/", { recipe: id });
@@ -64,12 +61,16 @@ const Recipe = (props) => {
         ...prevRecipes,
         results: prevRecipes.results.map((recipe) => {
           return recipe.id === id
-            ? { ...recipe, likes_count: recipe.likes_count + 1, like_id: data.id }
+            ? {
+                ...recipe,
+                likes_count: recipe.likes_count + 1,
+                like_id: data.id,
+              }
             : recipe;
         }),
       }));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
   const handleUnlike = async () => {
@@ -84,11 +85,10 @@ const Recipe = (props) => {
         }),
       }));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
-  console.log("isOwner:", isOwner);
-  console.log("recipePage:", recipePage);
+
   return (
     <Card className={styles.Recipe}>
       <Card.Body>
@@ -99,7 +99,7 @@ const Recipe = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
-         
+
             {isOwner && recipePage && (
               <MoreDropdown
                 handleEdit={handleEdit}
@@ -110,7 +110,11 @@ const Recipe = (props) => {
         </Media>
       </Card.Body>
       <Link to={`/recipes/${id}`}>
-        <Card.Img className={styles.RecipeCardImg} src={image} alt={recipe_name} />
+        <Card.Img
+          className={styles.RecipeCardImg}
+          src={image}
+          alt={recipe_name}
+        />
       </Link>
       <Card.Body>
         {recipe_name && (
@@ -126,7 +130,7 @@ const Recipe = (props) => {
         )}
         <Row>
           <Col>
-          <Card.Title className="text-left">Ingredients</Card.Title>
+            <Card.Title className="text-left">Ingredients</Card.Title>
             <ul className={styles.IngredientList}>
               {ingredients.map((ingredient) => (
                 <Ingredient
