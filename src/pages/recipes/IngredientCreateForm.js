@@ -6,6 +6,16 @@ import Alert from "react-bootstrap/Alert";
 
 import { axiosRes } from "../../api/axiosDefaults";
 
+/**
+ * Form component to add a new ingredient to a recipe.
+ * Accepts ingredient name, quantity, and measure, and updates the recipe's 
+ * ingredient list on submission.
+ *
+ * Props:
+ * - recipeId (number): ID of the recipe.
+ * - setIngredients (function): Function to update the ingredients state after submission.
+ */
+
 const IngredientCreateForm = ({ recipeId, setIngredients }) => {
   const [ingredientData, setIngredientData] = useState({
     ingredient: "",

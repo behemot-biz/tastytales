@@ -8,6 +8,18 @@ import styles from "../../styles/CommentCreateEditForm.module.css";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 
+/**
+ * Form component to create a new comment on a recipe.
+ * Allows authenticated users to post comments which are immediately added to the comment list.
+ *
+ * Props:
+ * - recipe (number): ID of the associated recipe.
+ * - setRecipe (function): Updates the recipe state with the new comment count.
+ * - setComments (function): Updates the comments state to include the new comment.
+ * - profileImage (string): URL of the user's profile image.
+ * - profile_id (number): ID of the user's profile.
+ */
+
 function CommentCreateForm(props) {
   const { recipe, setRecipe, setComments, profileImage, profile_id } = props;
   const [content, setContent] = useState("");

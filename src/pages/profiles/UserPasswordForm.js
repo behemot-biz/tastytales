@@ -14,6 +14,11 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
+/**
+ * Form component to allow a user to update their password.
+ * Validates new passwords and submits the update via API call.
+ */
+
 const UserPasswordForm = () => {
   const history = useHistory();
   const { id } = useParams();

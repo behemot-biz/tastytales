@@ -18,6 +18,12 @@ import styles from "../../styles/RecipeCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
+/**
+ * Form component to edit an existing recipe.
+ * Allows the owner to modify recipe details like name, introduction, instruction, and image.
+ * Also includes functionality to manage associated ingredients.
+ */
+
 function RecipeEditForm() {
   const [errors, setErrors] = useState({});
   const [recipeData, setRecipeData] = useState({

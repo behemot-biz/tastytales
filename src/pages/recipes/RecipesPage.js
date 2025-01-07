@@ -19,6 +19,11 @@ import NoResults from "../../assets/no-results.png";
 import appStyles from "../../App.module.css";
 import styles from "../../styles/RecipesPage.module.css";
 
+/**
+ * Component to display a paginated list of recipes.
+ * Includes a search bar and infinite scroll functionality for dynamically loading recipes.
+ */
+
 function RecipesPage({ message, filter = "" }) {
   const [recipes, setRecipes] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);

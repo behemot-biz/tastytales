@@ -15,6 +15,12 @@ import Avatar from "../../components/Avatar";
 
 import styles from "../../styles/RecipeCard.module.css";
 
+/**
+ * Component to display a summary card for a recipe.
+ * Includes recipe name, image, brief introduction, and stats like likes and comments.
+ * Allows liking/unliking and navigation to the recipe details page.
+ */
+
 const RecipeCard = (props) => {
   const {
     id,

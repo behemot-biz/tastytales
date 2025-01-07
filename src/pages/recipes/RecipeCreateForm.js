@@ -19,6 +19,11 @@ import styles from "../../styles/RecipeCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
+/**
+ * Form component to create a new recipe.
+ * Allows the user to input recipe details such as name, introduction, instruction, and upload an image.
+ * Submits the data to the API to create a new recipe entry.
+ */
 
 function RecipeCreateForm() {
   useRedirect("loggedOut");

@@ -18,6 +18,12 @@ import {
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
+/**
+ * Form component to edit a user's profile.
+ * Allows updating the profile image, name, and bio.
+ * Submits changes to the API and updates the current user context.
+ */
+
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();

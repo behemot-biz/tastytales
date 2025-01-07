@@ -5,6 +5,17 @@ import { axiosRes } from "../../api/axiosDefaults";
 
 import styles from "../../styles/CommentCreateEditForm.module.css";
 
+/**
+ * Form component to edit an existing comment.
+ * Updates the comment's content and submits changes to the API.
+ *
+ * Props:
+ * - id (number): ID of the comment.
+ * - content (string): Current content of the comment.
+ * - setShowEditForm (function): Toggles the visibility of the edit form.
+ * - setComments (function): Updates the comment list state with the edited comment.
+ */
+
 function CommentEditForm(props) {
   const { id, content, setShowEditForm, setComments } = props;
 

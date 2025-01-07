@@ -8,6 +8,21 @@ import { MoreDropdown } from "../../components/MoreDropdown";
 import { axiosReq } from "../../api/axiosDefaults";
 import CommentEditForm from "./CommentEditForm";
 
+/**
+ * Component to display an individual comment.
+ * Allows the owner to edit or delete their comments via dropdown actions.
+ *
+ * Props:
+ * - profile_id (number): ID of the comment owner's profile.
+ * - profile_image (string): URL of the owner's profile image.
+ * - owner (string): Username of the comment owner.
+ * - updated_at (string): Timestamp of the last update.
+ * - content (string): The comment content.
+ * - id (number): ID of the comment.
+ * - setRecipe (function): Updates the recipe state to reflect changes in comments.
+ * - setComments (function): Updates the comment list state.
+ */
+
 const Comment = (props) => {
     const {
       profile_id,

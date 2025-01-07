@@ -17,6 +17,13 @@ import Ingredient from "./Ingredient";
 
 import styles from "../../styles/Recipe.module.css";
 
+/**
+ * Component to display detailed information about a recipe.
+ * Includes functionality for viewing recipe details, liking/unliking, 
+ * and editing/deleting (if the user is the owner).
+ * Shows associated ingredients and allows interaction with them.
+ */
+
 const Recipe = (props) => {
   const {
     id,

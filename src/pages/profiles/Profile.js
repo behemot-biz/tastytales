@@ -11,6 +11,11 @@ import Avatar from "../../components/Avatar";
 import styles from "../../styles/Profile.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
+/**
+ * Component to display a summarized view of a user profile.
+ * Shows the user's avatar, username, and follow/unfollow button if not the owner.
+ */
+
 const Profile = (props) => {
   const { profile, mobile, imageSize = 55 } = props;
   const { id, following_id, image, owner } = profile;

@@ -28,6 +28,11 @@ import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import PopularProfiles from "./PopularProfiles";
 import RecipeCard from "../recipes/RecipeCard";
 
+/**
+ * Component to display a user's profile and their recipes.
+ * Includes follow/unfollow functionality and a list of the user's recipes with infinite scrolling.
+ */
+
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profileRecipes, setProfileRecipes] = useState({ results: [] });

@@ -8,6 +8,14 @@ import { useProfileData } from "../../contexts/ProfileDataContext";
 import Asset from "../../components/Asset";
 import Profile from "./Profile";
 
+/**
+ * Component to display a list of popular profiles.
+ * Shows the most-followed profiles in a concise format.
+ *
+ * Props:
+ * - mobile (boolean): Determines if the component is displayed in a mobile-friendly layout.
+ */
+
 const PopularProfiles = ({ mobile }) => {
   const { popularProfiles } = useProfileData();
 

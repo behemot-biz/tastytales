@@ -8,6 +8,18 @@ import { axiosRes } from "../../api/axiosDefaults";
 
 import styles from "../../styles/Ingredient.module.css";
 
+/**
+ * Component to display and optionally edit/delete an ingredient.
+ * Provides an editable view for owners, enabling updates to ingredient details or removal.
+ *
+ * Props:
+ * - ingredient (object): Ingredient data including name, quantity, and measure.
+ * - setIngredients (function): Function to update the ingredient list state.
+ * - recipeId (number): ID of the associated recipe.
+ * - isOwner (boolean): Indicates if the user is the owner of the recipe.
+ * - editable (boolean): Indicates if the ingredient can be edited or deleted.
+ */
+
 const Ingredient = ({
   ingredient,
   setIngredients,

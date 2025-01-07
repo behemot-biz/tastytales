@@ -17,6 +17,11 @@ import {
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
+/**
+ * Form component to allow a user to update their username.
+ * Checks for user authentication and updates the username via API call.
+ */
+
 const UsernameForm = () => {
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});

@@ -20,6 +20,11 @@ import Recipe from "./Recipe";
 
 import appStyles from "../../App.module.css";
 
+/**
+ * Component to display a detailed view of a specific recipe.
+ * Shows recipe details, associated ingredients, and comments.
+ * Allows the owner to add ingredients and users to comment on the recipe.
+ */
 
 function RecipePage() {
   const { id } = useParams();
