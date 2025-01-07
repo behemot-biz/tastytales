@@ -1,13 +1,20 @@
+
 .NavBar {
-    background-color: #ffffff;
-    border: 1px solid #dadadf;
-  }
-  
-  .NavLink {
-    padding: 5px;
-  }
-  
-  .Active i {
-    color: #2142b2;
-  }
-  
+  background-color: #ffffff;
+  border: 1px solid #dadadf;
+  align-items: center;
+}
+
+.NavLink {
+  padding: 5px;
+}
+
+.Active i {
+  color: #2142b2;
+}
+
+.CustomDropdown::after {
+  display: none;
+  aria-hidden: true;
+} 
+

@@ -4,6 +4,10 @@
   padding: 0px;
 }
 
+.EditBtn{
+  float: inline-end;
+}
+
 .Absolute {
   position: absolute;
   right: 0;
