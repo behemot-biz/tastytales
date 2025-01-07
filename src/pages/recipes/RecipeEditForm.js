@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import { axiosReq } from "../../api/axiosDefaults";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -11,8 +9,9 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
 
-import IngredientCreateForm from "./IngredientCreateForm";
-import Ingredient from "./Ingredient";
+import { axiosReq } from "../../api/axiosDefaults";
+
+import IngredientManager from "./IngredientManager";
 
 import styles from "../../styles/RecipeCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
@@ -105,10 +104,86 @@ function RecipeEditForm() {
     }
   };
 
+  const textFields = (
+    <div>
+      <h5 className="py-3">Edit Recipe</h5>
+      <Form.Group>
+        <Form.Label>Recipe Name</Form.Label>
+        <Form.Control
+          type="text"
+          name="recipe_name"
+          value={recipe_name}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.recipe_name?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Recipe Introduction</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={4}
+          name="intro"
+          value={intro}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.intro?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Cooking Instruction</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={9}
+          name="instruction"
+          value={instruction}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.instruction?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+      <div className="text-center">
+        <Button
+          className={`${btnStyles.Button} ${btnStyles.White}`}
+          onClick={() => history.push(`/recipes/${recipeId}`)}
+        >
+          cancel
+        </Button>
+        <Button
+          className={`${btnStyles.Button} ${btnStyles.Black}`}
+          type="submit"
+        >
+          save
+        </Button>
+      </div>
+      <h5 className="py-3">Edit Ingredients</h5>
+        <IngredientManager
+          recipeId={Number(recipeId)}
+          ingredients={ingredients}
+          setIngredients={setIngredients}
+          />
+    </div>
+  );
+
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
-        <Col md={7} lg={8}>
+        <Col md={7} lg={8} className="d-none d-md-block p-0">
+          <Container className={appStyles.Content}>{textFields}</Container>
+        </Col>
+        {/* change image */}
+        <Col md={5} lg={4}>
           <Container
             className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
           >
@@ -137,84 +212,8 @@ function RecipeEditForm() {
               </Alert>
             ))}
 
-            <Form.Group>
-              <Form.Label>Recipe Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="recipe_name"
-                value={recipe_name}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            {errors?.recipe_name?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
-
-            <Form.Group>
-              <Form.Label>Recipe Introduction</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                name="intro"
-                value={intro}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            {errors?.intro?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
-
-            <Form.Group>
-              <Form.Label>Cooking Instruction</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={9}
-                name="instruction"
-                value={instruction}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            {errors?.instruction?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
-
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              onClick={() => history.push(`/recipes/${recipeId}`)}
-            >
-              cancel
-            </Button>
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              type="submit"
-            >
-              save
-            </Button>
+            <div className="d-md-none">{textFields}</div>
           </Container>
-
-          <h5>Ingredients</h5>
-          <ul>
-            {ingredients.map((ingredient) => (
-              <Ingredient
-                key={ingredient.id}
-                ingredient={ingredient}
-                setIngredients={setIngredients}
-                recipeId={recipeId}
-                isOwner={ingredient.is_owner}
-                editable={true}
-              />
-            ))}
-          </ul>
-          <IngredientCreateForm
-            recipeId={recipeId}
-            setIngredients={setIngredients}
-          />
         </Col>
       </Row>
     </Form>

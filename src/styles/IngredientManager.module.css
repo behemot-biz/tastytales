@@ -1,0 +1,150 @@
+
+
+
+.FormRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+
+.FormLabel {
+  display: none; /* Optional: hide labels for compact layout */
+}
+.CustomInput25 {
+  width: 15%;
+}
+.CustomInput50 {
+  width: 60%;
+}
+.ButtonContainer {
+  min-width: fit-content;
+}
+.Button {
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: unset;
+  border-radius: 3px;
+  /* padding: 4px 10px; */
+  /* min-width: 75px; */
+  margin: 5px;
+}
+
+.Button:hover, .Button:active, .Button:focus {
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.AddButton, .CancelButton {
+  /* margin-top: auto; */
+  /* margin-top: auto; */
+  margin-bottom: 1rem;
+   /* Align button vertically */
+  height: 38px; 
+  /* Same as input height */
+}
+.AddButton {
+  /* background-color: #4A676A; */
+  background-color: #ffffff;
+  color: #4A676A;
+}
+.CancelButton {
+  /* background-color: #ff0000; */
+  background-color: #ffffff;
+  color: #ff0000;
+}
+.EditButton {
+  background-color: #ffffff;
+  color: #000000;
+}
+.DeleteButton {
+  background-color: #ffffff;
+  color: #ff0000;
+}
+
+.AddButton i, .CancelButton i, .ActionButton i {
+ 
+  font-size: 1rem;
+  padding: 0;
+  vertical-align: unset;
+}
+
+.AddButton i {
+  color: #4A676A;
+}
+
+.EditButton i {
+  color: #4A676A;
+}
+
+.DeleteButton i {
+  color: #F4574C;
+}
+
+.CancelButton i {
+  color: #757575;
+}
+
+/* .AddButton i:hover, .EditButton i:hover, .DeleteButton i:hover, .CancelButton i:hover {
+  color: #ffffff;
+} */
+.AddButton:hover i, .EditButton:hover i, 
+.DeleteButton:hover i, .CancelButton:hover i,
+.AddButton:active i, .EditButton:active i,
+.DeleteButton:active i, .CancelButton:active i,
+
+.AddButton:focus i, .EditButton:focus i,
+.DeleteButton:focus i, .CancelButton:focus i {
+  color: #ffffff;
+}
+
+.AddButton:hover, .EditButton:hover, 
+.AddButton:active, .EditButton:active,
+.AddButton:focus, .EditButton:focus {
+  background-color: #4A676A;
+} 
+.DeleteButton:hover, .DeleteButton:active, .DeleteButton:focus {
+  background-color: #F4574C !important;
+}
+.CancelButton:hover, .CancelButton:active, .CancelButton:focus {
+  background-color: #A2B3B0;
+}
+
+
+
+.Alert {
+  margin-top: 0.5rem;
+}
+
+.IngredientList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.IngredientItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.IngredientText {
+  flex: 1;
+}
+
+.ActionButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ActionButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  padding: 0;
+}
