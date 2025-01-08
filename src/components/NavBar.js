@@ -6,8 +6,7 @@ import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 import {
   useCurrentUser,
@@ -25,8 +24,6 @@ const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
-
-  console.log('current user object', currentUser?.username);
 
   const handleSignOut = async () => {
     try {
@@ -49,14 +46,14 @@ const NavBar = () => {
   const loggedInMenu = (
     <>
       <NavLink
-        className={styles.NavLink}
+        className={`${styles.NavLink} ${styles.HeadSpace}`}
         activeClassName={styles.Active}
         to="/feed"
       >
         Recipes
       </NavLink>
       <NavLink
-        className={styles.NavLink}
+        className={`${styles.NavLink} ${styles.HeadSpace}`}
         activeClassName={styles.Active}
         to="/liked"
       >
@@ -65,16 +62,18 @@ const NavBar = () => {
 
       <NavDropdown
         bsPrefix={styles.CustomDropdown}
+        className={styles.NavLink}
         id="nav-dropdown"
         title={
-            <Avatar
-              src={currentUser?.profile_image}
-              text={currentUser?.username}
-              height={40}
-            />
+          <Avatar
+            src={currentUser?.profile_image}
+            text={currentUser?.username}
+            height={40}
+          />
         }
       >
         <NavDropdown.Item
+          bsPrefix={styles.CustomDropdownItem}
           as={NavLink}
           to={`/profiles/${currentUser?.profile_id}`}
           exact
@@ -83,36 +82,39 @@ const NavBar = () => {
         </NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item
+          bsPrefix={styles.CustomDropdownItem}
           as={NavLink}
           to={`/profiles/${currentUser?.profile_id}/edit`}
           exact
         >
           Edit profile
         </NavDropdown.Item>
-        <NavDropdown.Item 
-         as={NavLink} to={`/profiles/${currentUser?.profile_id}/edit/username`}
-         exact
-         >
+        <NavDropdown.Item
+          bsPrefix={styles.CustomDropdownItem}
+          as={NavLink}
+          to={`/profiles/${currentUser?.profile_id}/edit/username`}
+          exact
+        >
           Change username
         </NavDropdown.Item>
-        <NavDropdown.Item  
-        as={NavLink} to={`/profiles/${currentUser?.profile_id}/edit/password`}
-        exact
+        <NavDropdown.Item
+          bsPrefix={styles.CustomDropdownItem}
+          as={NavLink}
+          to={`/profiles/${currentUser?.profile_id}/edit/password`}
+          exact
         >
           Change password
         </NavDropdown.Item>
 
         <NavDropdown.Divider />
-        <NavDropdown.Item to="/" onClick={handleSignOut}>
+        <NavDropdown.Item
+          bsPrefix={styles.CustomDropdownItem}
+          to="/"
+          onClick={handleSignOut}
+        >
           Sign out
         </NavDropdown.Item>
       </NavDropdown>
-      {/* <NavLink
-        className={styles.NavLink}
-        to={`/profiles/${currentUser?.profile_id}`}
-      >
-        <Avatar src={currentUser?.profile_image} text="Profile" height={40} />
-      </NavLink> */}
     </>
   );
   const loggedOutMenu = (
@@ -151,10 +153,10 @@ const NavBar = () => {
           aria-controls="basic-navbar-nav"
         />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto text-left align-items-center">
+          <Nav className="ml-auto text-left">
             <NavLink
               exact
-              className={styles.NavLink}
+              className={`${styles.NavLink} ${styles.HeadSpace}`}
               activeClassName={styles.Active}
               to="/"
             >

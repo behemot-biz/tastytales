@@ -9,12 +9,35 @@
   padding: 5px;
 }
 
-.Active i {
-  color: #2142b2;
+.HeadSpace {
+  padding-top: 12px;
 }
 
+.CustomDropdownItem {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+.CustomDropdownItem:active, 
+.CustomDropdownItem:focus, 
+.CustomDropdownItem:hover {
+  padding: 5px;
+  color: #000000;
+  background-color: #ECF0EF;
+}
+  
 .CustomDropdown::after {
   display: none;
   aria-hidden: true;
 } 
 
+.Active i {
+  color: #3F5056;
+}
