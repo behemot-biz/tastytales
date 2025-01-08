@@ -23,7 +23,17 @@ import btnStyles from "../../styles/Button.module.css";
  * Form component to create a new recipe.
  * Allows the user to input recipe details such as name, introduction, instruction, and upload an image.
  * Submits the data to the API to create a new recipe entry.
+ *
+ * Features:
+ * - Redirects to `IngredientCreateForm` upon successful recipe creation to manage ingredients.
+ * - Handles image upload and preview before submission.
+ * - Provides validation feedback for input fields.
+ *
+ * State Management:
+ * - Tracks recipe details in `recipeData`.
+ * - Manages validation errors in `errors`.
  */
+
 
 function RecipeCreateForm() {
   useRedirect("loggedOut");
@@ -67,7 +77,10 @@ function RecipeCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/recipes/", formData);
-      history.push(`/recipes/${data.id}`);
+      history.push({
+        pathname: "/ingredients/create",
+        state: { recipeId: data.id },})
+      
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
@@ -125,12 +138,12 @@ function RecipeCreateForm() {
       ))}
 
       <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
+        className={`${btnStyles.Button} ${btnStyles.Black}`}
         onClick={() => history.goBack()}
       >
         cancel
       </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+      <Button className={`${btnStyles.Button} ${btnStyles.Black}`} type="submit">
         create
       </Button>
     </div>

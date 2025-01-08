@@ -1,22 +1,47 @@
+.Ingredient {
+  background-color: #ffffff;
+  border: 1px solid #dadadf;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
 
-
-
-.FormRow {
+/* .FormRow {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-
-
+} */
 .FormLabel {
   display: none; /* Optional: hide labels for compact layout */
 }
+
+.FormRow {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 1rem;
+}
+
+.FormGroup {
+  position: relative;
+  margin-bottom: 2rem; /* Space reserved for error messages */
+}
+
+.ErrorText {
+  display: block;
+  font-size: 0.875rem;
+  color: red;
+  min-height: 1.5rem; /* Reserve space for error messages */
+}
+
+
 .CustomInput25 {
   width: 15%;
 }
 .CustomInput50 {
   width: 60%;
+}
+
+.ErrorContainer {
+  background-color: #ffffff;
 }
 .ButtonContainer {
   min-width: fit-content;
@@ -26,31 +51,23 @@
   background-color: #ffffff;
   color: unset;
   border-radius: 3px;
-  /* padding: 4px 10px; */
-  /* min-width: 75px; */
+
   margin: 5px;
 }
-
 .Button:hover, .Button:active, .Button:focus {
   cursor: pointer;
   background-color: #ffffff;
 }
 
 .AddButton, .CancelButton {
-  /* margin-top: auto; */
-  /* margin-top: auto; */
   margin-bottom: 1rem;
-   /* Align button vertically */
   height: 38px; 
-  /* Same as input height */
 }
 .AddButton {
-  /* background-color: #4A676A; */
   background-color: #ffffff;
   color: #4A676A;
 }
 .CancelButton {
-  /* background-color: #ff0000; */
   background-color: #ffffff;
   color: #ff0000;
 }
@@ -64,36 +81,27 @@
 }
 
 .AddButton i, .CancelButton i, .ActionButton i {
- 
   font-size: 1rem;
   padding: 0;
   vertical-align: unset;
 }
-
 .AddButton i {
   color: #4A676A;
 }
-
 .EditButton i {
   color: #4A676A;
 }
-
 .DeleteButton i {
   color: #F4574C;
 }
-
 .CancelButton i {
   color: #757575;
 }
 
-/* .AddButton i:hover, .EditButton i:hover, .DeleteButton i:hover, .CancelButton i:hover {
-  color: #ffffff;
-} */
 .AddButton:hover i, .EditButton:hover i, 
 .DeleteButton:hover i, .CancelButton:hover i,
 .AddButton:active i, .EditButton:active i,
 .DeleteButton:active i, .CancelButton:active i,
-
 .AddButton:focus i, .EditButton:focus i,
 .DeleteButton:focus i, .CancelButton:focus i {
   color: #ffffff;
@@ -110,8 +118,6 @@
 .CancelButton:hover, .CancelButton:active, .CancelButton:focus {
   background-color: #A2B3B0;
 }
-
-
 
 .Alert {
   margin-top: 0.5rem;

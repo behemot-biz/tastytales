@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Alert";
 
 import { axiosRes } from "../../api/axiosDefaults";
 
@@ -93,8 +91,13 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
               value={formData.quantity}
               onChange={handleChange}
               placeholder="e.g., 500"
-            />
-          </Form.Group>
+              isInvalid={!!errors.quantity} // Bootstrap validation
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.quantity?.join(" ")}
+              </Form.Control.Feedback>
+            </Form.Group>
+
           <Form.Group className={` ${styles.CustomInput25}`}>
             <Form.Label className={styles.FormLabel}>Measure</Form.Label>
             <Form.Control
@@ -103,8 +106,13 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
               value={formData.measure}
               onChange={handleChange}
               placeholder="e.g., g, cups"
-            />
-          </Form.Group>
+              isInvalid={!!errors.measure} // Bootstrap validation
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.measure?.join(" ")}
+              </Form.Control.Feedback>
+            </Form.Group>
+
           <Form.Group className={` ${styles.CustomInput50}`}>
             <Form.Label className={styles.FormLabel}>Ingredient</Form.Label>
             <Form.Control
@@ -113,8 +121,12 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
               value={formData.ingredient}
               onChange={handleChange}
               placeholder="e.g., Tomato"
-            />
-          </Form.Group>
+              isInvalid={!!errors.ingredient} // Bootstrap validation
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.ingredient?.join(" ")}
+              </Form.Control.Feedback>
+            </Form.Group>
           <div className={styles.ButtonContainer}>
           <Button
 
@@ -171,19 +183,6 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
       </ul>
     </div>
   );
-};
-
-IngredientManager.propTypes = {
-  recipeId: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      ingredient: PropTypes.string.isRequired,
-      quantity: PropTypes.string.isRequired,
-      measure: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  setIngredients: PropTypes.func.isRequired,
 };
 
 export default IngredientManager;

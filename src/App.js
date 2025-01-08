@@ -9,6 +9,7 @@ import "./api/axiosDefaults";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
 import RecipeCreateForm from "./pages/recipes/RecipeCreateForm";
+
 import RecipePage from "./pages/recipes/RecipePage";
 import RecipesPage from "./pages/recipes/RecipesPage";
 import RecipeEditForm from "./pages/recipes/RecipeEditForm";
@@ -18,6 +19,7 @@ import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 
 import styles from "./App.module.css";
+import IngredientCreateForm from "./pages/recipes/IngredientCreateForm";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -61,6 +63,11 @@ function App() {
             exact
             path="/recipes/create"
             render={() => <RecipeCreateForm />}
+          />
+          <Route
+            exact
+            path="/ingredients/create"
+            render={() => <IngredientCreateForm />}
           />
           <Route exact path="/recipes/:id" render={() => <RecipePage />} />
           <Route
