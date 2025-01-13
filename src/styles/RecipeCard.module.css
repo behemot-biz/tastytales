@@ -25,7 +25,11 @@ h5 {
 
 .PostBar {
   text-align: center;
+  align-content: space-evenly;
+  width: 150px;
+  margin: auto;
 }
+
 
 .Heart {
   color: #f85032;

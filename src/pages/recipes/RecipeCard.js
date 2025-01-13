@@ -10,8 +10,9 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
 import { truncateText, capitalizeFirstLetter } from "../../utils/utils";
 
-import { MoreDropdown } from "../../components/MoreDropdown";
+import { CardEditDropdown } from "../../components/MoreDropdown";
 import Avatar from "../../components/Avatar";
+
 
 import styles from "../../styles/RecipeCard.module.css";
 
@@ -114,12 +115,7 @@ const RecipeCard = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
-            {is_owner && recipesPage && (
-              <MoreDropdown
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
-            )}
+            
           </div>
         </Media>
         <div className={styles.PostBar}>
@@ -151,6 +147,15 @@ const RecipeCard = (props) => {
             <i className="far fa-comments" />
           </Link>
           {comments_count}
+         
+          {is_owner && recipesPage && (
+            <CardEditDropdown
+              className={styles.EditBtn}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          )}
+          
         </div>
       </Card.Body>
     </Card>

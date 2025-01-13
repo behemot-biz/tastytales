@@ -1,35 +1,120 @@
-
 .Recipe {
-    background-color: #ffffff;
-    border: 1px solid #dadadf;
-    border-radius: 2px;
-    margin-bottom: 16px;
-  }
-  
-  .Recipe figure,
-  h5 {
-    margin: 0 0;
-  }
-  
-  .RecipeCardImg {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius:  10px 10px 0 0;
-  }
-  
-  .IngredientList {
-    list-style-type: none;
-    padding: 0;
+  /* background-color: #ffffff;
+  border: 1px solid #dadadf;
+  border-radius: 2px; */
+  margin-bottom: 16px;
 }
-  .Heart {
-    color: #f85032;
-  }
+.Recipe p {
+  white-space: pre-wrap;
+}
+
+.RecipeCardImg {
+  width: 100%;
+  object-fit: cover;
+  max-height: 40vh;
+  /* border-radius:  10px 10px 0 0; */
+  /* min-height: 400px; */
+}
+
+.CustCard {
+  background-color: #ffffff;
+  border: 1px solid #dadadf;
+  border-radius: 2px;
+  min-height: 400px;
+
+}
+
+.NavLink {
+  padding: 10px 10px 10px 0;
+  font-weight: 500;
+  font-size: 1.25rem;
+  position: relative;
+  text-decoration: none;
+}
+
+.NavLink:global(.active) {
+  color: #4A676A;
+  position: relative; 
   
-  .Heart:hover {
-    color: #2142b2;
+}
+
+.TmpSlask {
+  background-color: #f85032;
+}
+
+.Heart {
+  color: #f85032;
+}
+
+.Heart:hover {
+  color: #2142b2;
+}
+
+.HeartOutline:hover {
+  color: #f85032;
+}
+
+
+.NavLink:global(.active)::after {
+  content: "";
+  background: #8fa39f;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  transition: all 0.3s ease;
+}
+.Active i {
+  background-color: aqua;
+  color: #3F5056;
+  text-decoration: underline;
+}
+
+
+.IngredientList {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+  .RecipeCardImg {
+    border-radius: 2px 2px 0 0; 
+    width: 100%;
   }
-  
-  .HeartOutline:hover {
-    color: #f85032;
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .RecipeCardImg {
+    border-radius: 2px 2px 0 0; 
+    max-height: 40vh;
   }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  .RecipeCardImg {
+    height: 100%;
+    min-height: 400px;
+  }
+}
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+  .RecipeCardImg {
+    height: 100%;
+    min-height: 400px;
+  }
+ }
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {  }
+
+/* @media screen and (max-width: 992px) {
+  .RecipeCardImg {
+    border-radius: 2px 2px 0 0; 
+    max-height: 40vh;
+  }
+} */
+/* @media screen and (min-width: 993px) {
+} */

@@ -86,6 +86,7 @@ function RecipesPage({ message, filter = "" }) {
                       key={recipe.id}
                       {...recipe}
                       setRecipes={setRecipes}
+                      recipesPage
                     />
                   ))}
                   dataLength={recipes.results.length}

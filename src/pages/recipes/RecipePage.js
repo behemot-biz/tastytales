@@ -14,7 +14,6 @@ import { fetchMoreData } from "../../utils/utils";
 import Asset from "../../components/Asset";
 import Comment from "../comments/Comment";
 import CommentCreateForm from "../comments/CommentCreateForm";
-import IngredientCreateForm from "./IngredientCreateForm";
 import PopularProfiles from "../profiles/PopularProfiles";
 import Recipe from "./Recipe";
 
@@ -35,6 +34,7 @@ function RecipePage() {
   const isOwner = currentUser?.username === recipe.results[0]?.owner;
   const profile_image = currentUser?.profile_image;
   const [comments, setComments] = useState({ results: [] });
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
     const handleMount = async () => {
@@ -46,6 +46,7 @@ function RecipePage() {
         setRecipe({ results: [recipe] });
         setIngredients(recipe.recipe_ingredients || []);
         setComments(comments);
+        setHasLoaded(true);
       } catch (err) {
         // console.log(err);
       }
@@ -54,17 +55,26 @@ function RecipePage() {
     handleMount();
   }, [id]);
 
+  if (!hasLoaded) {
+    return (
+      <Container className={appStyles.Content}>
+        <Asset spinner />
+      </Container>
+    );
+  }
+
   return (
     <Row className="h-100">
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
+      <Col className="py-2 p-0 p-lg-2" lg={12}>
         <PopularProfiles mobile />
         <Recipe
           {...recipe.results[0]}
-          setRecipe={setRecipe}
+          setRecipes={setRecipe}
           setIngredients={setIngredients}
           ingredients={ingredients}
           recipePage
         />
+        <PopularProfiles horizontal />
         <Container className={appStyles.Content}>
           {currentUser ? (
             <CommentCreateForm
@@ -99,12 +109,9 @@ function RecipePage() {
           )}
         </Container>
       </Col>
-      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+      {/* <Col lg={3} className="d-none d-lg-block p-0 p-lg-2">
         <PopularProfiles />
-        {isOwner && (
-          <IngredientCreateForm recipeId={id} setIngredients={setIngredients} />
-        )}
-      </Col>
+      </Col> */}
     </Row>
   );
 }
