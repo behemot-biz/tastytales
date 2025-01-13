@@ -121,7 +121,7 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
               value={formData.ingredient}
               onChange={handleChange}
               placeholder="e.g., Tomato"
-              isInvalid={!!errors.ingredient} // Bootstrap validation
+              isInvalid={!!errors.ingredient} 
               />
               <Form.Control.Feedback type="invalid">
                 {errors.ingredient?.join(" ")}
@@ -162,7 +162,7 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
             </span>
             <div className={styles.ActionButtons}>
               <Button
-                // size="sm"
+                size="sm"
                 onClick={() => handleEdit(ingredient)}
                 // className={`${btnStyles.Button} ${btnStyles.Black}`}
                 className={`${styles.Button} ${styles.ActionButton} ${styles.EditButton}`}

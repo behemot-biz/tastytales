@@ -1,40 +1,45 @@
 .Ingredient {
-  background-color: #ffffff;
+  /* background-color: #ffffff;
   border: 1px solid #dadadf;
-  border-radius: 2px;
+  border-radius: 2px; */
   margin-bottom: 16px;
 }
 
-/* .FormRow {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-} */
+.CustCard {
+  background-color: #ffffff;
+  border: 1px solid #dadadf;
+  border-radius: 2px;
+  /* min-height: 400px; */
+
+}
+
 .FormLabel {
-  display: none; /* Optional: hide labels for compact layout */
+  display: none; 
 }
 
 .FormRow {
   display: flex;
-  /* flex-wrap: wrap; */
   gap: 1rem;
+  flex-direction: row;
+
+ 
 }
 
 .FormGroup {
   position: relative;
-  margin-bottom: 2rem; /* Space reserved for error messages */
+  margin-bottom: 2rem; 
 }
 
 .ErrorText {
   display: block;
   font-size: 0.875rem;
   color: red;
-  min-height: 1.5rem; /* Reserve space for error messages */
+  min-height: 1.5rem; 
 }
 
 
 .CustomInput25 {
-  width: 15%;
+  width: 20%;
 }
 .CustomInput50 {
   width: 60%;
@@ -43,9 +48,17 @@
 .ErrorContainer {
   background-color: #ffffff;
 }
-.ButtonContainer {
+/* .ButtonContainer {  
   min-width: fit-content;
+} */
+/* Default styling for the button row */
+.ButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 1rem; /* Add spacing from fields */
 }
+
 .Button {
   border: 1px solid #000000;
   background-color: #ffffff;
@@ -153,4 +166,25 @@
   height: 35px;
   width: 35px;
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .FormRow {
+    flex-direction: column;
+}
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  .CustomInput25 {
+    width: 100%;
+  }
+  .CustomInput50 {
+    width: 100%;
+  }
+  
+  .ButtonContainer {
+    justify-content: flex-end; 
+    margin: 0;
+    border-bottom: #4A676A  1px solid;
+  }
 }
