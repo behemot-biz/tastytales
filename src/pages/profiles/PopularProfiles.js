@@ -10,31 +10,42 @@ import Profile from "./Profile";
 
 /**
  * Component to display a list of popular profiles.
- * Shows the most-followed profiles in a concise format.
- *
+ * 
  * Props:
  * - mobile (boolean): Determines if the component is displayed in a mobile-friendly layout.
+ * - horizontal (boolean): Determines if the component is displayed in a horizontal layout.
  */
 
-const PopularProfiles = ({ mobile }) => {
+const PopularProfiles = ({ mobile = false, horizontal = false }) => {
   const { popularProfiles } = useProfileData();
 
   return (
     <Container
       className={`${appStyles.Content} ${
         mobile && "d-lg-none text-center mb-3"
+      } ${
+        horizontal && "d-none d-lg-block text-center mb-3"
       }`}
     >
       {popularProfiles.results.length ? (
         <>
-          <p>Most followed profiles.</p>
+          <h5 className="text-center">Top Chefs</h5>
           {mobile ? (
+            // Mobile Layout (default on small screens)
             <div className="d-flex justify-content-around">
               {popularProfiles.results.slice(0, 4).map((profile) => (
                 <Profile key={profile.id} profile={profile} mobile />
               ))}
             </div>
+          ) : horizontal ? (
+            // Horizontal Layout for large screens, similar to mobile but 5 profiles
+            <div className="d-flex justify-content-around">
+              {popularProfiles.results.slice(0, 5).map((profile) => (
+                <Profile key={profile.id} profile={profile} mobile />
+              ))}
+            </div>
           ) : (
+            // Default "as is" vertical layout
             popularProfiles.results.map((profile) => (
               <Profile key={profile.id} profile={profile} />
             ))
