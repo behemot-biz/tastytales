@@ -134,9 +134,9 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
             className={`${styles.Button} ${styles.AddButton}`}
           >
             {editMode ? (
-              <i class="bi bi-check-lg"></i>
+              <i className="bi bi-check-lg"></i>
             ) : (
-                <i class="bi bi-plus-lg"></i>
+                <i className="bi bi-plus-lg"></i>
             )}
           </Button>
 
@@ -146,7 +146,7 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
               className={`${styles.Button} ${styles.CancelButton}`}
             >
 
-              <i class="bi bi-x-lg"></i>
+              <i className="bi bi-x-lg"></i>
             </Button>
           )}
           </div>
@@ -167,7 +167,7 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
                 // className={`${btnStyles.Button} ${btnStyles.Black}`}
                 className={`${styles.Button} ${styles.ActionButton} ${styles.EditButton}`}
               >
-                <i class="bi bi-pencil-square"></i>
+                <i className="bi bi-pencil-square"></i>
               </Button>
               <Button
                 // variant="danger"
@@ -175,7 +175,7 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
                 onClick={() => handleDelete(ingredient.id)}
                 className={`${styles.Button} ${styles.ActionButton} ${styles.DeleteButton}`}
               >
-                <i class="bi bi-trash"></i>
+                <i className="bi bi-trash"></i>
               </Button>
             </div>
           </li>

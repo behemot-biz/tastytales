@@ -16,7 +16,6 @@ import { axiosRes } from "../../api/axiosDefaults";
 import { capitalizeFirstLetter } from "../../utils/utils";
 
 import Avatar from "../../components/Avatar";
-import CommentCreateForm from "../comments/CommentCreateForm";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import Ingredient from "./Ingredient";
 
@@ -50,7 +49,6 @@ const Recipe = (props) => {
     recipeId,
   } = props;
   const currentUser = useCurrentUser();
-  const isOwner = currentUser?.username === owner;
   const is_owner = currentUser?.username === owner;
   
   const history = useHistory();
@@ -110,7 +108,7 @@ const Recipe = (props) => {
     <>
 
 <div className={styles.PostBar}>
-          {isOwner ? (
+          {is_owner ? (
             <OverlayTrigger
               placement="top"
               overlay={<Tooltip>You can't like your own recipe!</Tooltip>}
@@ -140,7 +138,7 @@ const Recipe = (props) => {
           {comments_count}
         </div>
         <div className={styles.TmpSlask}>
-      {isOwner && recipesPage && (
+      {is_owner && recipesPage && (
         <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
       )}
       </div>
@@ -187,7 +185,7 @@ const Recipe = (props) => {
                     ingredient={ingredient}
                     setIngredients={setIngredients}
                     recipeId={recipeId}
-                    isOwner={ingredient.is_owner}
+                    is_owner={ingredient.is_owner}
                     editable={false}
                   />
                 ))}
@@ -207,6 +205,7 @@ const Recipe = (props) => {
             
             {avatarFields}
             </div>
+          
           </Col>
         </Row>
 
@@ -260,7 +259,7 @@ const Recipe = (props) => {
                         ingredient={ingredient}
                         setIngredients={setIngredients}
                         recipeId={recipeId}
-                        isOwner={ingredient.is_owner}
+                        is_owner={ingredient.is_owner}
                         editable={false}
                       />
                     ))}

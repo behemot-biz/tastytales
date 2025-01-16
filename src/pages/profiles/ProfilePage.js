@@ -9,28 +9,28 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 
-import styles from "../../styles/ProfilePage.module.css";
-import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-
 import { axiosReq } from "../../api/axiosDefaults";
 import { fetchMoreData } from "../../utils/utils";
 
 import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results.png";
-
 import PopularProfiles from "./PopularProfiles";
 import RecipeCard from "../recipes/RecipeCard";
 
+import styles from "../../styles/ProfilePage.module.css";
+import appStyles from "../../App.module.css";
+import btnStyles from "../../styles/Button.module.css";
+
 /**
  * Component to display a user's profile and their recipes.
- * Includes follow/unfollow functionality and a list of the user's recipes with infinite scrolling.
+ * Includes follow/unfollow functionality and a list of the user's 
+ * recipes with infinite scrolling.
  */
 
 function ProfilePage() {

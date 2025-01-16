@@ -31,7 +31,6 @@ function RecipePage() {
   const [ingredients, setIngredients] = useState([]);
 
   const currentUser = useCurrentUser();
-  const isOwner = currentUser?.username === recipe.results[0]?.owner;
   const profile_image = currentUser?.profile_image;
   const [comments, setComments] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
