@@ -48,6 +48,13 @@ const NavBar = () => {
       <NavLink
         className={`${styles.NavLink} ${styles.HeadSpace}`}
         activeClassName={styles.Active}
+        to="/cookbook"
+      >
+        My Cookbook
+      </NavLink>
+      <NavLink
+        className={`${styles.NavLink} ${styles.HeadSpace}`}
+        activeClassName={styles.Active}
         to="/feed"
       >
         Recipes
@@ -120,18 +127,19 @@ const NavBar = () => {
   const loggedOutMenu = (
     <>
       <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/signin"
-      >
-        Sign in
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
+        className={`${styles.NavLink} ${styles.HeadSpace}`}
         activeClassName={styles.Active}
         to="/signup"
       >
         Sign up
+      </NavLink>
+
+      <NavLink
+        className={`${styles.NavLink} ${styles.HeadSpace}`}
+        activeClassName={styles.Active}
+        to="/signin"
+      >
+        Sign in
       </NavLink>
     </>
   );

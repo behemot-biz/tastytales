@@ -17,9 +17,10 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
+import CookbookPage from "./pages/recipes/CookbookPage";
+import IngredientCreateForm from "./pages/recipes/IngredientCreateForm";
 
 import styles from "./App.module.css";
-import IngredientCreateForm from "./pages/recipes/IngredientCreateForm";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -68,6 +69,16 @@ function App() {
             exact
             path="/ingredients/create"
             render={() => <IngredientCreateForm />}
+          />
+          <Route
+            exact
+            path="/cookbook"
+            render={() => (
+              <CookbookPage
+                message="No results found. Create a recipe."
+                filter={`owner__profile=${profile_id}&status=pending_publish&status=pending_delete&status=published`}
+              />
+            )}
           />
           <Route exact path="/recipes/:id" render={() => <RecipePage />} />
           <Route

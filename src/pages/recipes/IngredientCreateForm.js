@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 
 import { axiosRes } from "../../api/axiosDefaults";
 
@@ -36,8 +36,10 @@ import btnStyles from "../../styles/Button.module.css";
 
 const IngredientCreateForm = () => {
   const location = useLocation();
-  const history = useHistory();
   const recipeId = location.state?.recipeId;
+
+  const history = useHistory();
+  const currentUser = useCurrentUser();
 
   const [formData, setFormData] = useState({
     ingredient: "",
@@ -127,8 +129,13 @@ const IngredientCreateForm = () => {
     setErrors({});
   };
 
+  // const handleDone = () => {
+  //   history.push(`/recipes/${recipeId}`);
+  // };
   const handleDone = () => {
-    history.push(`/recipes/${recipeId}`);
+    history.push(
+      `/cookbook?owner__profile=${currentUser?.profile_id}&status=pending_publish&status=pending_delete&status=published`
+    );
   };
 
   if (!recipeId) {
@@ -256,25 +263,25 @@ const IngredientCreateForm = () => {
               className={`${btnStyles.Button} ${btnStyles.Black}`}
               onClick={handleDone}
             >
-              Done, Go to Recipe
+              Done, Go to Cookbook
             </Button>
           </div>
         </Col>
       </Row>
-      
+
       <Row className="py-2  p-lg-3 ">
-      <Col className={`${styles.CustCard} p-3`}>
-        {/* Display the Recipe component as a preview */}
-        <h2>Recipe Preview</h2>
-        {recipeData && (
-          <Recipe
-            {...recipeData}
-            setRecipe={setRecipeData}
-            setIngredients={setStoredIngredients}
-            ingredients={storedIngredients}
-            recipesPage={false}
-          />
-        )}
+        <Col className={`${styles.CustCard} p-3`}>
+          {/* Display the Recipe component as a preview */}
+          <h2>Recipe Preview</h2>
+          {recipeData && (
+            <Recipe
+              {...recipeData}
+              setRecipe={setRecipeData}
+              setIngredients={setStoredIngredients}
+              ingredients={storedIngredients}
+              recipesPage={false}
+            />
+          )}
         </Col>
       </Row>
     </div>

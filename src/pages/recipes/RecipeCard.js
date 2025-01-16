@@ -7,12 +7,11 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 import { axiosRes } from "../../api/axiosDefaults";
 import { truncateText, capitalizeFirstLetter } from "../../utils/utils";
 
-import { CardEditDropdown } from "../../components/MoreDropdown";
 import Avatar from "../../components/Avatar";
-
 
 import styles from "../../styles/RecipeCard.module.css";
 
@@ -36,24 +35,68 @@ const RecipeCard = (props) => {
     image,
     updated_at,
     recipesPage,
+    cookbookPage,
     setRecipes,
+    status,
   } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
 
-  const handleEdit = () => {
-    history.push(`/recipes/${id}/edit`);
+  const handlePublish = async () => {
+    try {
+      await axiosRes.patch(`/recipes/${id}/`, { status: "published" });
+      setRecipes((prevRecipes) => ({
+        ...prevRecipes,
+        results: prevRecipes.results.map((recipe) =>
+          recipe.id === id ? { ...recipe, status: "published" } : recipe
+        ),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUnPublish = async () => {
+    try {
+      await axiosRes.patch(`/recipes/${id}/`, { status: "pending_publish" });
+      setRecipes((prevRecipes) => ({
+        ...prevRecipes,
+        results: prevRecipes.results.map((recipe) =>
+          recipe.id === id ? { ...recipe, status: "pending_publish" } : recipe
+        ),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handlePreDelete = async () => {
+    try {
+      await axiosRes.patch(`/recipes/${id}/`, { status: "pending_delete" });
+      setRecipes((prevRecipes) => ({
+        ...prevRecipes,
+        results: prevRecipes.results.map((recipe) =>
+          recipe.id === id ? { ...recipe, status: "pending_delete" } : recipe
+        ),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/recipes/${id}/`);
-      history.goBack();
+      history.go(0);
     } catch (err) {
       // console.log(err);
     }
+  };
+
+  const handleEdit = () => {
+    history.push(`/recipes/${id}/edit`);
   };
 
   const handleLike = async () => {
@@ -90,74 +133,163 @@ const RecipeCard = (props) => {
       // console.log(err);
     }
   };
+  console.log("like_id ", like_id);
+  console.log("likes_count ", likes_count);
 
   return (
     <Card className={styles.RecipeCard}>
       <Link to={`/recipes/${id}`}>
-        <Card.Img src={image} className={styles.CardImg} alt={recipe_name} />
+        <div className={styles.ImageWrapper}>
+          <Card.Img src={image} className={styles.CardImg} alt={recipe_name} />
+          {status && cookbookPage && (
+            <span className={styles.StatusPill}>{status}</span>
+          )}
+        </div>
       </Link>
-      <Card.Body>
+      {/* icons */}
+      <div className="align-items-center justify-content-between">
+        {is_owner ? (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>You can't like your own recipe!</Tooltip>}
+          >
+            <i className="bi bi-heart" />
+          </OverlayTrigger>
+        ) : like_id ? (
+          <span onClick={handleUnlike}>
+            <i className={`bi bi-heart-fill ${styles.Heart}`} />
+          </span>
+        ) : currentUser ? (
+          <span onClick={handleLike}>
+            <i className={`bi bi-heart ${styles.HeartOutline}`} />
+          </span>
+        ) : (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Log in to like recipes!</Tooltip>}
+          >
+            <i className="bi bi-heart" />
+          </OverlayTrigger>
+        )}
+        {likes_count}
+        <Link to={`/recipes/${id}`}>
+          <i className="bi bi-chat" />
+        </Link>
+        {comments_count}
+
+        {is_owner && (recipesPage || cookbookPage) && (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Edit Recipe</Tooltip>}
+          >
+            <span
+              className={styles.EditBtn}
+              onClick={handleEdit}
+              aria-label="edit"
+            >
+              <i className="bi-pencil-square text-dark" />
+            </span>
+          </OverlayTrigger>
+        )}
+        {is_owner &&
+          cookbookPage &&
+          (status === "published" || status === "pending_publish") && (
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Mark Recipe for deletion</Tooltip>}
+            >
+              <span
+                className={styles.EditBtn}
+                onClick={handlePreDelete}
+                aria-label="mark for deletion"
+              >
+                <i className={`${styles.IconTextWarning} bi bi-trash`} />
+              </span>
+            </OverlayTrigger>
+          )}
+        {is_owner && cookbookPage && status === "pending_delete" && (
+          <>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Delete recipe</Tooltip>}
+            >
+              <span
+                className={styles.EditBtn}
+                onClick={handleDelete}
+                aria-label="delete recipe"
+              >
+                <i className="bi bi-trash text-danger" />
+              </span>
+            </OverlayTrigger>
+
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Undelete recipe</Tooltip>}
+            >
+              <span
+                className={styles.EditBtn}
+                onClick={handleUnPublish}
+                aria-label="undelete recipe"
+              >
+                <i className="bi bi-cloud-download text-success" />
+              </span>
+            </OverlayTrigger>
+          </>
+        )}
+        {is_owner && cookbookPage && status === "pending_publish" && (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Publish recipe</Tooltip>}
+          >
+            <span
+              className={styles.EditBtn}
+              onClick={handlePublish}
+              aria-label="publish recipe"
+            >
+              <i className="bi  bi-cloud-upload text-dark" />
+            </span>
+          </OverlayTrigger>
+        )}
+        {is_owner && cookbookPage && status === "published" && (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Unpublish recipe</Tooltip>}
+          >
+            <span
+              className={styles.EditBtn}
+              onClick={handleUnPublish}
+              aria-label="unpublish recipe"
+            >
+              <i
+                className={`${styles.IconTextWarning} bi bi-cloud-download `}
+              />
+            </span>
+          </OverlayTrigger>
+        )}
+      </div>
+
+      {/* Main Content */}
+      <Card.Body className={styles.CardBody}>
         {recipe_name && (
           <Card.Title className="text-left">{recipe_name}</Card.Title>
         )}
         {intro && (
-          <Card.Text className="text-left">{truncateText(intro, 50)}</Card.Text>
+          <Card.Text className="text-left">{truncateText(intro, 75)}</Card.Text>
         )}
       </Card.Body>
 
-      <Card.Body>
-        <Media
-          className={`${styles.AvatarText} align-items-center justify-content-between`}
-        >
-          <Link to={`/profiles/${profile_id}`}>
-            <Avatar src={profile_image} height={35} margin="0 4px 0 0" />
-            {capitalizeFirstLetter(owner)}
-          </Link>
-          <div className="d-flex align-items-center">
-            <span>{updated_at}</span>
-            
-          </div>
-        </Media>
-        <div className={styles.PostBar}>
-          {is_owner ? (
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>You can't like your own recipe!</Tooltip>}
-            >
-              <i className="far fa-heart" />
-            </OverlayTrigger>
-          ) : like_id ? (
-            <span onClick={handleUnlike}>
-              <i className={`fas fa-heart ${styles.Heart}`} />
-            </span>
-          ) : currentUser ? (
-            <span onClick={handleLike}>
-              <i className={`far fa-heart ${styles.HeartOutline}`} />
-            </span>
-          ) : (
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Log in to like recipes!</Tooltip>}
-            >
-              <i className="far fa-heart" />
-            </OverlayTrigger>
-          )}
-          {likes_count}
-          <Link to={`/recipes/${id}`}>
-            <i className="far fa-comments" />
-          </Link>
-          {comments_count}
-         
-          {is_owner && recipesPage && (
-            <CardEditDropdown
-              className={styles.EditBtn}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          )}
-          
+      {/* PostBar aligned at the bottom */}
+      <Media
+        className={`${styles.AvatarText} px-2 pb-3 align-items-center justify-content-between`}
+      >
+        <Link to={`/profiles/${profile_id}`}>
+          <Avatar src={profile_image} height={35} margin="0 4px 0 0" />
+          {capitalizeFirstLetter(owner)}
+        </Link>
+        <div className="d-flex align-items-center">
+          <span>{updated_at}</span>
         </div>
-      </Card.Body>
+      </Media>
     </Card>
   );
 };

@@ -58,14 +58,14 @@ input[type="file"] {
 
 i {
   color: #cfced3;
-  font-size: 1.6rem;
+  font-size: 1.25rem;
   padding: 7px;
 }
 
 i:hover {
   cursor: pointer;
   transition: color ease-in-out 0.3s;
-  color: #2142b2;
+  color: #3F5056;
 }
 
 figure {
