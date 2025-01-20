@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import { axiosRes } from "../../api/axiosDefaults";
 
 import styles from "../../styles/CommentCreateEditForm.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 /**
  * Form component to edit an existing comment.
@@ -62,14 +63,14 @@ function CommentEditForm(props) {
       </Form.Group>
       <div className="text-right">
         <button
-          className={styles.Button}
+          className={`${btnStyles.Button} ${btnStyles.Black} btn ml-auto`}
           onClick={() => setShowEditForm(false)}
           type="button"
         >
           cancel
         </button>
         <button
-          className={styles.Button}
+          className={`${btnStyles.Button} ${btnStyles.Black} btn ml-auto`}
           disabled={!content.trim()}
           type="submit"
         >

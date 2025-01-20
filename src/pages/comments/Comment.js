@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-import { Media } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Avatar from "../../components/Avatar";
-import styles from "../../styles/Comment.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { MoreDropdown } from "../../components/MoreDropdown";
+
+import Media from "react-bootstrap/Media";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+
 import { axiosReq } from "../../api/axiosDefaults";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
+import Avatar from "../../components/Avatar";
 import CommentEditForm from "./CommentEditForm";
+
+import styles from "../../styles/Comment.module.css";
 
 /**
  * Component to display an individual comment.
- * Allows the owner to edit or delete their comments via dropdown actions.
- *
- * Props:
- * - profile_id (number): ID of the comment owner's profile.
- * - profile_image (string): URL of the owner's profile image.
- * - owner (string): Username of the comment owner.
- * - updated_at (string): Timestamp of the last update.
- * - content (string): The comment content.
- * - id (number): ID of the comment.
- * - setRecipe (function): Updates the recipe state to reflect changes in comments.
- * - setComments (function): Updates the comment list state.
+ * Allows the owner to edit or delete their comments via icons.
  */
 
 const Comment = (props) => {
@@ -36,6 +31,7 @@ const Comment = (props) => {
   } = props;
 
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
@@ -54,8 +50,9 @@ const Comment = (props) => {
       setComments((prevComments) => ({
         results: prevComments.results.filter((comment) => comment.id !== id),
       }));
+      setShowDeleteModal(false); // Close modal after deletion
     } catch (err) {
-      // console.log(err);
+      console.error(err);
     }
   };
 
@@ -82,13 +79,44 @@ const Comment = (props) => {
             <p>{content}</p>
           )}
         </Media.Body>
+
+        {/* Icons for Edit and Delete */}
         {is_owner && !showEditForm && (
-          <MoreDropdown
-            handleEdit={() => setShowEditForm(true)}
-            handleDelete={handleDelete}
-          />
+          <div className={styles.ActionIcons}>
+            <i
+              className={`bi bi-trash ${styles.DeleteIcon}`}
+              onClick={() => setShowDeleteModal(true)}
+            />
+            <i
+              className={`bi bi-pencil-square ${styles.EditIcon}`}
+              onClick={() => setShowEditForm(true)}
+            />
+          </div>
         )}
       </Media>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this comment? This action cannot be
+          undone.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
