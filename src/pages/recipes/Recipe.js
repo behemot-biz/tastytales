@@ -16,7 +16,6 @@ import { axiosRes } from "../../api/axiosDefaults";
 import { capitalizeFirstLetter } from "../../utils/utils";
 
 import Avatar from "../../components/Avatar";
-import { MoreDropdown } from "../../components/MoreDropdown";
 import Ingredient from "./Ingredient";
 
 import styles from "../../styles/Recipe.module.css";
@@ -42,32 +41,71 @@ const Recipe = (props) => {
     instruction,
     image,
     updated_at,
-    recipesPage,
+    recipePage,
     setRecipes,
     ingredients,
     setIngredients,
     recipeId,
+    status,
   } = props;
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
-  
+
   const history = useHistory();
 
-  console.log("recipePage:", recipesPage);
+  const handlePublish = async () => {
+    try {
+      await axiosRes.patch(`/recipes/${id}/`, { status: "published" });
+      setRecipes((prevRecipes) => ({
+        ...prevRecipes,
+        results: prevRecipes.results.map((recipe) =>
+          recipe.id === id ? { ...recipe, status: "published" } : recipe
+        ),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  const handleEdit = () => {
-    history.push(`/recipes/${id}/edit`);
+  const handleUnPublish = async () => {
+    try {
+      await axiosRes.patch(`/recipes/${id}/`, { status: "pending_publish" });
+      setRecipes((prevRecipes) => ({
+        ...prevRecipes,
+        results: prevRecipes.results.map((recipe) =>
+          recipe.id === id ? { ...recipe, status: "pending_publish" } : recipe
+        ),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handlePreDelete = async () => {
+    try {
+      await axiosRes.patch(`/recipes/${id}/`, { status: "pending_delete" });
+      setRecipes((prevRecipes) => ({
+        ...prevRecipes,
+        results: prevRecipes.results.map((recipe) =>
+          recipe.id === id ? { ...recipe, status: "pending_delete" } : recipe
+        ),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/recipes/${id}/`);
-      history.push("/recipes");
-      // history.goBack();
-
+      history.go(0);
     } catch (err) {
-      console.error("Error deleting recipe:", err);
+      // console.log(err);
     }
+  };
+
+  const handleEdit = () => {
+    history.push(`/recipes/${id}/edit`);
   };
 
   const handleLike = async () => {
@@ -104,49 +142,133 @@ const Recipe = (props) => {
       // console.log(err);
     }
   };
-  const iconFields = (
+  const iconField = (
     <>
+      {/* icons */}
+      <div className="align-items-center justify-content-between">
+        {is_owner ? (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>You can&apos;t like your own recipe!</Tooltip>}
+          >
+            <i className="bi bi-heart" />
+          </OverlayTrigger>
+        ) : like_id ? (
+          <span onClick={handleUnlike}>
+            <i className={`bi bi-heart-fill ${styles.Heart}`} />
+          </span>
+        ) : currentUser ? (
+          <span onClick={handleLike}>
+            <i className={`bi bi-heart ${styles.HeartOutline}`} />
+          </span>
+        ) : (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Log in to like recipes!</Tooltip>}
+          >
+            <i className="bi bi-heart" />
+          </OverlayTrigger>
+        )}
+        {likes_count}
+        <Link to={`/recipes/${id}`}>
+          <i className="bi bi-chat" />
+        </Link>
+        {comments_count}
 
-<div className={styles.PostBar}>
-          {is_owner ? (
+        {is_owner && recipePage && (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Edit Recipe</Tooltip>}
+          >
+            <span
+              className={styles.EditBtn}
+              onClick={handleEdit}
+              aria-label="edit"
+            >
+              <i className="bi-pencil-square text-dark" />
+            </span>
+          </OverlayTrigger>
+        )}
+        {is_owner &&
+          recipePage &&
+          (status === "published" || status === "pending_publish") && (
             <OverlayTrigger
               placement="top"
-              overlay={<Tooltip>You can't like your own recipe!</Tooltip>}
+              overlay={<Tooltip>Mark Recipe for deletion</Tooltip>}
             >
-              <i className="far fa-heart" />
-            </OverlayTrigger>
-          ) : like_id ? (
-            <span onClick={handleUnlike}>
-              <i className={`fas fa-heart ${styles.Heart}`} />
-            </span>
-          ) : currentUser ? (
-            <span onClick={handleLike}>
-              <i className={`far fa-heart ${styles.HeartOutline}`} />
-            </span>
-          ) : (
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Log in to like recipes!</Tooltip>}
-            >
-              <i className="far fa-heart" />
+              <span
+                className={styles.EditBtn}
+                onClick={handlePreDelete}
+                aria-label="mark for deletion"
+              >
+                <i className={`${styles.IconTextWarning} bi bi-trash`} />
+              </span>
             </OverlayTrigger>
           )}
-          {likes_count}
-          <Link to={`/recipes/${id}`}>
-            <i className="far fa-comments" />
-          </Link>
-          {comments_count}
-        </div>
-        <div className={styles.TmpSlask}>
-      {is_owner && recipesPage && (
-        <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
-      )}
+        {is_owner && recipePage && status === "pending_delete" && (
+          <>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Delete recipe</Tooltip>}
+            >
+              <span
+                className={styles.EditBtn}
+                onClick={handleDelete}
+                aria-label="delete recipe"
+              >
+                <i className="bi bi-trash text-danger" />
+              </span>
+            </OverlayTrigger>
+
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Undelete recipe</Tooltip>}
+            >
+              <span
+                className={styles.EditBtn}
+                onClick={handleUnPublish}
+                aria-label="undelete recipe"
+              >
+                <i className="bi bi-cloud-download text-success" />
+              </span>
+            </OverlayTrigger>
+          </>
+        )}
+        {is_owner && recipePage && status === "pending_publish" && (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Publish Recipe</Tooltip>}
+          >
+            <span
+              className={styles.EditBtn}
+              onClick={handlePublish}
+              aria-label="publish recipe"
+            >
+              <i className="bi  bi-cloud-upload text-dark" />
+            </span>
+          </OverlayTrigger>
+        )}
+        {is_owner && recipePage && status === "published" && (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Unpublish Recipe</Tooltip>}
+          >
+            <span
+              className={styles.EditBtn}
+              onClick={handleUnPublish}
+              aria-label="unpublish recipe"
+            >
+              <i
+                className={`${styles.IconTextWarning} bi bi-cloud-download `}
+              />
+            </span>
+          </OverlayTrigger>
+        )}
       </div>
-
-
     </>
   );
-  const avatarFields = (
+
+  const avatarField = (
     <>
       <Media className="align-items-center justify-content-between ml-n1">
         <Link to={`/profiles/${profile_id}`}>
@@ -163,7 +285,6 @@ const Recipe = (props) => {
   return (
     <>
       <Container className={styles.Recipe}>
-
         {/* Big Screen Layout */}
         <Row className="d-none d-lg-flex p-0 pb-3">
           <Col lg={4} className=" p-0">
@@ -173,9 +294,9 @@ const Recipe = (props) => {
                 alt={recipe_name}
                 className={`${styles.RecipeCardImg} img-fluid`}
                 loading="lazy"
-                />
+              />
             </div>
-                
+
             <div className={`${styles.CustCard} mt-4 px-4 py-3`}>
               <h3>Ingredients</h3>
               <ul className={styles.IngredientList}>
@@ -185,8 +306,6 @@ const Recipe = (props) => {
                     ingredient={ingredient}
                     setIngredients={setIngredients}
                     recipeId={recipeId}
-                    is_owner={ingredient.is_owner}
-                    editable={false}
                   />
                 ))}
               </ul>
@@ -194,23 +313,22 @@ const Recipe = (props) => {
           </Col>
 
           <Col lg={8} className="px-4">
-          <div className={`${styles.CustCard} px-4 py-3`}>
-            <h1>{recipe_name}</h1>
-            <p className="lead text-muted">{intro}</p>
-            {iconFields}
+            <div className={`${styles.CustCard} px-4 py-3`}>
+              <h1>{recipe_name}</h1>
+              {iconField}
+              <p className="lead text-muted">{intro}</p>
             </div>
-            <div className={`${styles.CustCard} mt-4 px-4 py-3`}> 
-            <h3 >Instruction</h3>
-            <p>{instruction}</p>
-            
-            {avatarFields}
+            <div className={`${styles.CustCard} mt-4 px-4 py-3`}>
+              <h3>Instruction</h3>
+              <p>{instruction}</p>
+
+              {avatarField}
             </div>
-          
           </Col>
         </Row>
 
         {/* Small Screen Layout */}
-        
+
         <Row className={`${styles.CustCard} d-lg-none pb-3`}>
           <Col sm={12} className="p-0">
             <div className="text-center">
@@ -225,6 +343,7 @@ const Recipe = (props) => {
 
           <Col sm={12} className="py-3">
             <h1>{recipe_name}</h1>
+            {iconField}
             <p>{intro}</p>
           </Col>
 
@@ -272,9 +391,7 @@ const Recipe = (props) => {
             </Tab.Container>
           </Col>
 
-          <Col sm={12}>
-           {avatarFields}
-          </Col>
+          <Col sm={12}>{avatarField}</Col>
         </Row>
       </Container>
     </>
