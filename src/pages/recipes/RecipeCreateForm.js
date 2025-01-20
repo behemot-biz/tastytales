@@ -34,11 +34,10 @@ import btnStyles from "../../styles/Button.module.css";
  * - Manages validation errors in `errors`.
  */
 
-
 function RecipeCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
-  
+
   const [recipeData, setRecipeData] = useState({
     recipe_name: "",
     intro: "",
@@ -79,8 +78,8 @@ function RecipeCreateForm() {
       const { data } = await axiosReq.post("/recipes/", formData);
       history.push({
         pathname: "/ingredients/create",
-        state: { recipeId: data.id },})
-      
+        state: { recipeId: data.id },
+      });
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
@@ -143,7 +142,10 @@ function RecipeCreateForm() {
       >
         cancel
       </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Black}`} type="submit">
+      <Button
+        className={`${btnStyles.Button} ${btnStyles.Black}`}
+        type="submit"
+      >
         create
       </Button>
     </div>

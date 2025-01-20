@@ -10,7 +10,7 @@ import Profile from "./Profile";
 
 /**
  * Component to display a list of popular profiles.
- * 
+ *
  * Props:
  * - mobile (boolean): Determines if the component is displayed in a mobile-friendly layout.
  * - horizontal (boolean): Determines if the component is displayed in a horizontal layout.
@@ -23,9 +23,7 @@ const PopularProfiles = ({ mobile = false, horizontal = false }) => {
     <Container
       className={`${appStyles.Content} ${
         mobile && "d-lg-none text-center mb-3"
-      } ${
-        horizontal && "d-none d-lg-block text-center mb-3"
-      }`}
+      } ${horizontal && "d-none d-lg-block text-center mb-3"}`}
     >
       {popularProfiles.results.length ? (
         <>

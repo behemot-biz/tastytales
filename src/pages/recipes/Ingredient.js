@@ -140,13 +140,23 @@ const Ingredient = ({
           <span>{`${ingredient.quantity} ${ingredient.measure} of ${ingredient.ingredient}`}</span>
           {isOwner && editable && (
             <>
-              <Button variant="warning" className="m-2" size="sm" onClick={handleEditClick}>
+              <Button
+                variant="warning"
+                className="m-2"
+                size="sm"
+                onClick={handleEditClick}
+              >
                 Edit
               </Button>
-              <Button variant="danger" className="m-2" size="sm" onClick={handleDelete}>
+              <Button
+                variant="danger"
+                className="m-2"
+                size="sm"
+                onClick={handleDelete}
+              >
                 Delete
               </Button>
-              </>
+            </>
           )}
         </div>
       )}

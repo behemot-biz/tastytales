@@ -8,7 +8,7 @@ import styles from "../styles/MoreDropdown.module.css";
 // Dropdown needs access to the DOM node in order to position the Menu
 const ThreeDots = React.forwardRef(({ onClick }, ref) => (
   <i
-    className="fa-solid fa-square-pen"
+    className="bi bi-pencil-square"
     ref={ref}
     onClick={(e) => {
       e.preventDefault();
@@ -16,7 +16,7 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
     }}
   />
 ));
-
+ThreeDots.displayName = "ThreeDots";
 export const MoreDropdown = ({ handleEdit, handleDelete }) => {
   return (
     <Dropdown className="ml-auto" drop="left">
@@ -59,18 +59,16 @@ export const CardEditDropdown = ({ handleEdit, handleDelete }) => {
           onClick={handleEdit}
           aria-label="edit"
         >
-          <i className="fas fa-edit" />
+          <i className="bi-pencil-square" />
         </Dropdown.Item>
         <Dropdown.Item
           className={styles.DropdownItem}
           onClick={handleDelete}
           aria-label="delete"
         >
-          <i className="fas fa-trash-alt" />
+          <i className="bi bi-trash" />
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
 };
-
-

@@ -168,11 +168,11 @@ function RecipeEditForm() {
         </Button>
       </div>
       <h5 className="py-3">Edit Ingredients</h5>
-        <IngredientManager
-          recipeId={Number(recipeId)}
-          ingredients={ingredients}
-          setIngredients={setIngredients}
-          />
+      <IngredientManager
+        recipeId={Number(recipeId)}
+        ingredients={ingredients}
+        setIngredients={setIngredients}
+      />
     </div>
   );
 

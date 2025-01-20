@@ -81,62 +81,60 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
 
   return (
     <div>
+      <div className={styles.FormRow}>
+        <Form.Group className={`${styles.CustomInput25}`}>
+          <Form.Label className={styles.FormLabel}>Qty</Form.Label>
+          <Form.Control
+            type="text"
+            name="quantity"
+            value={formData.quantity}
+            onChange={handleChange}
+            placeholder="e.g., 500"
+            isInvalid={!!errors.quantity} // Bootstrap validation
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.quantity?.join(" ")}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <div className={styles.FormRow}>
-          <Form.Group className={`${styles.CustomInput25}`}>
-            <Form.Label className={styles.FormLabel}>Qty</Form.Label>
-            <Form.Control
-              type="text"
-              name="quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              placeholder="e.g., 500"
-              isInvalid={!!errors.quantity} // Bootstrap validation
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.quantity?.join(" ")}
-              </Form.Control.Feedback>
-            </Form.Group>
+        <Form.Group className={` ${styles.CustomInput25}`}>
+          <Form.Label className={styles.FormLabel}>Measure</Form.Label>
+          <Form.Control
+            type="text"
+            name="measure"
+            value={formData.measure}
+            onChange={handleChange}
+            placeholder="e.g., g, cups"
+            isInvalid={!!errors.measure} // Bootstrap validation
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.measure?.join(" ")}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-          <Form.Group className={` ${styles.CustomInput25}`}>
-            <Form.Label className={styles.FormLabel}>Measure</Form.Label>
-            <Form.Control
-              type="text"
-              name="measure"
-              value={formData.measure}
-              onChange={handleChange}
-              placeholder="e.g., g, cups"
-              isInvalid={!!errors.measure} // Bootstrap validation
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.measure?.join(" ")}
-              </Form.Control.Feedback>
-            </Form.Group>
-
-          <Form.Group className={` ${styles.CustomInput50}`}>
-            <Form.Label className={styles.FormLabel}>Ingredient</Form.Label>
-            <Form.Control
-              type="text"
-              name="ingredient"
-              value={formData.ingredient}
-              onChange={handleChange}
-              placeholder="e.g., Tomato"
-              isInvalid={!!errors.ingredient} 
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.ingredient?.join(" ")}
-              </Form.Control.Feedback>
-            </Form.Group>
-          <div className={styles.ButtonContainer}>
+        <Form.Group className={` ${styles.CustomInput50}`}>
+          <Form.Label className={styles.FormLabel}>Ingredient</Form.Label>
+          <Form.Control
+            type="text"
+            name="ingredient"
+            value={formData.ingredient}
+            onChange={handleChange}
+            placeholder="e.g., Tomato"
+            isInvalid={!!errors.ingredient}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.ingredient?.join(" ")}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <div className={styles.ButtonContainer}>
           <Button
-
             onClick={handleSubmit}
             className={`${styles.Button} ${styles.AddButton}`}
           >
             {editMode ? (
               <i className="bi bi-check-lg"></i>
             ) : (
-                <i className="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg"></i>
             )}
           </Button>
 
@@ -145,13 +143,11 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
               onClick={resetForm}
               className={`${styles.Button} ${styles.CancelButton}`}
             >
-
               <i className="bi bi-x-lg"></i>
             </Button>
           )}
-          </div>
         </div>
-     
+      </div>
 
       <ul className={styles.IngredientList}>
         {ingredients.map((ingredient) => (

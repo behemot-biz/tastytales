@@ -1,23 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import reportWebVitals from './reportWebVitals';
-import { CurrentUserProvider } from './contexts/CurrentUserContext';
-import { ProfileDataProvider } from './contexts/ProfileDataContext';
+import reportWebVitals from "./reportWebVitals";
+import { CurrentUserProvider } from "./contexts/CurrentUserContext";
+import { ProfileDataProvider } from "./contexts/ProfileDataContext";
 
-import App from './App';
+import App from "./App";
 
-import './index.css';
+import "./index.css";
 
 ReactDOM.render(
-    <Router>
-      <CurrentUserProvider>
+  <Router>
+    <CurrentUserProvider>
       <ProfileDataProvider>
-          <App />
-        </ProfileDataProvider>
-      </CurrentUserProvider>
-    </Router>,
+        <App />
+      </ProfileDataProvider>
+    </CurrentUserProvider>
+  </Router>,
   document.getElementById("root")
 );
 

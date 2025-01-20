@@ -9,7 +9,6 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 
-
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import {
   useProfileData,
@@ -29,7 +28,7 @@ import btnStyles from "../../styles/Button.module.css";
 
 /**
  * Component to display a user's profile and their recipes.
- * Includes follow/unfollow functionality and a list of the user's 
+ * Includes follow/unfollow functionality and a list of the user's
  * recipes with infinite scrolling.
  */
 
@@ -121,13 +120,18 @@ function ProfilePage() {
   const mainProfileRecipes = (
     <>
       <hr />
-      <p className="text-center">{profile?.owner}'s Recipes</p>
+      <p className="text-center">{profile?.owner}&apos;s Recipes</p>
       <hr />
 
       {profileRecipes.results.length ? (
         <InfiniteScroll
           className={styles.CardsContainer}
-          children={profileRecipes.results.map((recipe) => (
+          dataLength={profileRecipes.results.length}
+          loader={<Asset spinner />}
+          hasMore={!!profileRecipes.next}
+          next={() => fetchMoreData(profileRecipes, setProfileRecipes)}
+        >
+          {profileRecipes.results.map((recipe) => (
             <RecipeCard
               key={recipe.id}
               {...recipe}
@@ -135,11 +139,7 @@ function ProfilePage() {
               recipesPage
             />
           ))}
-          dataLength={profileRecipes.results.length}
-          loader={<Asset spinner />}
-          hasMore={!!profileRecipes.next}
-          next={() => fetchMoreData(profileRecipes, setProfileRecipes)}
-        />
+        </InfiniteScroll>
       ) : (
         <Asset
           src={NoResults}

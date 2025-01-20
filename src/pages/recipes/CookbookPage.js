@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useRedirect } from "../../hooks/useRedirect";
 import { fetchMoreData } from "../../utils/utils";
 
 import RecipeCard from "./RecipeCard";
@@ -19,6 +20,7 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/RecipesPage.module.css";
 
 const CookbookPage = ({ message }) => {
+  useRedirect("loggedOut");
   const [recipes, setRecipes] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
@@ -43,7 +45,7 @@ const CookbookPage = ({ message }) => {
     setHasLoaded(false);
     fetchRecipes();
   }, [pathname, currentUser]); // Re-fetch when pathname or user changes
-  console.log("CookbookPage recipes:", recipes.results);
+
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
@@ -56,7 +58,7 @@ const CookbookPage = ({ message }) => {
               {recipes.results.length ? (
                 <InfiniteScroll
                   className={styles.CardsContainer}
-                  children={recipes.results.map((recipe) => (
+                  {...recipes.results.map((recipe) => (
                     <RecipeCard
                       key={recipe.id}
                       {...recipe}

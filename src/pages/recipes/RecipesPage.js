@@ -53,13 +53,12 @@ function RecipesPage({ message, filter = "" }) {
     return () => {
       clearTimeout(timer);
     };
-
   }, [filter, query, pathname, currentUser]);
 
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-      <PopularProfiles mobile />
+        <PopularProfiles mobile />
 
         <i className={`fas fa-search ${styles.SearchIcon}`} />
         <Form
@@ -81,7 +80,12 @@ function RecipesPage({ message, filter = "" }) {
               {recipes.results.length ? (
                 <InfiniteScroll
                   className={styles.CardsContainer}
-                  children={recipes.results.map((recipe) => (
+                  dataLength={recipes.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!recipes.next}
+                  next={() => fetchMoreData(recipes, setRecipes)}
+                >
+                  {recipes.results.map((recipe) => (
                     <RecipeCard
                       key={recipe.id}
                       {...recipe}
@@ -89,11 +93,7 @@ function RecipesPage({ message, filter = "" }) {
                       recipesPage
                     />
                   ))}
-                  dataLength={recipes.results.length}
-                  loader={<Asset spinner />}
-                  hasMore={!!recipes.next}
-                  next={() => fetchMoreData(recipes, setRecipes)}
-                />
+                </InfiniteScroll>
               ) : (
                 <Container className={appStyles.Content}>
                   <Asset src={NoResults} message={message} />
