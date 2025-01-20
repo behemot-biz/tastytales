@@ -13,10 +13,11 @@
 h5 {
   margin: 0 0;
 }
+
 .IconTextWarning {
   color: #ec8d00;
 }
-/* new */
+
 .CardBody {
   display: flex;
   flex-direction: column;

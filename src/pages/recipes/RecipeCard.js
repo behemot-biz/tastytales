@@ -239,7 +239,7 @@ const RecipeCard = (props) => {
         {is_owner && cookbookPage && status === "pending_publish" && (
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>Publish recipe</Tooltip>}
+            overlay={<Tooltip>Publish Recipe</Tooltip>}
           >
             <span
               className={styles.EditBtn}
@@ -253,7 +253,7 @@ const RecipeCard = (props) => {
         {is_owner && cookbookPage && status === "published" && (
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>Unpublish recipe</Tooltip>}
+            overlay={<Tooltip>Unpublish Recipe</Tooltip>}
           >
             <span
               className={styles.EditBtn}

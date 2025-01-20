@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal"; // Import Modal from react-bootstrap
 
 import { axiosRes } from "../../api/axiosDefaults";
 
@@ -15,6 +16,8 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
   const [errors, setErrors] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false); // Modal visibility
+  const [deleteId, setDeleteId] = useState(null); // ID to delete
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -63,12 +66,25 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
     setEditId(ingredient.id);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axiosRes.delete(`/ingredients/${id}/`);
-      setIngredients((prev) => prev.filter((ing) => ing.id !== id));
-    } catch (err) {
-      console.error(err);
+  const handleShowConfirm = (id) => {
+    setDeleteId(id);
+    setShowConfirm(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setShowConfirm(false);
+    setDeleteId(null);
+  };
+
+  const handleDelete = async () => {
+    if (deleteId) {
+      try {
+        await axiosRes.delete(`/ingredients/${deleteId}/`);
+        setIngredients((prev) => prev.filter((ing) => ing.id !== deleteId));
+        handleCloseConfirm();
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -83,14 +99,14 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
     <div>
       <div className={styles.FormRow}>
         <Form.Group className={`${styles.CustomInput25}`}>
-          <Form.Label className={styles.FormLabel}>Qty</Form.Label>
+          <Form.Label className={styles.FormLabel}>Quantity</Form.Label>
           <Form.Control
             type="text"
             name="quantity"
             value={formData.quantity}
             onChange={handleChange}
-            placeholder="e.g., 500"
-            isInvalid={!!errors.quantity} // Bootstrap validation
+            placeholder="Quantity"
+            isInvalid={!!errors.quantity}
           />
           <Form.Control.Feedback type="invalid">
             {errors.quantity?.join(" ")}
@@ -104,8 +120,8 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
             name="measure"
             value={formData.measure}
             onChange={handleChange}
-            placeholder="e.g., g, cups"
-            isInvalid={!!errors.measure} // Bootstrap validation
+            placeholder="Measure"
+            isInvalid={!!errors.measure}
           />
           <Form.Control.Feedback type="invalid">
             {errors.measure?.join(" ")}
@@ -119,7 +135,7 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
             name="ingredient"
             value={formData.ingredient}
             onChange={handleChange}
-            placeholder="e.g., Tomato"
+            placeholder="Ingredient"
             isInvalid={!!errors.ingredient}
           />
           <Form.Control.Feedback type="invalid">
@@ -153,22 +169,17 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
         {ingredients.map((ingredient) => (
           <li key={ingredient.id} className={styles.IngredientItem}>
             <span className={styles.IngredientText}>
-              {ingredient.quantity} {ingredient.measure} of{" "}
-              {ingredient.ingredient}
+              {ingredient.quantity} {ingredient.measure} {ingredient.ingredient}
             </span>
             <div className={styles.ActionButtons}>
               <Button
-                size="sm"
                 onClick={() => handleEdit(ingredient)}
-                // className={`${btnStyles.Button} ${btnStyles.Black}`}
                 className={`${styles.Button} ${styles.ActionButton} ${styles.EditButton}`}
               >
                 <i className="bi bi-pencil-square"></i>
               </Button>
               <Button
-                // variant="danger"
-                // size="sm"
-                onClick={() => handleDelete(ingredient.id)}
+                onClick={() => handleShowConfirm(ingredient.id)}
                 className={`${styles.Button} ${styles.ActionButton} ${styles.DeleteButton}`}
               >
                 <i className="bi bi-trash"></i>
@@ -177,6 +188,25 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
           </li>
         ))}
       </ul>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirm} onHide={handleCloseConfirm} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this ingredient? This action cannot be
+          undone.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseConfirm}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

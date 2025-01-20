@@ -58,7 +58,12 @@ const CookbookPage = ({ message }) => {
               {recipes.results.length ? (
                 <InfiniteScroll
                   className={styles.CardsContainer}
-                  {...recipes.results.map((recipe) => (
+                  dataLength={recipes.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!recipes.next}
+                  next={() => fetchMoreData(recipes, setRecipes)}
+                >
+                  {recipes.results.map((recipe) => (
                     <RecipeCard
                       key={recipe.id}
                       {...recipe}
@@ -66,11 +71,7 @@ const CookbookPage = ({ message }) => {
                       cookbookPage
                     />
                   ))}
-                  dataLength={recipes.results.length}
-                  loader={<Asset spinner />}
-                  hasMore={!!recipes.next}
-                  next={() => fetchMoreData(recipes, setRecipes)}
-                />
+                </InfiniteScroll>
               ) : (
                 <Container className={appStyles.Content}>
                   {/* <Asset message={message || "No recipes found."} /> */}

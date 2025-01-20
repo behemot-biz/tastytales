@@ -1,7 +1,4 @@
 .Ingredient {
-  /* background-color: #ffffff;
-  border: 1px solid #dadadf;
-  border-radius: 2px; */
   margin-bottom: 16px;
 }
 
@@ -9,8 +6,6 @@
   background-color: #ffffff;
   border: 1px solid #dadadf;
   border-radius: 2px;
-  /* min-height: 400px; */
-
 }
 
 .FormLabel {
@@ -19,10 +14,7 @@
 
 .FormRow {
   display: flex;
-  gap: 1rem;
-  flex-direction: row;
-
- 
+  flex-direction: row; 
 }
 
 .FormGroup {
@@ -48,9 +40,7 @@
 .ErrorContainer {
   background-color: #ffffff;
 }
-/* .ButtonContainer {  
-  min-width: fit-content;
-} */
+
 /* Default styling for the button row */
 .ButtonContainer {
   display: flex;
@@ -168,10 +158,10 @@
   padding: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .FormRow {
     flex-direction: column;
-}
+  }
   .form-group {
     margin-bottom: 1rem;
   }
@@ -187,4 +177,18 @@
     margin: 0;
     border-bottom: #4A676A  1px solid;
   }
+}
+@media  (min-width: 992px) {
+  .FormRow {
+    gap: 1rem;
+  }
+  .ButtonContainer {
+
+    margin: 0;
+
+  }
+  .Button {
+    margin-top: 0;
+  }
+
 }

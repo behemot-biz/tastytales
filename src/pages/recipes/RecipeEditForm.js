@@ -16,6 +16,7 @@ import IngredientManager from "./IngredientManager";
 import styles from "../../styles/RecipeCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import { useRedirect } from "../../hooks/useRedirect";
 
 /**
  * Form component to edit an existing recipe.
@@ -24,6 +25,7 @@ import btnStyles from "../../styles/Button.module.css";
  */
 
 function RecipeEditForm() {
+  useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
   const [recipeData, setRecipeData] = useState({
     recipe_name: "",
@@ -178,7 +180,7 @@ function RecipeEditForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Row>
+      <Row className="pb-3">
         <Col md={7} lg={8} className="d-none d-md-block p-0">
           <Container className={appStyles.Content}>{textFields}</Container>
         </Col>
