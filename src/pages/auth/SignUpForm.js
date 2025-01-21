@@ -13,6 +13,8 @@ import Alert from "react-bootstrap/Alert";
 
 import { useRedirect } from "../../hooks/useRedirect";
 
+import signupImg from "../../assets/mussels_in_cream.webp";
+
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
@@ -49,13 +51,25 @@ const SignUpForm = () => {
 
   return (
     <Row className={styles.Row}>
+      <Col
+        md={6}
+        className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}
+      >
+        <Image
+          className={`${appStyles.FillerImage}`}
+          src={signupImg}
+          alt="Mussels in cream with basil and a piece of baguette"
+        />
+      </Col>
+
       <Col className="my-auto py-2 p-md-2" md={6}>
         <Container className={`${appStyles.Content} p-4 `}>
-          <h1 className={styles.Header}>sign up</h1>
+          <h1 className={styles.Header}>Sign Up</h1>
 
           <Form onSubmit={handleSubmit}>
+            {/* Username Field */}
             <Form.Group controlId="username">
-              <Form.Label className="d-none">username</Form.Label>
+              <Form.Label className="d-none">Username</Form.Label>
               <Form.Control
                 className={styles.Input}
                 type="text"
@@ -63,14 +77,15 @@ const SignUpForm = () => {
                 name="username"
                 value={username}
                 onChange={handleChange}
+                autoComplete="username"
+                isInvalid={!!errors.username} // Add Bootstrap validation
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.username?.join(" ")}
+              </Form.Control.Feedback>
             </Form.Group>
-            {errors.username?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
 
+            {/* Password Field */}
             <Form.Group controlId="password1">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
@@ -80,37 +95,41 @@ const SignUpForm = () => {
                 name="password1"
                 value={password1}
                 onChange={handleChange}
+                autoComplete="new-password"
+                isInvalid={!!errors.password1} // Add Bootstrap validation
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.password1?.join(" ")}
+              </Form.Control.Feedback>
             </Form.Group>
-            {errors.password1?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
 
+            {/* Confirm Password Field */}
             <Form.Group controlId="password2">
-              <Form.Label className="d-none">Confirm password</Form.Label>
+              <Form.Label className="d-none">Confirm Password</Form.Label>
               <Form.Control
                 className={styles.Input}
                 type="password"
-                placeholder="Confirm password"
+                placeholder="Confirm Password"
                 name="password2"
                 value={password2}
                 onChange={handleChange}
+                autoComplete="new-password"
+                isInvalid={!!errors.password2} // Add Bootstrap validation
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.password2?.join(" ")}
+              </Form.Control.Feedback>
             </Form.Group>
-            {errors.password2?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
 
+            {/* Submit Button */}
             <Button
               className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
               type="submit"
             >
-              Sign up
+              Sign Up
             </Button>
+
+            {/* Non-Field Errors */}
             {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
@@ -121,18 +140,9 @@ const SignUpForm = () => {
 
         <Container className={`mt-3 ${appStyles.Content}`}>
           <Link className={styles.Link} to="/signin">
-            Already have an account? <span>Sign in</span>
+            Already have an account? <span>Sign In</span>
           </Link>
         </Container>
-      </Col>
-      <Col
-        md={6}
-        className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}
-      >
-        <Image
-          className={`${appStyles.FillerImage}`}
-          src={"https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero2.jpg"}
-        />
       </Col>
     </Row>
   );

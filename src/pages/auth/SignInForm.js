@@ -14,6 +14,7 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
+import signinImg from "../../assets/thai_curry.webp";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -32,6 +33,7 @@ function SignInForm() {
   const [errors, setErrors] = useState({});
 
   const history = useHistory();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,7 +43,7 @@ function SignInForm() {
       setTokenTimestamp(data);
       history.goBack();
     } catch (err) {
-      setErrors(err.response?.data);
+      setErrors(err.response?.data || {});
     }
   };
 
@@ -54,10 +56,21 @@ function SignInForm() {
 
   return (
     <Row className={styles.Row}>
+      <Col
+        md={6}
+        className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}
+      >
+        <Image
+          className={`${appStyles.FillerImage}`}
+          src={signinImg}
+          alt="Chicken thai curry in a wok"
+        />
+      </Col>
       <Col className="my-auto p-0 p-md-2" md={6}>
         <Container className={`${appStyles.Content} p-4 `}>
-          <h1 className={styles.Header}>sign in</h1>
+          <h1 className={styles.Header}>Sign In</h1>
           <Form onSubmit={handleSubmit}>
+            {/* Username Input */}
             <Form.Group controlId="username">
               <Form.Label className="d-none">Username</Form.Label>
               <Form.Control
@@ -66,15 +79,16 @@ function SignInForm() {
                 name="username"
                 className={styles.Input}
                 value={username}
+                autoComplete="username"
                 onChange={handleChange}
+                isInvalid={!!errors.username} // Add this line for inline validation
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.username?.join(" ")}
+              </Form.Control.Feedback>
             </Form.Group>
-            {errors.username?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
 
+            {/* Password Input */}
             <Form.Group controlId="password">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
@@ -84,21 +98,34 @@ function SignInForm() {
                 className={styles.Input}
                 value={password}
                 onChange={handleChange}
+                autoComplete="current-password"
+                isInvalid={!!errors.password} // Validation
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.password?.join(" ")}
+              </Form.Control.Feedback>
             </Form.Group>
-            {errors.password?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
+
+            {/* Submit Button */}
             <Button
               className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
               type="submit"
             >
               Sign in
             </Button>
+
+            {/* Non-field Errors */}
             {errors.non_field_errors?.map((message, idx) => (
-              <Alert key={idx} variant="warning" className="mt-3">
+              // <Alert key={idx} variant="warning" className="mt-3">
+              //   {message}
+              // </Alert>
+              <Alert
+                key={idx}
+                variant="warning"
+                className="mt-3"
+                dismissible
+                onClose={() => setErrors({ ...errors, non_field_errors: [] })}
+              >
                 {message}
               </Alert>
             ))}
@@ -109,15 +136,6 @@ function SignInForm() {
             Don't have an account? <span>Sign up now!</span>
           </Link>
         </Container>
-      </Col>
-      <Col
-        md={6}
-        className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}
-      >
-        <Image
-          className={`${appStyles.FillerImage}`}
-          src={"https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero.jpg"}
-        />
       </Col>
     </Row>
   );
