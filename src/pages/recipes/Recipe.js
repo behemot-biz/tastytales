@@ -46,63 +46,11 @@ const Recipe = (props) => {
     ingredients,
     setIngredients,
     recipeId,
-    status,
   } = props;
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
   const history = useHistory();
-
-  const handlePublish = async () => {
-    try {
-      await axiosRes.patch(`/recipes/${id}/`, { status: "published" });
-      setRecipes((prevRecipes) => ({
-        ...prevRecipes,
-        results: prevRecipes.results.map((recipe) =>
-          recipe.id === id ? { ...recipe, status: "published" } : recipe
-        ),
-      }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleUnPublish = async () => {
-    try {
-      await axiosRes.patch(`/recipes/${id}/`, { status: "pending_publish" });
-      setRecipes((prevRecipes) => ({
-        ...prevRecipes,
-        results: prevRecipes.results.map((recipe) =>
-          recipe.id === id ? { ...recipe, status: "pending_publish" } : recipe
-        ),
-      }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handlePreDelete = async () => {
-    try {
-      await axiosRes.patch(`/recipes/${id}/`, { status: "pending_delete" });
-      setRecipes((prevRecipes) => ({
-        ...prevRecipes,
-        results: prevRecipes.results.map((recipe) =>
-          recipe.id === id ? { ...recipe, status: "pending_delete" } : recipe
-        ),
-      }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/recipes/${id}/`);
-      history.go(0);
-    } catch (err) {
-      // console.log(err);
-    }
-  };
 
   const handleEdit = () => {
     history.push(`/recipes/${id}/edit`);
@@ -189,81 +137,6 @@ const Recipe = (props) => {
             </span>
           </OverlayTrigger>
         )}
-        {is_owner &&
-          recipePage &&
-          (status === "published" || status === "pending_publish") && (
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Mark Recipe for deletion</Tooltip>}
-            >
-              <span
-                className={styles.EditBtn}
-                onClick={handlePreDelete}
-                aria-label="mark for deletion"
-              >
-                <i className={`${styles.IconTextWarning} bi bi-trash`} />
-              </span>
-            </OverlayTrigger>
-          )}
-        {is_owner && recipePage && status === "pending_delete" && (
-          <>
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Delete recipe</Tooltip>}
-            >
-              <span
-                className={styles.EditBtn}
-                onClick={handleDelete}
-                aria-label="delete recipe"
-              >
-                <i className="bi bi-trash text-danger" />
-              </span>
-            </OverlayTrigger>
-
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Undelete recipe</Tooltip>}
-            >
-              <span
-                className={styles.EditBtn}
-                onClick={handleUnPublish}
-                aria-label="undelete recipe"
-              >
-                <i className="bi bi-cloud-download text-success" />
-              </span>
-            </OverlayTrigger>
-          </>
-        )}
-        {is_owner && recipePage && status === "pending_publish" && (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Publish Recipe</Tooltip>}
-          >
-            <span
-              className={styles.EditBtn}
-              onClick={handlePublish}
-              aria-label="publish recipe"
-            >
-              <i className="bi  bi-cloud-upload text-dark" />
-            </span>
-          </OverlayTrigger>
-        )}
-        {is_owner && recipePage && status === "published" && (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Unpublish Recipe</Tooltip>}
-          >
-            <span
-              className={styles.EditBtn}
-              onClick={handleUnPublish}
-              aria-label="unpublish recipe"
-            >
-              <i
-                className={`${styles.IconTextWarning} bi bi-cloud-download `}
-              />
-            </span>
-          </OverlayTrigger>
-        )}
       </div>
     </>
   );
@@ -316,7 +189,7 @@ const Recipe = (props) => {
             <div className={`${styles.CustCard} px-4 py-3`}>
               <h1>{recipe_name}</h1>
               {iconField}
-              <p className="lead text-muted">{intro}</p>
+              <p className="lead">{intro}</p>
             </div>
             <div className={`${styles.CustCard} mt-4 px-4 py-3`}>
               <h3>Instruction</h3>
@@ -339,11 +212,11 @@ const Recipe = (props) => {
                 loading="lazy"
               />
             </div>
+            {iconField}
           </Col>
 
           <Col sm={12} className="py-3">
             <h1>{recipe_name}</h1>
-            {iconField}
             <p>{intro}</p>
           </Col>
 

@@ -97,6 +97,7 @@ function RecipeCreateForm() {
           name="recipe_name"
           value={recipe_name}
           onChange={handleChange}
+          placeholder="Recipe name"
         />
       </Form.Group>
       {errors?.recipe_name?.map((message, idx) => (
@@ -113,6 +114,7 @@ function RecipeCreateForm() {
           name="intro"
           value={intro}
           onChange={handleChange}
+          placeholder="Give your recipe a short introduction"
         />
       </Form.Group>
       {errors?.intro?.map((message, idx) => (
@@ -128,6 +130,7 @@ function RecipeCreateForm() {
           name="instruction"
           value={instruction}
           onChange={handleChange}
+          placeholder="Descripe how to prepare and cook your recipe"
         />
       </Form.Group>
       {errors?.instruction?.map((message, idx) => (
@@ -146,7 +149,7 @@ function RecipeCreateForm() {
         className={`${btnStyles.Button} ${btnStyles.Black}`}
         type="submit"
       >
-        create
+        add ingredients
       </Button>
     </div>
   );

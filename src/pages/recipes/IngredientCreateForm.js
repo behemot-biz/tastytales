@@ -156,13 +156,15 @@ const IngredientCreateForm = () => {
               <Row>
                 <Col md={4}>
                   <Form.Group>
-                    <Form.Label>Quantity</Form.Label>
+                    <Form.Label className={styles.FormLabel}>
+                      Quantity
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       name="quantity"
                       value={quantity}
                       onChange={handleChange}
-                      placeholder="e.g., 500"
+                      placeholder="Quantity"
                       isInvalid={!!errors.quantity}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -172,13 +174,15 @@ const IngredientCreateForm = () => {
                 </Col>
                 <Col md={4}>
                   <Form.Group>
-                    <Form.Label>Measure</Form.Label>
+                    <Form.Label className={styles.FormLabel}>
+                      Measure
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       name="measure"
                       value={measure}
                       onChange={handleChange}
-                      placeholder="e.g., g, cups"
+                      placeholder="Measure"
                       isInvalid={!!errors.measure}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -188,13 +192,15 @@ const IngredientCreateForm = () => {
                 </Col>
                 <Col md={4}>
                   <Form.Group>
-                    <Form.Label>Ingredient</Form.Label>
+                    <Form.Label className={styles.FormLabel}>
+                      Ingredient
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       name="ingredient"
                       value={ingredient}
                       onChange={handleChange}
-                      placeholder="e.g., Tomato"
+                      placeholder="Ingredient"
                       isInvalid={!!errors.ingredient}
                     />
                     <Form.Control.Feedback type="invalid">

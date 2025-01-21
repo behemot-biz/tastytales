@@ -10,13 +10,13 @@ import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
 
 import { axiosReq } from "../../api/axiosDefaults";
+import { useRedirect } from "../../hooks/useRedirect";
 
 import IngredientManager from "./IngredientManager";
 
 import styles from "../../styles/RecipeCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import { useRedirect } from "../../hooks/useRedirect";
 
 /**
  * Form component to edit an existing recipe.
@@ -97,9 +97,8 @@ function RecipeEditForm() {
 
     try {
       await axiosReq.put(`/recipes/${recipeId}/`, formData);
-      history.push(`/recipes/${recipeId}`);
+      history.go(-1);
     } catch (err) {
-      // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
@@ -195,7 +194,7 @@ function RecipeEditForm() {
               </figure>
               <div>
                 <Form.Label
-                  className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
+                  className={`${btnStyles.Button} ${btnStyles.Black} btn`}
                   htmlFor="image-upload"
                 >
                   Change image
