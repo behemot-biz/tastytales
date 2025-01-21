@@ -120,7 +120,7 @@ function ProfilePage() {
   const mainProfileRecipes = (
     <>
       <hr />
-      <p className="text-center">{profile?.owner}&apos;s Recipes</p>
+      <p className="text-center">{profile?.owner}'s Recipes</p>
       <hr />
 
       {profileRecipes.results.length ? (

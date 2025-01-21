@@ -151,7 +151,7 @@ const RecipeCard = (props) => {
         {is_owner ? (
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>You can&apos;t like your own recipe!</Tooltip>}
+            overlay={<Tooltip>You can't like your own recipe!</Tooltip>}
           >
             <i className="bi bi-heart" />
           </OverlayTrigger>
