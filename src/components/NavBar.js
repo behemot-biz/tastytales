@@ -16,6 +16,7 @@ import {
 import { removeTokenTimestamp } from "../utils/utils";
 
 import Avatar from "./Avatar";
+import logo from "../assets/tt-logo-small.webp";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 
 import styles from "../styles/NavBar.module.css";
@@ -152,6 +153,7 @@ const NavBar = () => {
     >
       <Container>
         <NavLink to="/">
+          <img src={logo} alt="logo" height="45" className="mr-2" />
           <Navbar.Brand>TastyTales</Navbar.Brand>
         </NavLink>
         {currentUser && addRecipeMenu}

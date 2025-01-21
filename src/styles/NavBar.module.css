@@ -32,6 +32,9 @@
   color: #000000;
   background-color: #ECF0EF;
 }
+.dropdown-menu {
+  border: 0px;
+}
   
 .CustomDropdown::after {
   display: none;
