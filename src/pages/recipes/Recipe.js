@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import Col from "react-bootstrap/Col";
@@ -48,10 +48,12 @@ const Recipe = (props) => {
     setIngredients,
     recipeId,
   } = props;
+
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
-
   const history = useHistory();
+
+  const [activeTab, setActiveTab] = useState("ingredients");
 
   const handleEdit = () => {
     history.push(`/recipes/${id}/edit`);
@@ -76,6 +78,7 @@ const Recipe = (props) => {
       // console.log(err);
     }
   };
+
   const handleUnlike = async () => {
     try {
       await axiosRes.delete(`/likes/${like_id}/`);
@@ -91,9 +94,9 @@ const Recipe = (props) => {
       // console.log(err);
     }
   };
+
   const iconField = (
     <>
-      {/* icons */}
       <div className="align-items-center justify-content-between">
         {is_owner ? (
           <OverlayTrigger
@@ -159,9 +162,9 @@ const Recipe = (props) => {
   return (
     <>
       <Container className={styles.Recipe}>
-        {/* Big Screen Layout */}
         <Row className="d-none d-lg-flex p-0 pb-3">
-          <Col lg={4} className=" p-0">
+          {/* Big Screen Layout */}
+          <Col lg={4} className="p-0">
             <div className="text-center">
               <img
                 src={image}
@@ -195,14 +198,12 @@ const Recipe = (props) => {
             <div className={`${styles.CustCard} mt-4 px-4 py-3`}>
               <p className={styles.RecipeHeadline}>Instruction</p>
               <p>{instruction}</p>
-
               {avatarField}
             </div>
           </Col>
         </Row>
 
         {/* Small Screen Layout */}
-
         <Row className={`${styles.CustCard} d-lg-none pb-3`}>
           <Col sm={12} className="p-0">
             <div className="text-center">
@@ -222,20 +223,27 @@ const Recipe = (props) => {
           </Col>
 
           <Col sm={12} className="py-3">
-            <Tab.Container id="customTabs" defaultActiveKey="ingredients">
+            <Tab.Container
+              id="customTabs"
+              activeKey={activeTab}
+              onSelect={(selectedTab) => setActiveTab(selectedTab)}
+            >
               <Nav>
                 <Nav.Item>
                   <Nav.Link
-                    className={`${styles.NavLink} p-0 mr-3`}
+                    className={`${styles.NavLink} ${
+                      activeTab === "ingredients" ? styles.NavLinkActive : ""
+                    } p-0 mr-3`}
                     eventKey="ingredients"
                   >
                     Ingredients
                   </Nav.Link>
                 </Nav.Item>
-
                 <Nav.Item>
                   <Nav.Link
-                    className={`${styles.NavLink} p-0`}
+                    className={`${styles.NavLink} ${
+                      activeTab === "instruction" ? styles.NavLinkActive : ""
+                    } p-0`}
                     eventKey="instruction"
                   >
                     Instructions

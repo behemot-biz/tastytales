@@ -13,7 +13,7 @@
 }
 
 .CustCard {
-  background-color: #ffffff;
+  background-color: #FDFFFC;
   border: 1px solid #dadadf;
   border-radius: 2px;
 }
@@ -33,11 +33,11 @@
   text-decoration: none;
 }
 
-.NavLink:global(.active) {
+/* .NavLink:global(.active) {
   color: #4A676A;
   position: relative; 
   
-}
+} */
 .IconTextWarning {
   color: #ec8d00;
 }
@@ -50,14 +50,25 @@
 }
 
 .Heart:hover {
-  color: #000000;
+  color: #011627;
 }
 
 .HeartOutline:hover {
   color: #D4311B;
 }
 
-.NavLink:global(.active)::after {
+/* .NavLink {
+  padding: 10px 10px 10px 0;
+  font-weight: 500;
+  font-size: 1.25rem;
+  position: relative;
+  text-decoration: none;
+} */
+.NavLinkActive {
+  color: #4A676A;
+  position: relative;
+}
+.NavLinkActive::after {
   content: "";
   background: #8fa39f;
   height: 3px;
@@ -67,6 +78,17 @@
   left: 0;
   transition: all 0.3s ease;
 }
+/* .NavLink:global(.active)::after {
+  content: "";
+  background: #8fa39f;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  transition: all 0.3s ease;
+} */
+
 .Active i {
   background-color: aqua;
   color: #3F5056;
