@@ -16,6 +16,7 @@ import { truncateText, capitalizeFirstLetter } from "../../utils/utils";
 import Avatar from "../../components/Avatar";
 
 import styles from "../../styles/RecipeCard.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 /**
  * Component to display a summary card for a recipe.
@@ -165,7 +166,7 @@ const RecipeCard = (props) => {
             </OverlayTrigger>
           )}
           {likes_count}
-          <Link to={`/recipes/${id}`}>
+          <Link to={`/recipes/${id}`} aria-label={`View recipe ${recipe_name}`}>
             <i className="bi bi-chat" />
           </Link>
           {comments_count}
@@ -175,13 +176,13 @@ const RecipeCard = (props) => {
               placement="top"
               overlay={<Tooltip>Edit Recipe</Tooltip>}
             >
-              <span
-                className={styles.EditBtn}
+              <button
+                className={`${btnStyles.IconButton} ${styles.EditBtn}`}
                 onClick={handleEdit}
                 aria-label="edit"
               >
                 <i className="bi-pencil-square text-dark" />
-              </span>
+              </button>
             </OverlayTrigger>
           )}
           {is_owner && cookbookPage && (
@@ -190,13 +191,13 @@ const RecipeCard = (props) => {
                 placement="top"
                 overlay={<Tooltip>Delete recipe</Tooltip>}
               >
-                <span
-                  className={styles.EditBtn}
+                <button
+                  className={`${btnStyles.IconButton} ${styles.EditBtn}`}
                   onClick={() => setShowDeleteModal(true)}
                   aria-label="delete recipe"
                 >
                   <i className="bi bi-trash text-dark" />
-                </span>
+                </button>
               </OverlayTrigger>
             </>
           )}
@@ -205,13 +206,13 @@ const RecipeCard = (props) => {
               placement="top"
               overlay={<Tooltip>Publish Recipe</Tooltip>}
             >
-              <span
-                className={styles.EditBtn}
+              <button
+                className={`${btnStyles.IconButton} ${styles.EditBtn}`}
                 onClick={handlePublish}
                 aria-label="publish recipe"
               >
                 <i className="bi bi-box-arrow-in-up text-dark" />
-              </span>
+              </button>
             </OverlayTrigger>
           )}
           {is_owner && cookbookPage && status === "published" && (
@@ -219,8 +220,8 @@ const RecipeCard = (props) => {
               placement="top"
               overlay={<Tooltip>Unpublish Recipe</Tooltip>}
             >
-              <span
-                className={styles.EditBtn}
+              <button
+                className={`${btnStyles.IconButton} ${styles.EditBtn}`}
                 onClick={handleUnPublish}
                 aria-label="unpublish recipe"
               >
@@ -228,7 +229,7 @@ const RecipeCard = (props) => {
                   className="bi bi-box-arrow-in-down text-dark"
                   // className={`${styles.IconTextWarning} bi box-arrow-in-down`}
                 />
-              </span>
+              </button>
             </OverlayTrigger>
           )}
         </div>

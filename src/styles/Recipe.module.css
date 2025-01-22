@@ -18,6 +18,13 @@
   border-radius: 2px;
 }
 
+.RecipeHeadline {
+  font-size: 1.75rem;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
 .NavLink {
   padding: 10px 10px 10px 0;
   font-weight: 500;
@@ -36,9 +43,6 @@
 }
 .EditBtn{
   float: inline-end;
-}
-.TmpSlask {
-  background-color: #f85032;
 }
 
 .Heart {

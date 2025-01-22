@@ -19,6 +19,7 @@ import Avatar from "../../components/Avatar";
 import Ingredient from "./Ingredient";
 
 import styles from "../../styles/Recipe.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 /**
  * Component to display detailed information about a recipe.
@@ -118,7 +119,7 @@ const Recipe = (props) => {
           </OverlayTrigger>
         )}
         {likes_count}
-        <Link to={`/recipes/${id}`}>
+        <Link to={`/recipes/${id}`} aria-label={`View recipe ${recipe_name}`}>
           <i className="bi bi-chat" />
         </Link>
         {comments_count}
@@ -128,13 +129,13 @@ const Recipe = (props) => {
             placement="top"
             overlay={<Tooltip>Edit Recipe</Tooltip>}
           >
-            <span
-              className={styles.EditBtn}
+            <button
+              className={`${btnStyles.IconButton} ${styles.EditBtn}`}
               onClick={handleEdit}
-              aria-label="edit"
+              aria-label="Edit Recipe"
             >
               <i className="bi-pencil-square text-dark" />
-            </span>
+            </button>
           </OverlayTrigger>
         )}
       </div>
@@ -171,7 +172,7 @@ const Recipe = (props) => {
             </div>
 
             <div className={`${styles.CustCard} mt-4 px-4 py-3`}>
-              <h3>Ingredients</h3>
+              <p className={styles.RecipeHeadline}>Ingredients</p>
               <ul className={styles.IngredientList}>
                 {ingredients.map((ingredient) => (
                   <Ingredient
@@ -192,7 +193,7 @@ const Recipe = (props) => {
               <p className="lead">{intro}</p>
             </div>
             <div className={`${styles.CustCard} mt-4 px-4 py-3`}>
-              <h3>Instruction</h3>
+              <p className={styles.RecipeHeadline}>Instruction</p>
               <p>{instruction}</p>
 
               {avatarField}

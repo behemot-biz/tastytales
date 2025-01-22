@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -26,6 +27,7 @@ import appStyles from "../../App.module.css";
  */
 
 function RecipePage() {
+  const history = useHistory();
   const { id } = useParams();
   const [recipe, setRecipe] = useState({ results: [] });
   const [ingredients, setIngredients] = useState([]);
@@ -47,12 +49,14 @@ function RecipePage() {
         setComments(comments);
         setHasLoaded(true);
       } catch (err) {
-        // console.log(err);
+        if (err.response?.status === 404 || err.response?.status === 400) {
+          history.push("/404");
+        }
       }
     };
 
     handleMount();
-  }, [id]);
+  }, [id, history]);
 
   if (!hasLoaded) {
     return (

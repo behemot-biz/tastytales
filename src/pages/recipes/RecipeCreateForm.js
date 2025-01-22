@@ -76,10 +76,11 @@ function RecipeCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/recipes/", formData);
-      history.push({
-        pathname: "/ingredients/create",
-        state: { recipeId: data.id },
-      });
+      // history.push({
+      //   pathname: "/ingredients/create",
+      //   state: { recipeId: data.id },
+      // });
+      history.push(`/ingredients/create/${data.id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {

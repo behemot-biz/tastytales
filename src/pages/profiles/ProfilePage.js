@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -33,6 +34,7 @@ import btnStyles from "../../styles/Button.module.css";
  */
 
 function ProfilePage() {
+  const history = useHistory();
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profileRecipes, setProfileRecipes] = useState({ results: [] });
 
@@ -61,10 +63,13 @@ function ProfilePage() {
         setHasLoaded(true);
       } catch (err) {
         // console.log(err);
+        if (err.response?.status === 404 || err.response?.status === 400) {
+          history.push("/404");
+        }
       }
     };
     fetchData();
-  }, [id, setProfileData]);
+  }, [id, setProfileData, history]);
 
   const mainProfile = (
     <>
@@ -74,6 +79,7 @@ function ProfilePage() {
             className={styles.ProfileImage}
             roundedCircle
             src={profile?.image}
+            alt={`${profile?.owner}'s avatar image`}
           />
         </Col>
         <Col lg={6}>

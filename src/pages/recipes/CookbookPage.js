@@ -33,7 +33,7 @@ const CookbookPage = ({ message }) => {
 
       try {
         const { data } = await axiosReq.get(
-          `/recipes/?owner__profile=${currentUser.profile_id}&status=pending_publish&status=pending_delete&status=published`
+          `/recipes/?owner__profile=${currentUser.profile_id}&status=pending_publish&&status=published`
         );
         setRecipes(data);
         setHasLoaded(true);
@@ -48,10 +48,7 @@ const CookbookPage = ({ message }) => {
 
   return (
     <Row className="h-100">
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <Container className={styles.slask}>
-          <h1>My Cookbook</h1>
-        </Container>
+      <Col className="py-2 p-0 p-lg-2" lg={12}>
         <div>
           {hasLoaded ? (
             <>
@@ -85,9 +82,6 @@ const CookbookPage = ({ message }) => {
             </Container>
           )}
         </div>
-      </Col>
-      <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-        {/* Optional Sidebar or Additional Content */}
       </Col>
     </Row>
   );

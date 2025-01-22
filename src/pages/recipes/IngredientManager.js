@@ -146,6 +146,7 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
           <Button
             onClick={handleSubmit}
             className={`${styles.Button} ${styles.AddButton}`}
+            aria-label="Add new ingredient"
           >
             {editMode ? (
               <i className="bi bi-check-lg"></i>
@@ -175,12 +176,14 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
               <Button
                 onClick={() => handleEdit(ingredient)}
                 className={`${styles.Button} ${styles.ActionButton} ${styles.EditButton}`}
+                aria-label={`Edit ingredient: ${ingredient.ingredient}`}
               >
                 <i className="bi bi-pencil-square"></i>
               </Button>
               <Button
                 onClick={() => handleShowConfirm(ingredient.id)}
                 className={`${styles.Button} ${styles.ActionButton} ${styles.DeleteButton}`}
+                aria-label={`Delete ingredient: ${ingredient.ingredient}`}
               >
                 <i className="bi bi-trash"></i>
               </Button>

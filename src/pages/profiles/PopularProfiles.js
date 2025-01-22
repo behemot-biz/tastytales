@@ -1,12 +1,14 @@
 import React from "react";
 
 import Container from "react-bootstrap/Container";
-import appStyles from "../../App.module.css";
 
 import { useProfileData } from "../../contexts/ProfileDataContext";
 
 import Asset from "../../components/Asset";
 import Profile from "./Profile";
+
+import appStyles from "../../App.module.css";
+import Styles from "../../styles/PopularProfiles.module.css";
 
 /**
  * Component to display a list of popular profiles.
@@ -27,7 +29,7 @@ const PopularProfiles = ({ mobile = false, horizontal = false }) => {
     >
       {popularProfiles.results.length ? (
         <>
-          <h5 className="text-center">Top Chefs</h5>
+          <p className={Styles.Headline}>Top Chefs</p>
           {mobile ? (
             // Mobile Layout (default on small screens)
             <div className="d-flex justify-content-around">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom"; // Added useParams for fallback
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import Form from "react-bootstrap/Form";
@@ -14,29 +14,9 @@ import Recipe from "./Recipe";
 import styles from "../../styles/IngredientManager.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
-/**
- * Form component to manage ingredients for a recipe.
- * Allows the user to add, edit, or delete ingredients associated with a specific recipe.
- * Displays a list of stored ingredients and integrates with the Recipe component for a preview.
- *
- * Features:
- * - Add a new ingredient with quantity, measure, and name.
- * - Edit existing ingredients.
- * - Delete ingredients from the recipe.
- * - Preview the recipe details alongside the ingredient manager.
- *
- * State Management:
- * - Manages local state for form data, errors, and stored ingredients.
- * - Tracks edit mode to update existing ingredients.
- *
- * Usage:
- * This component requires `location.state.recipeId` to function
- * since it is loaded after user added new recipe.
- */
-
 const IngredientCreateForm = () => {
-  const location = useLocation();
-  const recipeId = location.state?.recipeId;
+  const { recipeId } = useParams();
+  // const recipeId = location.state?.recipeId || fallbackRecipeId;
 
   const history = useHistory();
   const currentUser = useCurrentUser();
@@ -54,9 +34,10 @@ const IngredientCreateForm = () => {
 
   const { ingredient, quantity, measure } = formData;
 
-  // Fetch recipe details to get stored ingredients and recipe data
   useEffect(() => {
     const fetchRecipeDetails = async () => {
+      if (!recipeId) return; // Prevent fetching if recipeId is missing
+
       try {
         const { data } = await axiosRes.get(`/recipes/${recipeId}/`);
         setStoredIngredients(data.recipe_ingredients || []);
@@ -129,23 +110,30 @@ const IngredientCreateForm = () => {
     setErrors({});
   };
 
-  // const handleDone = () => {
-  //   history.push(`/recipes/${recipeId}`);
-  // };
   const handleDone = () => {
     history.push(
-      `/cookbook?owner__profile=${currentUser?.profile_id}&status=pending_publish&status=pending_delete&status=published`
+      `/cookbook?owner__profile=${currentUser?.profile_id}&status=pending_publish&status=published`
     );
   };
 
   if (!recipeId) {
     console.error("Recipe ID is missing.");
-    return <div>Error: Recipe ID is required to add ingredients.</div>;
+    return (
+      <div className="text-center mt-5">
+        <p>Error: Recipe ID is required to add ingredients.</p>
+        <Button
+          onClick={() => history.push("/recipes")}
+          className={btnStyles.Button}
+        >
+          Go Back to Recipes
+        </Button>
+      </div>
+    );
   }
 
   return (
     <div>
-      <Row className="py-2  p-lg-3 ">
+      <Row className="py-2 p-lg-3">
         <Col className={`${styles.CustCard} p-3`}>
           <h5 className="pb-3">
             {editMode ? "Edit Ingredient" : "Add Ingredient"}
@@ -275,10 +263,9 @@ const IngredientCreateForm = () => {
         </Col>
       </Row>
 
-      <Row className="py-2  p-lg-3 ">
+      <Row className="py-2 p-lg-3">
         <Col className={`${styles.CustCard} p-3`}>
-          {/* Display the Recipe component as a preview */}
-          <h2>Recipe Preview</h2>
+          <p className={styles.PreviewHeader}>Recipe Preview</p>
           {recipeData && (
             <Recipe
               {...recipeData}

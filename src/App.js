@@ -19,6 +19,7 @@ import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import CookbookPage from "./pages/recipes/CookbookPage";
 import IngredientCreateForm from "./pages/recipes/IngredientCreateForm";
+import NotFound from "./components/NotFound";
 
 import styles from "./App.module.css";
 
@@ -67,7 +68,7 @@ function App() {
           />
           <Route
             exact
-            path="/ingredients/create"
+            path="/ingredients/create/:recipeId"
             render={() => <IngredientCreateForm />}
           />
           <Route
@@ -76,7 +77,7 @@ function App() {
             render={() => (
               <CookbookPage
                 message="No results found. Create a recipe."
-                filter={`owner__profile=${profile_id}&status=pending_publish&status=pending_delete&status=published`}
+                filter={`owner__profile=${profile_id}&status=pending_publish&status=published`}
               />
             )}
           />
@@ -102,7 +103,9 @@ function App() {
             path="/profiles/:id/edit"
             render={() => <ProfileEditForm />}
           />
-          <Route render={() => <p>Page not found</p>} />
+          <Route exact path="/404" render={() => <NotFound />} />
+
+          <Route render={() => <NotFound />} />
         </Switch>
       </Container>
     </div>

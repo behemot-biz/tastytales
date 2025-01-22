@@ -63,13 +63,21 @@ function RecipesPage({ message, filter = "" }) {
         <i className={`fas fa-search ${styles.SearchIcon}`} />
         <Form
           className={styles.SearchBar}
+          role="search"
+          aria-label="Search recipes"
           onSubmit={(event) => event.preventDefault()}
         >
+          <Form.Label htmlFor="search-recipes" className="d-none">
+            Search Recipes
+          </Form.Label>
           <Form.Control
+            id="search-recipes"
+            name="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
+            autoComplete="search"
             placeholder="Search recipes"
           />
         </Form>
