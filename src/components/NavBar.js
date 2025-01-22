@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 import axios from "axios";
@@ -24,6 +25,8 @@ import styles from "../styles/NavBar.module.css";
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
+
+  const history = useHistory();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const handleSignOut = async () => {
@@ -31,21 +34,19 @@ const NavBar = () => {
       await axios.post("/dj-rest-auth/logout/");
       setCurrentUser(null);
       removeTokenTimestamp();
+      history.push("/");
     } catch (err) {}
   };
 
-  const addRecipeMenu = (
-    <NavLink
-      className={styles.NavLink}
-      activeClassName={styles.Active}
-      to="/recipes/create"
-    >
-      Add recipe
-    </NavLink>
-  );
-
   const loggedInMenu = (
     <>
+      <NavLink
+        className={`${styles.NavLink} ${styles.HeadSpace}`}
+        activeClassName={styles.Active}
+        to="/recipes/create"
+      >
+        Add recipe
+      </NavLink>
       <NavLink
         className={`${styles.NavLink} ${styles.HeadSpace}`}
         activeClassName={styles.Active}
@@ -148,7 +149,7 @@ const NavBar = () => {
     <Navbar
       expanded={expanded}
       className={styles.NavBar}
-      expand="md"
+      expand="lg"
       fixed="top"
     >
       <Container>
@@ -156,7 +157,6 @@ const NavBar = () => {
           <img src={logo} alt="logo" height="45" className="mr-2" />
           <Navbar.Brand>TastyTales</Navbar.Brand>
         </NavLink>
-        {currentUser && addRecipeMenu}
         <Navbar.Toggle
           ref={ref}
           onClick={() => setExpanded(!expanded)}
