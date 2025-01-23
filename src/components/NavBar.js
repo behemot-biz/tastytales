@@ -22,6 +22,18 @@ import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 
 import styles from "../styles/NavBar.module.css";
 
+/**
+ * A responsive navigation bar for the TastyTales application.
+ * Displays links to various pages and adjusts based on the user's authentication state.
+ *
+ * Features:
+ * - Displays different navigation menus for logged-in and logged-out users.
+ * - Integrates with React Router for navigation.
+ * - Allows users to sign out and redirects to the homepage upon logout.
+ * - Includes a dropdown menu for profile-related actions when the user is logged in.
+ * - Toggles the navigation menu on smaller screens using React-Bootstrap's Navbar.
+ */
+
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();

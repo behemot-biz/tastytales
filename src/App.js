@@ -22,6 +22,16 @@ import IngredientCreateForm from "./pages/recipes/IngredientCreateForm";
 import NotFound from "./components/NotFound";
 
 import styles from "./App.module.css";
+/**
+ * * Main application component that defines the structure, navigation, and routing of the app.
+ * Includes various pages and components for managing user authentication, recipes, profiles, and more.
+ *
+ * Features:
+ * - Navigation bar displayed across all pages.
+ * - Routes for public and private content, including user authentication, recipe management, and profile settings.
+ * - Dynamic routing based on the current user's profile and preferences.
+ * - Error handling via a custom 404 Not Found page.
+ */
 
 function App() {
   const currentUser = useCurrentUser();

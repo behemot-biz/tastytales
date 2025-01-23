@@ -19,6 +19,17 @@ import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
+/**
+ * This component provides a user interface for registering a new account.
+ * Users can enter a username, password, and confirm their password to create an account.
+ * Upon successful registration, the user is redirected to the Sign In page.
+ *
+ * Features:
+ * - Responsive design with an image displayed for larger screens.
+ * - Inline validation for username, password, and password confirmation fields.
+ * - Displays non-field errors (e.g., mismatched passwords) as alerts.
+ */
+
 const SignUpForm = () => {
   useRedirect("loggedIn");
   const [signUpData, setSignUpData] = useState({
@@ -78,7 +89,7 @@ const SignUpForm = () => {
                 value={username}
                 onChange={handleChange}
                 autoComplete="username"
-                isInvalid={!!errors.username} // Add Bootstrap validation
+                isInvalid={!!errors.username}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.username?.join(" ")}
@@ -96,7 +107,7 @@ const SignUpForm = () => {
                 value={password1}
                 onChange={handleChange}
                 autoComplete="new-password"
-                isInvalid={!!errors.password1} // Add Bootstrap validation
+                isInvalid={!!errors.password1}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.password1?.join(" ")}
@@ -114,7 +125,7 @@ const SignUpForm = () => {
                 value={password2}
                 onChange={handleChange}
                 autoComplete="new-password"
-                isInvalid={!!errors.password2} // Add Bootstrap validation
+                isInvalid={!!errors.password2}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.password2?.join(" ")}

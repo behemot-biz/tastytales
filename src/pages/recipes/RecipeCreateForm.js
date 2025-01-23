@@ -28,10 +28,6 @@ import btnStyles from "../../styles/Button.module.css";
  * - Redirects to `IngredientCreateForm` upon successful recipe creation to manage ingredients.
  * - Handles image upload and preview before submission.
  * - Provides validation feedback for input fields.
- *
- * State Management:
- * - Tracks recipe details in `recipeData`.
- * - Manages validation errors in `errors`.
  */
 
 function RecipeCreateForm() {
@@ -76,13 +72,8 @@ function RecipeCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/recipes/", formData);
-      // history.push({
-      //   pathname: "/ingredients/create",
-      //   state: { recipeId: data.id },
-      // });
       history.push(`/ingredients/create/${data.id}`);
     } catch (err) {
-      // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }

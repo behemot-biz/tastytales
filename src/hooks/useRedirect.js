@@ -2,6 +2,16 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 
+/**
+ * A custom React hook to handle user redirection based on their authentication status.
+ * This hook ensures that users are redirected appropriately depending on whether they are logged in or logged out.
+ *
+ * Features:
+ * - Sends a token refresh request to verify the user's authentication status.
+ * - Redirects logged-in users to the homepage if required.
+ * - Redirects logged-out users to the homepage if required.
+ */
+
 export const useRedirect = (userAuthStatus) => {
   const history = useHistory();
 

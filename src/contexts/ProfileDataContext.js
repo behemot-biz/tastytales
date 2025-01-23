@@ -5,6 +5,17 @@ import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { followHelper, unfollowHelper } from "../utils/utils";
 
+/**
+ * Provides a React Context for managing profile-related data across the application.
+ * Includes functionality to manage profile data, follow/unfollow users, and track popular profiles.
+ *
+ * Features:
+ * - Stores profile data and popular profiles in context.
+ * - Handles following and unfollowing users, updating state in real-time.
+ * - Fetches popular profiles sorted by followers count.
+ * - Automatically updates popular profiles and profile data when the current user changes.
+ */
+
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
 
@@ -39,9 +50,7 @@ export const ProfileDataProvider = ({ children }) => {
           ),
         },
       }));
-    } catch (err) {
-      // console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleUnfollow = async (clickedProfile) => {
@@ -62,9 +71,7 @@ export const ProfileDataProvider = ({ children }) => {
           ),
         },
       }));
-    } catch (err) {
-      // console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -77,9 +84,7 @@ export const ProfileDataProvider = ({ children }) => {
           ...prevState,
           popularProfiles: data,
         }));
-      } catch (err) {
-        // console.log(err);
-      }
+      } catch (err) {}
     };
     handleMount();
   }, [currentUser]);

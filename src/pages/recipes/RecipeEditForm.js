@@ -19,9 +19,14 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 /**
- * Form component to edit an existing recipe.
- * Allows the owner to modify recipe details like name, introduction, instruction, and image.
- * Also includes functionality to manage associated ingredients.
+ * This component provides a form to edit an existing recipe, including its details,
+ * image, and associated ingredients. It fetches the recipe details based on the recipe ID
+ * and ensures that only the owner of the recipe can make modifications.
+ *
+ * Features:
+ * - Edit recipe details such as name, introduction, instructions, and image.
+ * - Manage the list of associated ingredients using the `IngredientManager` component.
+ * - Validation feedback for all input fields.
  */
 
 function RecipeEditForm() {

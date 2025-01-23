@@ -20,6 +20,17 @@ import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
+/**
+ * This component provides a user interface for signing into the application.
+ * Users can enter their username and password to authenticate.
+ * Upon successful authentication, the user's session is stored and they are redirected.
+ *
+ * Features:
+ * - Responsive design with a side image for larger screens.
+ * - Inline validation for username and password fields.
+ * - Displays non-field errors (e.g., invalid credentials) as dismissible alerts.
+ */
+
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
   useRedirect("loggedIn");
@@ -81,7 +92,7 @@ function SignInForm() {
                 value={username}
                 autoComplete="username"
                 onChange={handleChange}
-                isInvalid={!!errors.username} // Add this line for inline validation
+                isInvalid={!!errors.username}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.username?.join(" ")}
@@ -99,7 +110,7 @@ function SignInForm() {
                 value={password}
                 onChange={handleChange}
                 autoComplete="current-password"
-                isInvalid={!!errors.password} // Validation
+                isInvalid={!!errors.password}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.password?.join(" ")}
@@ -116,9 +127,6 @@ function SignInForm() {
 
             {/* Non-field Errors */}
             {errors.non_field_errors?.map((message, idx) => (
-              // <Alert key={idx} variant="warning" className="mt-3">
-              //   {message}
-              // </Alert>
               <Alert
                 key={idx}
                 variant="warning"

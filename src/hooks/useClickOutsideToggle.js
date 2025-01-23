@@ -1,5 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * A custom React hook to manage the toggle state of an element, such as a dropdown menu,
+ * and close it when a user clicks outside of it.
+ *
+ * Features:
+ * - Tracks the toggle state (`expanded`) of an element.
+ * - Provides a function (`setExpanded`) to update the toggle state manually.
+ * - Detects clicks outside a referenced element and automatically closes the element if open.
+ */
+
 const useClickOutsideToggle = () => {
   const [expanded, setExpanded] = useState(false);
   const ref = useRef(null);

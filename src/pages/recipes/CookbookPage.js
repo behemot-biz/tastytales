@@ -19,6 +19,21 @@ import NoResults from "../../assets/no-results.png";
 import appStyles from "../../App.module.css";
 import styles from "../../styles/RecipesPage.module.css";
 
+/**
+ * Displays a list of recipes created by the currently logged-in user.
+ * The page supports infinite scrolling and handles recipes with different statuses,
+ * including pending and published.
+ *
+ * Features:
+ * - Fetches recipes owned by the logged-in user.
+ * - Supports infinite scrolling for better user experience.
+ * - Displays a loading spinner while fetching data.
+ * - Shows a custom message or "No recipes found" when no data is available.
+ *
+ * Props:
+ * - message (string): Custom message to display when no recipes are found.
+ */
+
 const CookbookPage = ({ message }) => {
   useRedirect("loggedOut");
   const [recipes, setRecipes] = useState({ results: [] });
@@ -29,7 +44,7 @@ const CookbookPage = ({ message }) => {
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      if (!currentUser) return; // Ensure the user is logged in
+      if (!currentUser) return;
 
       try {
         const { data } = await axiosReq.get(
@@ -44,7 +59,7 @@ const CookbookPage = ({ message }) => {
 
     setHasLoaded(false);
     fetchRecipes();
-  }, [pathname, currentUser]); // Re-fetch when pathname or user changes
+  }, [pathname, currentUser]);
 
   return (
     <Row className="h-100">
@@ -71,7 +86,6 @@ const CookbookPage = ({ message }) => {
                 </InfiniteScroll>
               ) : (
                 <Container className={appStyles.Content}>
-                  {/* <Asset message={message || "No recipes found."} /> */}
                   <Asset src={NoResults} message={message} />
                 </Container>
               )}

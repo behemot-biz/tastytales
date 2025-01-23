@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom"; // Added useParams for fallback
+import { useHistory, useParams } from "react-router-dom";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import Form from "react-bootstrap/Form";
@@ -14,9 +14,20 @@ import Recipe from "./Recipe";
 import styles from "../../styles/IngredientManager.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
+/**
+ * This component allows users to manage ingredients for a specific recipe.
+ * Users can add, edit, delete ingredients, and view a preview of the recipe.
+ *
+ * Features:
+ * - Fetches recipe details and pre-populates existing ingredients.
+ * - Provides form controls to add or edit ingredients with validation feedback.
+ * - Allows users to delete ingredients from the recipe.
+ * - Displays a preview of the recipe alongside the ingredient management form.
+ *
+ */
+
 const IngredientCreateForm = () => {
   const { recipeId } = useParams();
-  // const recipeId = location.state?.recipeId || fallbackRecipeId;
 
   const history = useHistory();
   const currentUser = useCurrentUser();
@@ -27,7 +38,7 @@ const IngredientCreateForm = () => {
     measure: "",
   });
   const [storedIngredients, setStoredIngredients] = useState([]);
-  const [recipeData, setRecipeData] = useState(null); // State to store recipe details
+  const [recipeData, setRecipeData] = useState(null);
   const [errors, setErrors] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -36,12 +47,12 @@ const IngredientCreateForm = () => {
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
-      if (!recipeId) return; // Prevent fetching if recipeId is missing
+      if (!recipeId) return;
 
       try {
         const { data } = await axiosRes.get(`/recipes/${recipeId}/`);
         setStoredIngredients(data.recipe_ingredients || []);
-        setRecipeData(data); // Store the full recipe data
+        setRecipeData(data);
       } catch (err) {
         console.error("Error fetching recipe details:", err);
       }

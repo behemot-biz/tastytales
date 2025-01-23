@@ -1,6 +1,11 @@
 import jwtDecode from "jwt-decode";
 import { axiosReq } from "../api/axiosDefaults";
 
+/**
+ * Fetches more data for the infinite scroll component.
+ * Ensures no duplicate entries are added to the resource.
+ */
+
 export const fetchMoreData = async (resource, setResource) => {
   try {
     const { data } = await axiosReq.get(resource.next);
@@ -16,6 +21,10 @@ export const fetchMoreData = async (resource, setResource) => {
   } catch (err) {}
 };
 
+/**
+ * Helper function to update profile data when following a profile.
+ */
+
 export const followHelper = (profile, clickedProfile, following_id) => {
   return profile.id === clickedProfile.id
     ? {
@@ -28,6 +37,10 @@ export const followHelper = (profile, clickedProfile, following_id) => {
     : profile;
 };
 
+/**
+ * Helper function to update profile data when unfollowing a profile.
+ */
+
 export const unfollowHelper = (profile, clickedProfile) => {
   return profile.id === clickedProfile.id
     ? {
@@ -39,14 +52,27 @@ export const unfollowHelper = (profile, clickedProfile) => {
     ? { ...profile, following_count: profile.following_count - 1 }
     : profile;
 };
+
+/**
+ * Stores the refresh token's expiration timestamp in local storage.
+ */
+
 export const setTokenTimestamp = (data) => {
   const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
   localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
 };
 
+/**
+ * Checks if a refresh token timestamp exists in local storage.
+ */
+
 export const shouldRefreshToken = () => {
   return !!localStorage.getItem("refreshTokenTimestamp");
 };
+
+/**
+ * Removes the refresh token timestamp from local storage.
+ */
 
 export const removeTokenTimestamp = () => {
   localStorage.removeItem("refreshTokenTimestamp");

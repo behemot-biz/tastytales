@@ -6,6 +6,16 @@ import Modal from "react-bootstrap/Modal"; // Import Modal from react-bootstrap
 import { axiosRes } from "../../api/axiosDefaults";
 
 import styles from "../../styles/IngredientManager.module.css";
+/**
+ * This component allows users to manage ingredients for a specific recipe.
+ * Users can add, edit, delete ingredients, and view a preview of the recipe.
+ *
+ * Features:
+ * - Fetches recipe details and pre-populates existing ingredients.
+ * - Provides form controls to add or edit ingredients with validation feedback.
+ * - Allows users to delete ingredients from the recipe.
+ * - Displays a preview of the recipe alongside the ingredient management form.
+ */
 
 const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
   const [formData, setFormData] = useState({

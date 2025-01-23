@@ -5,6 +5,17 @@ import axios from "axios";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { removeTokenTimestamp, shouldRefreshToken } from "../utils/utils";
 
+/**
+ * Provides a React Context for managing the current user across the application.
+ * Handles user authentication, token refreshing, and session persistence.
+ *
+ * Features:
+ * - Stores the authenticated user's data in context.
+ * - Automatically refreshes authentication tokens when needed.
+ * - Redirects unauthenticated users to the sign-in page when necessary.
+ * - Provides utilities (`useCurrentUser` and `useSetCurrentUser`) to access and update the user context.
+ */
+
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
 
