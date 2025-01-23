@@ -47,19 +47,20 @@ Join us in making every recipe a tale worth sharing!
     - [Edit Profile Page](#edit-profile-page)
     - [Change Username Page](#change-username-page)
     - [Change Password Page](#change-password-page)
-5. [Technologies Used](#technologies-used)
+5. [Testing and Issues](#testing-and-issues)
+6. [Technologies Used](#technologies-used)
     - [Work Environments and Hosting](#work-environments-and-hosting)
     - [Languages](#languages)
     - [React Environment and Dependencies](#react-environment-and-dependencies)
     - [Tools and Services](#tools-and-services)
-6. [Cloning and Forking](#cloning-and-forking)
+7. [Cloning and Forking](#cloning-and-forking)
     - [Cloning the Repository](#cloning-the-repository)
     - [Forking the Repository](#forking-the-repository)
-7. [Deployment](#deployment)
+8. [Setup and Deployment](#setup-and-deployment)
     - [Creating a Heroku Account](#creating-a-heroku-account)
     - [Creating the App](#creating-the-app)
     - [Setting Up Deployment](#setting-up-deployment)
-8. [Credits](#credits)
+9. [Credits](#credits)
     - [Content](#content)
     - [Thank You](#thank-you)
 
@@ -658,6 +659,12 @@ This page ensures that users can maintain the security of their accounts by upda
 ![Change password](docs/tt-front/pages/change-password.jpg)
 </details>
 
+## Testing and Issues
+
+Testing information and issues encountered during development are tracked and documented in the respective repositories.
+
+[See the full test documentation -  TEST.md](TEST.md#tastytales-api)
+
 
 ## Technologies Used
 
@@ -735,6 +742,7 @@ npx create-react-app . --template git+https://github.com/Code-Institute-Org/cra-
 - [Design.com](https://www.design.com/): Logotype design and branding inspiration.
 </details>
 
+## Setup and Deployment
 
 ### Cloning the Repository
 To clone the repository to your local machine:
@@ -792,18 +800,14 @@ The application is deployed form and hosted on the Heroku platform, enabling sea
 
 
 
-
 ## Credits
 
 ### Content
-**PETRA --> EDIT CONTENT START**
-
-
 
 This project was primarily developed by following the Moments Walkthrough project from Code Instiute with my own ideas applied on top.
 
-- [React](https://17.reactjs.org/)
-- [React Bootstrap](https://react-bootstrap-v4.netlify.app/).
+- [React](https://17.reactjs.org/): General documentation for support
+- [React Bootstrap](https://react-bootstrap-v4.netlify.app/): General documentation for support
 - [Design.com](https://www.design.com/): Inspiration for TastyTales logo
 
 - I had a peak at [Pixavibe Project](https://github.com/JaqiKal/pixavibe-frontend/blob/main/README.md) to make sure I havent missed any importent parts of the README.md documentation.
@@ -822,7 +826,7 @@ This project was primarily developed by following the Moments Walkthrough projec
 - [Tomato jam](https://www.dansukker.se/se/recept/tomatmarmelad)
 
 ### Thank You
-- A Big thank to CI's cohort facilitator Kay Welfare and to mentor Rohit Sharma for the support and help along the way
+- A Big thank you to CI's cohort facilitator Kay Welfare and to mentor Rohit Sharma for the support and help along the way
 - My friends and family for the tests, patience and support
 - The slack community and mainly the Swedish Channel.
 
