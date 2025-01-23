@@ -157,7 +157,7 @@ function RecipeEditForm() {
       <div className="text-center">
         <Button
           className={`${btnStyles.Button} ${btnStyles.White}`}
-          onClick={() => history.push(`/recipes/${recipeId}`)}
+          onClick={() => history.goBack()}
         >
           cancel
         </Button>
