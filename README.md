@@ -116,8 +116,40 @@ High-quality food photography and illustrations inspire users and enhance the st
 ### Wireframes
 Low-fidelity wireframes were created to map out the structure, ensuring intuitive navigation and logical placement of features.
 
-**PETRA --> ADD CONTENT**
+<details>
+<summary>Sign in / Sign up</summary>
 
+![Sign in / Sign up](docs/tt-front/wireframes/signin-signup.png)
+
+</details>
+
+<details>
+<summary>Home / Feed / Likes</summary>
+
+![Home / Feed / Likes](docs/tt-front/wireframes/home-feed-likes.png)
+
+</details>
+
+<details>
+<summary>Recipe</summary>
+
+![Recipe](docs/tt-front/wireframes/recipe.png)
+
+</details>
+
+<details>
+<summary>Cookbook</summary>
+
+![Cookbook](docs/tt-front/wireframes/cookbook.png)
+
+</details>
+
+<details>
+<summary>Profile</summary>
+
+![Profile](docs/tt-front/wireframes/profile.png)
+
+</details>
 
 ## Agile Development
 
@@ -147,7 +179,7 @@ At the end of each sprint, time was dedicated to reviewing successes, identifyin
 
 ## Features
 
-### Header, Navigation - Elements Available on All Pages
+### Header, Navigation
 
 The **Navigation Bar** ensures a seamless user experience for both authenticated and unauthenticated users. 
 
