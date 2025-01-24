@@ -76,7 +76,7 @@ The goal of **TastyTales** is to provide an interactive platform for sharing and
 
 
 ### Key Features
-- Search for recipes by name, creator or ingrediens
+- Search for recipes by name, creator or ingredients
 - Create and edit recipes.
 - Manage ingredients efficiently.
 - Like and comment on recipes to foster community engagement.
@@ -97,7 +97,7 @@ The design focuses on simplicity and usability. Inspired by storytelling, the in
 - **DM Sans**: A modern, sans-serif font used throughout the platform for readability. Earlier experiments with serif fonts for headlines were replaced to keep the focus on content rather than distracting users.
 
 ### Colors
-The color palette is neutral and minimal, allowing recipe images to take center stage:
+The color palette is neutral and minimal, allowing recipe images to take centre stage:
 - **Baby Powder (#FDEFEC)**: Used for recipe cards and containers.
 - **Rich Black (#011627)**: Primary text and buttons.
 - **Moss Green (#4A676A)**: Highlights active links.
@@ -697,6 +697,50 @@ Testing information and issues encountered during development are tracked and do
 
 [See the full test documentation -  TEST.md](TEST.md#tastytales-api)
 
+### Bugs and Fixes Log
+
+#### **1. Bug: Inefficient Routing on Cancel in RecipeEditForm**
+- **Description**: When users clicked "Cancel" on the `RecipeEditForm`, they were always routed to the `RecipePage`, regardless of their previous location.
+- **Fix**:
+  - Updated the routing logic to return the user to their previous page upon cancelation, providing a more intuitive navigation experience.
+
+
+#### **2. Bug: Small-Screen Tab Styling and W3C Compliance**
+- **Description**:
+  - Poor styling and responsiveness for the Ingredients and Instructions tabs on small screens.
+  - Usage of the `:global` CSS syntax caused W3C validation issues.
+- **Fix**:
+  - Refactored tab styling for improved responsiveness on small screens.
+  - Replaced `:global` CSS syntax with dynamic class management using React state.
+  - Introduced a custom `NavLinkActive` class to ensure proper highlighting of the active tab.
+  - Validated all changes to ensure compliance with W3C CSS standards.
+
+
+#### **3. Bug: Navbar Redirects Post Sign-Out**
+- **Description**: After signing out, users were not redirected to the home page, potentially causing confusion.
+- **Fix**:
+  - Updated the navbar logic to redirect users to the home page after signing out, improving navigation clarity.
+
+
+#### **4. Bug: Complicated Pre-Delete Status for Recipes**
+- **Description**:
+  - User interviews revealed that the pre-delete status followed by deletion was confusing and unintuitive.
+  - Recipe owners struggled with the complexity of the delete workflow.
+- **Fix**:
+  - Replaced the pre-delete status workflow with a modal-based delete confirmation.
+  - The new modal allows users to confirm deletion in a straightforward manner.
+  - Retained the publish/unpublish statuses, as they align with typical post-creation workflows.
+  - Simplified the UI by showing only the edit icon for recipe owners, except on the cookbook page.
+
+
+### Improvements Summary
+These fixes enhance the user experience by:
+- Providing intuitive navigation and streamlined routing logic.
+- Improving the visual design and accessibility of tabs on small screens.
+- Ensuring better navigation post-sign-out for a consistent flow.
+- Simplifying the delete process, reducing user confusion, and aligning with user feedback.
+
+
 
 ## Technologies Used
 
@@ -706,7 +750,7 @@ Testing information and issues encountered during development are tracked and do
 - **[VSCode](https://code.visualstudio.com/)**: Code editor for writing, testing, and debugging the project.
 - **[Heroku](https://heroku.com/)**: Deployment and hosting platform for the live application.
 
-### Languagees Used 
+### Languages Used 
 - React with JSX and Modern JavaScript (ES6+)
 - CSS stylesheets
 
@@ -842,7 +886,7 @@ This project was primarily developed by following the Moments Walkthrough projec
 - [React Bootstrap](https://react-bootstrap-v4.netlify.app/): General documentation for support
 - [Design.com](https://www.design.com/): Inspiration for TastyTales logo
 
-- I had a peak at [Pixavibe Project](https://github.com/JaqiKal/pixavibe-frontend/blob/main/README.md) to make sure I havent missed any importent parts of the README.md documentation.
+- I had a peak at [Pixavibe Project](https://github.com/JaqiKal/pixavibe-frontend/blob/main/README.md) to make sure I haven't missed any important parts of the README.md documentation.
 
 #### Borrowed Images and Recipes
 

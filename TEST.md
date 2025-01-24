@@ -49,6 +49,7 @@
        - [Likes](#likes-1)  
        - [Profiles](#profiles)  
        - [Recipes](#recipes-1)  
+       - [TT-DRF-API](#tt-drf-api)  
    6.2 [Manual API Testing](#manual-api-testing)  
        - [Testing Process](#testing-process)  
        - [Test Results](#test-results)  
@@ -870,6 +871,33 @@ All files passed PEP8 validation
 <summary>views.py</summary>
 
 ![Recipes-views](docs/tt-drf/pep8/pep8_recipes_views.png)
+</details>
+
+#### TT-DRF-API
+
+<details>
+<summary>views.py</summary>
+
+![alt text](docs/tt-drf/pep8/pep8_tt_drf_api_views.png)
+</details>
+
+<details>
+<summary>urls.py</summary>
+
+![alt text](docs/tt-drf/pep8/pep8_tt_drf_api_urls.png)
+</details>
+
+<details>
+<summary>serializers.py</summary>
+
+![alt text](docs/tt-drf/pep8/pep8_tt_drf_api_serializers.png)
+</details>
+
+<details>
+<summary>permissions.py</summary>
+
+
+![permissions](docs/tt-drf/pep8/pep8_tt_drf_api_permissions.png)
 </details>
 
 
