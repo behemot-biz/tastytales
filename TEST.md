@@ -78,7 +78,7 @@ This rigorous testing ensures the **TastyTales** application is reliable, user-f
 
 [Live site - TastyTales React App](https://tastytales-83bed5f61a06.herokuapp.com/)
 
-[TastyTales React App Repository](#https://github.com/behemot-biz/tastytales).
+[TastyTales React App Repository](https://github.com/behemot-biz/tastytales)
 
 [Live site - TastyTales API](https://tastytales-api-56d55ea68c61.herokuapp.com/)
 
