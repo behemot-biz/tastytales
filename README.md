@@ -159,6 +159,9 @@ Low-fidelity wireframes were created to map out the structure, ensuring intuitiv
 
 [Kanban sprint planning](https://github.com/users/behemot-biz/projects/7/views/2)
 
+[Milestones](https://github.com/behemot-biz/tastytales/milestones)
+
+
 ### Kanban Workflow
 A **Kanban board** was used to track tasks with the following columns:
 - **Backlog**: Planned tasks and features.
@@ -257,6 +260,8 @@ This page serves as a welcoming hub for discovering and interacting with recipes
 ![Start page - user not logged in](docs/tt-front/pages/start-not-logged-in.jpg)
 
 ![Start page](docs/tt-front/pages/start.jpg)
+
+![Startpage mobile](docs/tt-front/moble-pages/startpage-logged-in.jpg)
 </details>
 
 
@@ -289,7 +294,7 @@ This page ensures a user-friendly registration process and guides new users thro
 <summary>Images of page</summary>
 
 ![Sign up page](docs/tt-front/pages/sign-up.jpg)
-
+![Sign up page mobile](docs/tt-front/moble-pages/signup.jpg)
 </details>
 
 
@@ -319,8 +324,8 @@ This page offers a simple and efficient login experience while maintaining a vis
 <details>
 <summary>Images of page</summary>
 
-![Sign un page](docs/tt-front/pages/sign-in.jpg)
-
+![Sign up page](docs/tt-front/pages/sign-in.jpg)
+![Sign up page mobile](docs/tt-front/moble-pages/signup.jpg)
 </details>
 
 
@@ -351,6 +356,7 @@ The **Add Recipe** feature allows users to contribute new recipes to the platfor
 <summary>Images of page</summary>
 
 ![Add recipe](docs/tt-front/pages/add-recipe-10f2.jpg)
+![Add recipe mobile](docs/tt-front/moble-pages/add-recipe.jpg)
 </details>
 
 #### Step 2: Add Ingredients and Preview
@@ -380,6 +386,7 @@ This feature ensures that users can seamlessly add and refine recipes while main
 <summary>Images of page</summary>
 
 ![Add ingredients](docs/tt-front/pages/add-ingredients-1of2.jpg)
+![Add ingredients mobile](docs/tt-front/moble-pages/Add-ingredient.jpg)
 </details>
 
 
@@ -478,6 +485,7 @@ This page ensures that users can conveniently manage and refine their recipes wh
 <summary>Images of page</summary>
 
 ![Edit recipe](docs/tt-front/pages/edit-recipe.jpg)
+![Edit recipe mobile](docs/tt-front/moble-pages/edit-recipe.jpg)
 </details>
 
 
@@ -509,6 +517,7 @@ This page ensures users have full control over their content, providing tools to
 
 ![My cookbook](docs/tt-front/pages/my-cookbook.jpg)
 ![Delete recipe](docs/tt-front/pages/delete-recipe.jpg)
+![My cookbook](docs/tt-front/moble-pages/my-cookbook.jpg)
 </details>
 
 ### Recipes - Feed with Recipes by Followed Chefs
@@ -540,6 +549,7 @@ This page allows users to stay updated with the latest creations from their favo
 <summary>Images of page</summary>
 
 ![Recipes feed](docs/tt-front/pages/recipe-feed.jpg)
+![Recipes feed](docs/tt-front/moble-pages/recipe-feed.jpg)
 </details>
 
 ### Liked Recipes
@@ -571,6 +581,7 @@ This page is designed to provide users with a streamlined and enjoyable way to r
 <summary>Images of page</summary>
 
 ![Liked recipes](docs/tt-front/pages/liked.jpg)
+![Liked recipes](docs/tt-front/moble-pages/liked.jpg)
 </details>
 
 
@@ -609,6 +620,7 @@ This page provides a comprehensive view of the chef's contributions and makes it
 
 ![Profile page user not logged in](docs/tt-front/pages/profile-page-not-logged-in.jpg)
 ![Profile page](docs/tt-front/pages/profile.jpg)
+![Profile page](docs/tt-front/moble-pages/profile.jpg)
 </details>
 
 
@@ -637,6 +649,7 @@ This page provides users with an intuitive way to personalize their profile and 
 <summary>Images of page</summary>
 
 ![Edit profile](docs/tt-front/pages/edit-profile.jpg)
+![Edit profile](docs/tt-front/moble-pages/edit-profile.jpg)
 </details>
 
 
@@ -664,6 +677,7 @@ This page ensures that users can easily change their username while maintaining 
 <summary>Images of page</summary>
 
 ![Change username](docs/tt-front/pages/change-username.jpg)
+![Change username](docs/tt-front/moble-pages/change-username.jpg)
 </details>
 
 
@@ -689,6 +703,7 @@ This page ensures that users can maintain the security of their accounts by upda
 <summary>Images of page</summary>
 
 ![Change password](docs/tt-front/pages/change-password.jpg)
+![Change password](docs/tt-front/moble-pages/change-password.jpg)
 </details>
 
 ## Testing and Issues
