@@ -3,7 +3,7 @@
   }
   
 .Input {
-  background: #ffffff;
+  background: #FDFFFC;
   border: 1px solid #f0f1f9;
   box-sizing: border-box;
   border-radius: 2px;
@@ -31,7 +31,7 @@
 }
 
 .Link span {
-  color: #F4574C;
+  color: #D4311B;
 }
 
 .Container {

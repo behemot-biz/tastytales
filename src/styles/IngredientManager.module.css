@@ -3,7 +3,7 @@
 }
 
 .CustCard {
-  background-color: #ffffff;
+  background-color: #FDFFFC;
   border: 1px solid #dadadf;
   border-radius: 2px;
 }
@@ -41,7 +41,7 @@
 }
 
 .ErrorContainer {
-  background-color: #ffffff;
+  background-color: #FDFFFC;
 }
 
 /* Default styling for the button row */
@@ -49,12 +49,12 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  margin-top: 1rem; /* Add spacing from fields */
+  margin-top: 1rem; 
 }
 
 .Button {
-  border: 1px solid #000000;
-  background-color: #ffffff;
+  border: 1px solid #011627;
+  background-color: #FDFFFC;
   color: unset;
   border-radius: 3px;
 
@@ -62,7 +62,7 @@
 }
 .Button:hover, .Button:active, .Button:focus {
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: #FDFFFC;
 }
 
 .AddButton, .CancelButton {
@@ -70,20 +70,20 @@
   height: 38px; 
 }
 .AddButton {
-  background-color: #ffffff;
+  background-color: #FDFFFC;
   color: #4A676A;
 }
 .CancelButton {
-  background-color: #ffffff;
-  color: #ff0000;
+  background-color: #FDFFFC;
+  color: #D4311B;
 }
 .EditButton {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #FDFFFC;
+  color: #011627;
 }
 .DeleteButton {
-  background-color: #ffffff;
-  color: #ff0000;
+  background-color: #FDFFFC;
+  color: #D4311B;
 }
 
 .AddButton i, .CancelButton i, .ActionButton i {
@@ -98,7 +98,7 @@
   color: #4A676A;
 }
 .DeleteButton i {
-  color: #F4574C;
+  color: #D4311B;
 }
 .CancelButton i {
   color: #757575;
@@ -110,7 +110,7 @@
 .DeleteButton:active i, .CancelButton:active i,
 .AddButton:focus i, .EditButton:focus i,
 .DeleteButton:focus i, .CancelButton:focus i {
-  color: #ffffff;
+  color: #FDFFFC;
 }
 
 .AddButton:hover, .EditButton:hover, 
@@ -119,7 +119,7 @@
   background-color: #4A676A;
 } 
 .DeleteButton:hover, .DeleteButton:active, .DeleteButton:focus {
-  background-color: #F4574C !important;
+  background-color: #D4311B !important;
 }
 .CancelButton:hover, .CancelButton:active, .CancelButton:focus {
   background-color: #A2B3B0;

@@ -113,9 +113,6 @@ function RecipePage() {
           )}
         </Container>
       </Col>
-      {/* <Col lg={3} className="d-none d-lg-block p-0 p-lg-2">
-        <PopularProfiles />
-      </Col> */}
     </Row>
   );
 }

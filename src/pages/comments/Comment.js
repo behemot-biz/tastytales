@@ -50,7 +50,7 @@ const Comment = (props) => {
       setComments((prevComments) => ({
         results: prevComments.results.filter((comment) => comment.id !== id),
       }));
-      setShowDeleteModal(false); // Close modal after deletion
+      setShowDeleteModal(false);
     } catch (err) {
       console.error(err);
     }

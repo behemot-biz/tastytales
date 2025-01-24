@@ -1,8 +1,8 @@
 .RecipeCard {
   display: flex;
-  flex-direction: column; /* Make the card content stack vertically */
-  justify-content: space-between; /* Ensure spacing between elements */
-  background-color: #ffffff;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #FDFFFC;
   border: 1px solid #dadadf;
   border-radius: 10px;
   margin-bottom: 16px;
@@ -21,7 +21,7 @@ h5 {
 .CardBody {
   display: flex;
   flex-direction: column;
-  flex: 1; /* Make the body take up all available space */
+  flex: 1;
   padding: 1rem;
 }
 
@@ -33,7 +33,7 @@ h5 {
 }
 
 .ImageWrapper {
-  position: relative; /* Required for positioning the pill */
+  position: relative;
   width: 100%;
 }
 .CardImg {
@@ -48,8 +48,8 @@ h5 {
   top: 10px;
   right: 10px;
   background-color: #ffffffd1;
-  color: #000000;
-  border: 1px solid #000000;
+  color: #011627;
+  border: 1px solid #011627;
   padding: 5px 10px;
   font-size: 14px;
   border-radius: 12px;
@@ -58,9 +58,9 @@ h5 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .Status {
-  margin-top: 10px; /* Add some spacing above the status */
-  font-size: 14px; /* Adjust the font size */
-  text-align: left; /* Align text to the left */
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: left;
 }
 .EditBtn{
   float: inline-end;
@@ -70,10 +70,10 @@ h5 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: auto; /* Push the PostBar to the bottom */
+  margin-top: auto;
   padding-bottom: 10px;
   text-align: center;
-  gap: 8px; /* Add spacing between icons */
+  gap: 8px;
 }
 
 .Heart {
@@ -81,7 +81,7 @@ h5 {
 }
 
 .Heart:hover {
-  color: #000000;
+  color: #011627;
 }
 
 .HeartOutline:hover {

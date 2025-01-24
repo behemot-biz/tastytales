@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal"; // Import Modal from react-bootstrap
+import Modal from "react-bootstrap/Modal";
 
 import { axiosRes } from "../../api/axiosDefaults";
 
@@ -26,8 +26,8 @@ const IngredientManager = ({ recipeId, ingredients, setIngredients }) => {
   const [errors, setErrors] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [showConfirm, setShowConfirm] = useState(false); // Modal visibility
-  const [deleteId, setDeleteId] = useState(null); // ID to delete
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

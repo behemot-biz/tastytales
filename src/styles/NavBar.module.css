@@ -1,6 +1,6 @@
 
 .NavBar {
-  background-color: #ffffff;
+  background-color: #FDFFFC;
   border: 1px solid #dadadf;
   align-items: center;
 }
@@ -30,7 +30,7 @@
 .CustomDropdownItem:focus, 
 .CustomDropdownItem:hover {
   padding: 5px;
-  color: #000000;
+  color: #011627;
   background-color: #ECF0EF;
 }
 

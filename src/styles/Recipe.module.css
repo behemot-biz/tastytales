@@ -33,11 +33,6 @@
   text-decoration: none;
 }
 
-/* .NavLink:global(.active) {
-  color: #4A676A;
-  position: relative; 
-  
-} */
 .IconTextWarning {
   color: #ec8d00;
 }
@@ -57,13 +52,6 @@
   color: #D4311B;
 }
 
-/* .NavLink {
-  padding: 10px 10px 10px 0;
-  font-weight: 500;
-  font-size: 1.25rem;
-  position: relative;
-  text-decoration: none;
-} */
 .NavLinkActive {
   color: #4A676A;
   position: relative;
@@ -78,16 +66,6 @@
   left: 0;
   transition: all 0.3s ease;
 }
-/* .NavLink:global(.active)::after {
-  content: "";
-  background: #8fa39f;
-  height: 3px;
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  transition: all 0.3s ease;
-} */
 
 .Active i {
   background-color: aqua;

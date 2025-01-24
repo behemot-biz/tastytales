@@ -82,7 +82,7 @@ const RecipeCard = (props) => {
     } catch (err) {
       console.log(err);
     } finally {
-      setShowDeleteModal(false); // Close the modal
+      setShowDeleteModal(false);
     }
   };
 
@@ -225,10 +225,7 @@ const RecipeCard = (props) => {
                 onClick={handleUnPublish}
                 aria-label="unpublish recipe"
               >
-                <i
-                  className="bi bi-box-arrow-in-down text-dark"
-                  // className={`${styles.IconTextWarning} bi box-arrow-in-down`}
-                />
+                <i className="bi bi-box-arrow-in-down text-dark" />
               </button>
             </OverlayTrigger>
           )}
