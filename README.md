@@ -15,55 +15,59 @@ Join us in making every recipe a tale worth sharing!
 
 [View the TastyTales API Repository](https://github.com/behemot-biz/tt-drf)
 
-
 ## Table of Contents
 
-1. [Overview](#overview)
+1. [Introduction](#introduction)
+    - [About TastyTales](#about-tastytales)
     - [Site Goals](#site-goals)
     - [Key Features](#key-features)
-    - [Tech Stack](#tech-stack)
-2. [UI/UX Design](#uiux-design)
-    - [Overall Design Approach](#overall-design-approach)
-    - [Font](#font)
-    - [Colors](#colors)
-    - [Imagery](#imagery)
+2. [Tech Stack](#tech-stack)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+3. [Reusable Components](#reusable-components)
+    - [Components Overview](#components-overview)
+    - [Benefits of Reusability](#benefits-of-reusability)
+    - [Best Practices](#best-practices)
+4. [UI/UX Design](#uiux-design)
+    - [Design Approach](#design-approach)
+    - [Typography and Colors](#typography-and-colors)
     - [Wireframes](#wireframes)
-3. [Agile Development](#agile-development)
+5. [Features](#features)
+    - [Header and Navigation](#header-and-navigation)
+    - [Pages and Functionalities](#pages-and-functionalities)
+        - [Start/Home Page](#starthome-page)
+        - [Sign-Up Page](#sign-up-page)
+        - [Sign-In Page](#sign-in-page)
+        - [Add Recipe](#add-recipe)
+        - [Recipe Page](#recipe-page)
+        - [Edit Recipe](#edit-recipe)
+        - [My Cookbook](#my-cookbook)
+        - [Recipes Feed](#recipes-feed)
+        - [Liked Recipes](#liked-recipes)
+        - [Profile Page](#profile-page)
+        - [Edit Profile Page](#edit-profile-page)
+        - [Change Username Page](#change-username-page)
+        - [Change Password Page](#change-password-page)
+6. [Agile Development](#agile-development)
     - [Kanban Workflow](#kanban-workflow)
     - [User Stories](#user-stories)
     - [Retrospectives](#retrospectives)
-4. [Features](#features)
-    - [Header, Navigation](#header-navigation)
-    - [Start/Home Page](#starthome-page)
-    - [Sign-Up Page](#sign-up-page)
-    - [Sign-In Page](#sign-in-page)
-    - [Add Recipe](#add-recipe)
-    - [Recipe Page](#recipe-page)
-    - [Edit Recipe](#edit-recipe)
-    - [My Cookbook](#my-cookbook)
-    - [Recipes Feed](#recipes-feed)
-    - [Liked Recipes](#liked-recipes)
-    - [Profile Page](#profile-page)
-    - [Edit Profile Page](#edit-profile-page)
-    - [Change Username Page](#change-username-page)
-    - [Change Password Page](#change-password-page)
-5. [Testing and Issues](#testing-and-issues)
-6. [Technologies Used](#technologies-used)
+7. [Testing and Issues](#testing-and-issues)
+    - [Bugs and Fixes Log](#bugs-and-fixes-log)
+    - [Improvements Summary](#improvements-summary)
+8. [Technologies Used](#technologies-used)
     - [Work Environments and Hosting](#work-environments-and-hosting)
     - [Languages](#languages)
     - [React Environment and Dependencies](#react-environment-and-dependencies)
     - [Tools and Services](#tools-and-services)
-7. [Cloning and Forking](#cloning-and-forking)
+9. [Setup and Deployment](#setup-and-deployment)
     - [Cloning the Repository](#cloning-the-repository)
     - [Forking the Repository](#forking-the-repository)
-8. [Setup and Deployment](#setup-and-deployment)
-    - [Creating a Heroku Account](#creating-a-heroku-account)
-    - [Creating the App](#creating-the-app)
-    - [Setting Up Deployment](#setting-up-deployment)
-9. [Credits](#credits)
-    - [Content](#content)
-    - [Thank You](#thank-you)
-
+    - [Deployment on Heroku](#deployment-on-heroku)
+10. [Credits](#credits)
+    - [Content Credits](#content-credits)
+    - [Borrowed Images and Recipes](#borrowed-images-and-recipes)
+    - [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -85,6 +89,61 @@ The goal of **TastyTales** is to provide an interactive platform for sharing and
 ### Tech Stack
 1. **Frontend**: Built with React and styled using React Bootstrap for a modern, responsive design.
 2. **Backend**: Powered by Django REST API to manage data and interactions seamlessly.
+
+
+### Reusable Components
+
+In this project, the `components` folder contains reusable components that enhance modularity, consistency, and maintainability across the application. Each component is designed with flexibility and reusability in mind, ensuring they can be integrated seamlessly into different parts of the application.
+
+#### Components Overview
+
+1. **Asset.js**
+   - **Purpose:** Handles the rendering and styling of various assets, such as images, icons, and spinners, ensuring a consistent display across the application.
+   - **Key Features:**
+     - Dynamically loads assets based on props, including a **loading spinner** for visual feedback during loading states.
+     - Displays an image or placeholder for missing data.
+     - Optionally includes a message for additional context.
+     - Supports responsive layouts for different screen sizes.
+   - **Example Usage:**
+     ```jsx
+     <Asset spinner={true} message="Loading..." />
+     <Asset src="/path/to/image.jpg" message="No data available." />
+     ```
+
+2. **Avatar.js**
+   - **Purpose:** Displays user profile images or placeholders when an image is unavailable.
+   - **Key Features:**
+     - Customizable sizes for avatars (e.g., small, medium, large).
+     - Includes fallback avatars for missing user data.
+     - Can include user initials as a backup display option.
+
+3. **NavBar.js**
+   - **Purpose:** Implements the navigation bar for the application, ensuring consistent navigation across pages.
+   - **Key Features:**
+     - Dynamically renders navigation links based on user roles or state.
+     - Fully responsive design for mobile and desktop views.
+     - Supports dropdown menus and customizable styles.
+
+4. **NotFound.js**
+   - **Purpose:** Provides a user-friendly interface for 404 error pages when a requested resource is not found.
+   - **Key Features:**
+     - Displays a clear and concise error message.
+     - Includes options to navigate back to the homepage or retry an action.
+     - Easily customizable to match the application's branding.
+
+#### Benefits of Reusability
+
+- **Consistency:** Using the same components ensures a consistent look and feel throughout the application.
+- **Efficiency:** Reduces the time and effort required to implement similar functionalities in different areas.
+- **Maintainability:** Changes made to a component are automatically reflected wherever it is used, simplifying updates and bug fixes.
+
+#### Best Practices
+
+- **Component Structure:** Keep each component focused on a single responsibility to ensure clarity and reusability.
+- **Props and State:** Design components to accept props that allow customization while keeping state management minimal unless necessary.
+- **Styling:** Use CSS modules, styled-components, or utility classes to ensure styles are scoped and modular.
+
+These components form the building blocks of the application, streamlining the development process and ensuring high-quality user experiences.
 
 
 ## UI/UX Design
